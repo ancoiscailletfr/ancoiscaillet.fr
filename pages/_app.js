@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import '../styles/base.css'
+import '@/styles/base.css'
 import React from 'react'
 
 // eslint-disable-next-line react/prop-types

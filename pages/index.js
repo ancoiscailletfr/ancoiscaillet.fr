@@ -1,5 +1,5 @@
 import React from 'react'
-import ButtonStyled from '../components/ButtonStyled'
+import ButtonStyled from '@/components/ButtonStyled'
 
 export default function Home () {
   return (
