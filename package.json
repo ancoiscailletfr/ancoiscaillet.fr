@@ -12,6 +12,7 @@
     "@emotion/react": "^11.0.0-next.12",
     "@emotion/styled": "^11.0.0-next.12",
     "next": "latest",
+    "prop-types": "^15.7.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "remark": "^12.0.1",
@@ -22,7 +23,16 @@
     "@emotion/babel-plugin": "^11.0.0-next.12",
     "@tailwindcss/ui": "^0.2.2",
     "@tailwindcssinjs/macro": "^0.3.1",
+    "babel-eslint": "^10.1.0",
     "babel-plugin-macros": "2.8.0",
+    "eslint": "^7.10.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-config-standard-jsx": "^8.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.21.2",
+    "eslint-plugin-standard": "^4.0.1",
     "tailwindcss": "^1.6.0"
   }
 }

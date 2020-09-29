@@ -1,10 +1,10 @@
 import React from 'react'
-import ButtonStyled from '../components/ButtonStyled';
+import ButtonStyled from '../components/ButtonStyled'
 
-export default function Home() {
+export default function Home () {
   return (
-      <div>
-          <ButtonStyled>@emotion/styled</ButtonStyled>
-      </div>
+    <div>
+      <ButtonStyled>@emotion/styled</ButtonStyled>
+    </div>
   )
 }
