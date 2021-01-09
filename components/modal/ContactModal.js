@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { toggleContactModal } from '@/store/contact/action'
 import { bindActionCreators } from 'redux'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, useViewportScroll } from 'framer-motion'
 import styled from '@emotion/styled'
 import xw from 'xwind'
 import Overlay from '@/components/Overlay'
@@ -23,9 +23,21 @@ import { css } from '@emotion/react'
  */
 const ContactModal = ({ showContactModal, toggleContactModal }) => {
   const [section, setSection] = useState('form')
+  const [previousScroll, setPreviousScroll] = useState(0)
+  const { scrollY } = useViewportScroll()
   const windowWidth = useWindowWidth()
 
   useEffect(() => {
+    const body = document.body
+    if (showContactModal) {
+      body.style.position = 'fixed'
+      setPreviousScroll(scrollY.get())
+    } else {
+      const body = document.body
+      body.style.position = ''
+      body.style.top = ''
+      window.scrollTo(0, previousScroll)
+    }
     document.body.style.position = showContactModal ? 'fixed' : ''
   }, [showContactModal])
 
