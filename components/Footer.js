@@ -17,6 +17,7 @@ const Footer = () => {
   const { scrollYProgress } = useViewportScroll()
   const [showThanksMsg, setShowThanksMsg] = useState(false)
   const toggleOnScroll = useTransform(scrollYProgress, [0, 0.05, 0.95, 1], ['0%', '100%', '100%', '0%'])
+  const toggleOnScrollWrapper = useTransform(scrollYProgress, [0, 0.05, 0.95, 1], [0, 300, 300, 0])
   const transformBoxShadowOnScroll = useTransform(scrollYProgress, [0, 0.05], ['1px -25px 50px -12px rgba(0,0,0,0.4)', '1px 0px 3px 0px rgba(0,0,0,0.2)'])
 
   scrollYProgress.onChange((p) => {
@@ -28,7 +29,7 @@ const Footer = () => {
       <FooterBg
         style={{ y: toggleOnScroll, boxShadow: transformBoxShadowOnScroll }}
       />
-      <FooterWrapper style={{ y: toggleOnScroll }}>
+      <FooterWrapper style={{ y: toggleOnScrollWrapper }}>
         <div css={xw`relative h-full w-full`}>
           <FooterContainer>
             <AnimatePresence>
@@ -130,7 +131,7 @@ const FooterBg = styled(motion.div)(xw`
 
 const FooterWrapper = styled(motion.footer)(xw`
   fixed z-40 bottom-0
-  h-5/12 w-full
+  h-1/12 w-full
   mb-1 py-4 px-2 md:px-4
 `)
 
