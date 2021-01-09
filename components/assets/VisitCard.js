@@ -50,7 +50,7 @@ const VisitCard = ({ us }) => {
             <div css={xw`flex justify-center`}>
               <ButtonStyled
                 {...newTab}
-                href='CV_François_Caillet_2.pdf'
+                href='CV_François_Caillet.pdf'
                 draggable={false}
               >
                 Mon CV <FontAwesomeIcon icon='file-pdf' css={xw`ml-1 mb-0.5`} size='xs' />
