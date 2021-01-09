@@ -38,6 +38,7 @@
         "react/no-unknown-property": "error",
         "jsx-quotes": ["error", "prefer-single"],
         "react/react-in-jsx-scope": "off",
+        "react/jsx-key": "error",
         "react/self-closing-comp": "error",
         "template-curly-spacing" : "off"
     }
