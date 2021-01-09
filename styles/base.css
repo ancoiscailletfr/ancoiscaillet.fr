@@ -550,7 +550,7 @@ html {
   --tw-gradient-to: #393D6A;
 }
 
-@media screen and (max-width: 375px) and (orientation: portrait) {
+@media screen and (max-width: 350px) and (orientation: portrait) {
   html {
     transform: rotate(-90deg);
     transform-origin: left top;

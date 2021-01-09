@@ -130,7 +130,7 @@ module.exports = {
       screens: {
         hmd: { raw: '(max-height: 536px)' },
         hsm: { raw: '(max-height: 315px)' },
-        xs: { raw: '(max-width: 375px)' }
+        xs: { raw: '(max-width: 350px)' }
       },
       strokeWidth: {
         3: 3,

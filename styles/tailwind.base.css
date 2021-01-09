@@ -5,7 +5,7 @@ html {
     @apply bg-gradient-to-br from-gray-900 to-wildblue-800;
 }
 
-@media screen and (max-width: 375px) and (orientation: portrait) {
+@media screen and (max-width: 350px) and (orientation: portrait) {
     html {
         transform: rotate(-90deg);
         transform-origin: left top;
