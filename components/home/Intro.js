@@ -8,7 +8,6 @@ import { connect } from 'react-redux'
 import NavigationWrapper from '@/components/navigation/NavigationWrapper'
 import { useInView } from 'react-intersection-observer'
 import xw from 'xwind'
-import { css } from '@emotion/react'
 
 const Typewriter = dynamic(() => import('typewriter-effect'), { ssr: false })
 const Copola = dynamic(() => import('@/components/assets/Copola'), { ssr: false })
@@ -88,6 +87,7 @@ const Intro = ({ us }) => {
                 onInit={initTypewriter()}
                 options={{
                   loop: true,
+                  delay: 100,
                   stringSplitter
                 }}
               />

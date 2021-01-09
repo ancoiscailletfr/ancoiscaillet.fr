@@ -19,7 +19,6 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import ContactModal from '@/components/modal/ContactModal'
 import VisitCard from '@/components/assets/VisitCard'
-import { CloudinaryContext } from 'cloudinary-react'
 import { css } from '@emotion/react'
 
 const Intro = dynamic(() => import('@/components/home/Intro'))
