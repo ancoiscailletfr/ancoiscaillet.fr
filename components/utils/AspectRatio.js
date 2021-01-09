@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import xw from 'xwind'
+import { css } from '@emotion/react'
 
 const AspectRatio = ({ children, ...props }) => {
   return (
     <div {...props}>
-      <div css={xw`pt-full`} />
+      <div css={css`padding-top: 100%`} />
       {children}
     </div>
   )
