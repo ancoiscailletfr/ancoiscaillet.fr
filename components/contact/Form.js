@@ -103,7 +103,7 @@ const Form = ({ formData, handleChange, clearData }) => {
             as='textarea'
             name='message'
             value={message}
-            css={xw`overflow-auto resize-none h-60 md:h-44 max-h-4/5`}
+            css={xw`overflow-auto resize-none h-60 md:h-44`}
             ref={register({ required: true, minLength: 5, maxLength: 10000 })}
             error={errors.message}
             onChange={(evt) => handleChange({ name: 'message', value: evt.target.value })}
