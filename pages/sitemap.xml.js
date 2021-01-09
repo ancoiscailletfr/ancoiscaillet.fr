@@ -12,7 +12,7 @@ const createSitemap = (
 const Sitemap = () => {}
 
 export async function getServerSideProps ({ res, req }) {
-  const pages = ['', '/blog']
+  const pages = [''/*, '/blog' */]
   const sitemap = createSitemap(req.headers.host, pages)
 
   res.setHeader('Content-Type', 'text/xml')
