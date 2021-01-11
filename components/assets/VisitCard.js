@@ -25,6 +25,7 @@ const VisitCard = ({ us }) => {
               publicId={profilePicture.provider_metadata.public_id}
               alt={profilePicture.alternativeText} width={profilePicture.width} height={profilePicture.height}
               draggable={false}
+              secure='true'
             >
               <Transformation width='150' fetchFormat='auto' crop='fill' quality='auto' dpr='2.0' />
             </Image>

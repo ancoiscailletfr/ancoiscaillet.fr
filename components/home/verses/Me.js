@@ -40,6 +40,7 @@ const Me = ({ us }) => {
           css={xw`h-36 w-36 lg[w-24 h-24] xl[w-32 h-32] -mb-4 select-none text-right`}
           publicId={profilePicture.provider_metadata.public_id}
           alt={profilePicture.alternativeText} width={profilePicture.width} height={profilePicture.height}
+          secure='true'
           draggable={false}
         >
           <Transformation width='150' fetchFormat='auto' crop='fill' quality='auto' dpr='2.0' />
