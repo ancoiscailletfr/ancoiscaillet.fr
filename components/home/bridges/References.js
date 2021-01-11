@@ -71,6 +71,7 @@ const Reference = ({ active, avatar, author, description, company, companyUrl, r
                 publicId={avatar?.provider_metadata.public_id}
                 alt={avatar?.alternativeText}
                 secure='true'
+                loading='lazy'
               >
                 <Transformation width='60' fetchFormat='auto' crop='fit' quality='auto' dpr='2.0' />
               </Image>

@@ -18,6 +18,7 @@ const PoweredBy = ({ poweredBy }) => {
             publicId={logo.provider_metadata?.public_id}
             alt={logo.alternativeText}
             secure='true'
+            loading='lazy'
           >
             <Transformation width='200' fetchFormat='auto' crop='fit' quality='auto' dpr='2.0' />
           </Image>

@@ -145,6 +145,7 @@ export const Icon = ({ type, icon, svg, title, ...props }) => {
         <Image
           width={25} height={25}
           publicId={svg?.provider_metadata.public_id}
+          loading='lazy'
           alt={svg?.alternativeText}
           secure='true'
           {...props}

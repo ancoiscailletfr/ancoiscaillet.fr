@@ -62,6 +62,7 @@ const Diploma = ({ title, fullTitle, school, beginning, ending, description, sta
               alt={stamp?.alternativeText}
               css={xw`block w-auto h-auto max-h-full max-w-sm`}
               secure='true'
+              loading='lazy'
             >
               <Transformation width='80' height='80' opacity='50' fetchFormat='auto' crop='fit' quality='auto' dpr='2.0' />
             </Image>

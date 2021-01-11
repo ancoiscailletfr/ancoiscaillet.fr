@@ -21,7 +21,8 @@ const VisitCard = ({ us }) => {
         <div css={xw`grid grid-rows-2 items-center`}>
           <div css={xw`flex justify-center`}>
             <Image
-              css={xw`h-36 w-36 lg[w-24 h-24] xl[w-32 h-32] -mb-4 select-none text-right`}
+              loading='lazy'
+              css={xw`w-36 lg:w-24 xl:w-32 -mb-4 select-none text-right`}
               publicId={profilePicture.provider_metadata.public_id}
               alt={profilePicture.alternativeText} width={profilePicture.width} height={profilePicture.height}
               draggable={false}

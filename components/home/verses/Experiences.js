@@ -73,6 +73,7 @@ const Experience = ({ title, description, badges, logo, beginning, ending, toggl
                 publicId={public_id}
                 alt={alternativeText}
                 secure='true'
+                loading='lazy'
               >
                 <Transformation
                   width='80' height='80' fetchFormat='auto'

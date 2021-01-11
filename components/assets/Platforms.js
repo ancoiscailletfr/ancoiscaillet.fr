@@ -23,6 +23,7 @@ const Platforms = ({ platforms }) => {
             publicId={logo?.provider_metadata.public_id}
             alt={logo?.alternativeText}
             secure='true'
+            loading='lazy'
             css={xw`w-24 my-2 inline-block`}
           >
             <Transformation width='100' fetchFormat='auto' crop='fit' quality='auto' dpr='2.0' />

@@ -37,10 +37,11 @@ const Me = ({ us }) => {
         xw`items-center md[col-span-1] lg[col-start-4 col-end-4 row-span-2 rounded-r-none] xl[col-start-3 col-end-3 rounded] `]}
       >
         <Image
-          css={xw`h-36 w-36 lg[w-24 h-24] xl[w-32 h-32] -mb-4 select-none text-right`}
+          css={xw`w-36 lg:w-24 xl:w-32 -mb-4 select-none text-right`}
           publicId={profilePicture.provider_metadata.public_id}
           alt={profilePicture.alternativeText} width={profilePicture.width} height={profilePicture.height}
           secure='true'
+          loading='lazy'
           draggable={false}
         >
           <Transformation width='150' fetchFormat='auto' crop='fill' quality='auto' dpr='2.0' />

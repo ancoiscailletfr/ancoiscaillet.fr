@@ -35,7 +35,14 @@ const Footer = () => {
             <AnimatePresence>
               {showThanksMsg && (
                 <MessageStyled variants={message} initial='hide' animate='view' exit='hide'>
-                  <Image css={xw`w-24 h-24 select-none text-right`} publicId='emoji2_sticker_b38b0af9da.png' alt='emoji François Caillet' width={421} height={444}>
+                  <Image
+                    css={xw`w-24 h-24 select-none text-right`}
+                    publicId='emoji2_sticker_b38b0af9da.png'
+                    alt='emoji François Caillet'
+                    loading='lazy'
+                    secure='true'
+                    width={421} height={444}
+                  >
                     <Transformation width='100' fetchFormat='auto' crop='fill' quality='auto' dpr='2.0' />
                   </Image>
                   <span>
@@ -46,8 +53,7 @@ const Footer = () => {
             </AnimatePresence>
             <Box>
               <span css={xw`text-gray-700 font-light`}>
-                <FontAwesomeIcon icon={['far', 'copyright']} />
-                {' Copyright 2020, François Caillet - Tous droits réservés'}
+                © Copyright 2020, François Caillet - Tous droits réservés
               </span>
               <span>
                 {'Développé avec ❤️️ & ☕️☕️. '}
