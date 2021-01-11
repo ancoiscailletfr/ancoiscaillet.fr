@@ -19,18 +19,16 @@ const VisitCard = ({ us }) => {
     >
       <div css={xw`grid grid-cols-3 gap-y-6 text-gray-platinum mt-2 mx-5`}>
         <div css={xw`grid grid-rows-2 items-center`}>
-          <div css={xw`flex justify-center`}>
-            <Image
-              loading='lazy'
-              css={xw`w-36 lg:w-24 xl:w-32 -mb-4 select-none text-right`}
-              publicId={profilePicture.provider_metadata.public_id}
-              alt={profilePicture.alternativeText} width={profilePicture.width} height={profilePicture.height}
-              draggable={false}
-              secure='true'
-            >
-              <Transformation width='150' fetchFormat='auto' crop='fill' quality='auto' dpr='2.0' />
-            </Image>
-          </div>
+          <Image
+            loading='lazy'
+            publicId={profilePicture.provider_metadata.public_id}
+            alt={profilePicture.alternativeText} width={profilePicture.width} height={profilePicture.height}
+            css={xw`w-36 lg:w-24 xl:w-32 -mb-4 select-none text-right mx-auto`}
+            draggable={false}
+            secure='true'
+          >
+            <Transformation width='150' fetchFormat='auto' crop='fill' quality='auto' dpr='2.0' />
+          </Image>
           <div css={xw`flex flex-col justify-around items-center h-5/6`}>
             <div css={xw`text-center leading-relaxed`}>
               <h2 css={xw`font-medium text-xl text-orange-900`}>{fullname}</h2>
@@ -47,7 +45,7 @@ const VisitCard = ({ us }) => {
           </p>
           <div css={xw`grid grid-rows-2 items-center gap-4`}>
             <div css={xw`flex justify-center`}>
-              <ButtonStyled as='a' href={`mailto:${email}`} css={xw`lowercase bg-darkblue-600`} type='submit'>{email}</ButtonStyled>
+              <ButtonStyled as='a' href={`mailto:${email}`} css={xw`lowercase bg-darkblue-600`}>{email}</ButtonStyled>
             </div>
             <div css={xw`flex justify-center`}>
               <ButtonStyled
