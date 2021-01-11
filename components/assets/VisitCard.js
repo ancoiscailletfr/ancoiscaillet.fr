@@ -46,9 +46,9 @@ const VisitCard = ({ us }) => {
             {brief}
           </p>
           <div css={xw`grid grid-rows-2 items-center gap-4`}>
-            <form css={xw`flex justify-center`} action={`mailto:${email}`}>
-              <ButtonStyled css={xw`lowercase bg-darkblue-600`} type='submit'>{email}</ButtonStyled>
-            </form>
+            <div css={xw`flex justify-center`}>
+              <ButtonStyled as='a' href={`mailto:${email}`} css={xw`lowercase bg-darkblue-600`} type='submit'>{email}</ButtonStyled>
+            </div>
             <div css={xw`flex justify-center`}>
               <ButtonStyled
                 {...newTab}
@@ -95,9 +95,9 @@ const VisitCard = ({ us }) => {
 }
 
 const ButtonStyled = styled.button(xw`
-  leading-5 px-2 py-0.5 
+  leading-5 px-2 py-0.5
   rounded-md
-  uppercase font-medium tracking-wide 
+  uppercase font-medium tracking-wide
   bg-darkblue-600 bg-opacity-75 hover:bg-darkblue-500
 `)
 

@@ -19,9 +19,11 @@ const WorkTogether = ({ email, toggleContactModal, hideModals }) => {
       >
         Formulaire de contact
       </ButtonStyled>
-      <form action={`mailto:${email}`}>
-        <ButtonStyled css={xw`bg-gray-400 hover:bg-gray-300`} type='submit'>{email}</ButtonStyled>
-      </form>
+      <div css={xw`mt-4`}>
+        <ButtonStyled as='a' href={`mailto:${email}`} css={xw`bg-gray-400 hover:bg-gray-300`}>
+          {email}
+        </ButtonStyled>
+      </div>
     </div>
   )
 }
