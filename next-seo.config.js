@@ -1,9 +1,9 @@
 import { BASE_URL } from '@/lib/constants'
 
 const title = 'François Caillet | Développeur Freelance Fullstack'
-const description = 'Vous êtes à la recherche d’un développeur expérimenté et passionné? Basé sur Lyon, je suis ' +
-    'disponible pour développer votre application sur-mesure. Maitrisant à la fois les technologies Frontend et ' +
-    'Backend, de la conception à l’intégration, je serai vous accompagner sur l’ensemble de votre projet'
+const description = 'François Caillet, Développeur FullStack spécialisé en Java/Spring & React/Nextjs. Basé sur Lyon,' +
+    ' je suis disponible pour développer votre application sur-mesure. Maitrisant à la fois les technologies ' +
+    'Frontend et Backend, de la conception à l’intégration, je serai vous accompagner sur l’ensemble de votre projet.'
 
 export default {
   title: title,
