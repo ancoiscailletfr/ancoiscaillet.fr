@@ -3,37 +3,49 @@ import React from 'react'
 import xw from 'xwind'
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
-import Image from 'cloudinary-react/lib/components/Image'
 import { Transformation } from 'cloudinary-react'
 import { connect } from 'react-redux'
-import { openLinkInNewTabProps as newTab } from '@/lib/constants'
+import { openLinkInNewTabProps as newTab, random } from '@/lib/utlis'
+import Image from '@/components/Image'
+import { motion } from 'framer-motion'
+import { InView } from 'react-intersection-observer'
 
-const PoweredBy = ({ poweredBy }) => {
-  return (
-    <PoweredByContainer>
-      {poweredBy.sort((a, b) => a.order - b.order).map(({ id, url, logo }) => (
-        <a key={id} href={url} aria-label={logo.alternativeText} {...newTab}>
-          <Image
-            width={logo.width} height={logo.height}
-            publicId={logo.provider_metadata?.public_id}
-            alt={logo.alternativeText}
-            secure='true'
-            loading='lazy'
-          >
-            <Transformation width='200' fetchFormat='auto' crop='fit' quality='auto' dpr='2.0' />
-          </Image>
-        </a>
-      ))}
-    </PoweredByContainer>
-  )
-}
+/**
+ * Main libraries logos list used
+ * @param poweredBy a list of object from store
+ * @returns {JSX.Element}
+ * @constructor
+ */
+const PoweredBy = ({ poweredBy }) => (
+  <PoweredByContainer>
+    {poweredBy.sort((a, b) => a.order - b.order).map(({ id, url, logo }) => (
+      <a key={id} href={url} aria-label={logo.alternativeText} {...newTab}>
+        <InView triggerOnce>
+          {({ inView, ref }) => (
+            <div css={xw`flex px-3 py-1.5 md[px-6 py-3] items-center h-20 sm:h-28 md:h-36`} ref={ref}>
+              <motion.div
+                layout initial={{ opacity: 0 }} animate={inView && { opacity: 1 }}
+                transition={{ delay: random(0.1, 1), duration: 0.5 }}
+              >
+                <Image
+                  image={logo}
+                >
+                  <Transformation width='200' crop='fit' />
+                </Image>
+              </motion.div>
+            </div>
+          )}
+        </InView>
+      </a>
+    ))}
+  </PoweredByContainer>
+)
 
 const PoweredByContainer = styled.div([xw`
   flex flex-wrap justify-center items-center
 `, css`
   a {
-    flex: 0 0 calc(33.33% - 1rem);
-    ${xw`p-3 m-2`}
+    ${xw`w-1/3 my-0`}
   }
 `])
 

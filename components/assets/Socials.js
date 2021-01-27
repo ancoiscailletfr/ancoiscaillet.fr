@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { bp, openLinkInNewTabProps as newTab } from '@/lib/constants'
+import { bp } from '@/lib/constants'
+import { openLinkInNewTabProps as newTab } from '@/lib/utlis'
 import { motion, useViewportScroll } from 'framer-motion'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styled from '@emotion/styled'
 import { useWindowWidth } from '@react-hook/window-size'
 import xw from 'xwind'
+import Button from '@/components/assets/Button'
 
 /**
  * Socials component
@@ -29,9 +31,8 @@ const Socials = ({ socials }) => {
         {isOpen ? <FontAwesomeIcon icon='times' /> : <FontAwesomeIcon icon='share-alt' />}
       </ToggleButton>
       {socials?.map(({ id, title, url, icon }, index) => (
-        <SocialLink
+        <SocialLinkWrapper
           key={id}
-          aria-label={title} href={url} {...newTab}
           custom={index}
           {...(windowWidth >= bp.md
             ? navAnimations
@@ -41,8 +42,13 @@ const Socials = ({ socials }) => {
                 variants: socialsMenuVariants
               })}
         >
-          <FontAwesomeIcon icon={['fab', icon]} />
-        </SocialLink>
+          <SocialLink
+            as='a'
+            aria-label={title} href={url} {...newTab}
+          >
+            <FontAwesomeIcon icon={['fab', icon]} />
+          </SocialLink>
+        </SocialLinkWrapper>
       ))}
     </SocialsNavigation>
   )
@@ -84,28 +90,31 @@ const SocialsNavigation = styled.nav(xw`
   z-10
 `)
 
-const SocialLink = styled(motion.a)(xw`
-  absolute top-1/2 left-1/2 -z-10
-  w-full h-full rounded-full
-  flex items-center justify-center 
-  bg-darkblue-700 shadow-inner shadow-sm
-  text-gray-platinum
-  transform -translate-x-1/2 -translate-y-1/2
-  md[top-0 left-0 z-0 
-    w-auto h-auto
-    relative block rounded-none 
-    text-gray-700 
-    bg-transparent shadow-none
-    transform translate-x-0 translate-y-0]
+const SocialLinkWrapper = styled(motion.div)(xw`
+  absolute top-1/2 left-1/2 
+  transform -translate-x-1/2 -translate-y-1/2 
+  -z-10 w-full h-full 
+  md[relative block top-0 left-0
+  w-auto h-auto 
+  transform translate-x-0 translate-y-0]
 `)
 
-const ToggleButton = styled.button(xw`
-  z-10 
+const SocialLink = styled(Button)(xw`
   w-full h-full rounded-full
-  bg-darkblue-800
-  text-gray-platinum
+  justify-center 
+  bg-darkblue-700 shadow-inner shadow-sm
+  hover:bg-darkblue-600
+  md[z-0
+    rounded-none 
+    text-gray-700 
+    bg-transparent shadow-none hover:bg-transparent]
+`)
+
+const ToggleButton = styled(Button)(xw`
+  z-10 justify-center
+  w-full h-full rounded-full
+  bg-darkblue-800 hover:bg-darkblue-700
   md:hidden
-  focus:outline-none
 `)
 
 Socials.propTypes = {

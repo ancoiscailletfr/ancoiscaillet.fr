@@ -1,15 +1,18 @@
 import xw from 'xwind'
 import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 
+/**
+ * app loader
+ * a pulsing logo
+ * wait until onload fired
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Loader = () => (
-  <div
-    id='loader' css={[xw`fixed h-full w-full bg-gradient-to-br from-gray-900 to-wildblue-800 flex flex-col justify-center items-center`,
-      css`z-index: 20000; &[data-hide='true']{animation: fadeOut ease-out 0.5s;animation-fill-mode: forwards;} @keyframes fadeOut { 0% {opacity:1}  100% {opacity:0; visibility: hidden}}`]}
-  >
+  <LoaderContainer id='loader'>
     <div css={xw`relative w-44 h-44 flex`}>
-      <div css={[xw`w-44 h-44 rounded-full flex justify-center items-center animate-pulse`,
-        css`background: linear-gradient(180deg,rgba(184, 184, 184, 0) 0%,rgba(184, 184, 184, 0.35) 100%)`]}
-      >
+      <LogoWrapper className='logo-bg'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           css={xw`w-1/2 overflow-visible text-gray-platinum stroke-4`}
@@ -37,10 +40,32 @@ const Loader = () => (
             stroke='currentColor'
           />
         </svg>
-      </div>
+      </LogoWrapper>
       <span css={xw`animate-ping absolute inline-flex h-full w-full rounded-full bg-gray-platinum opacity-10`} />
     </div>
-  </div>
+  </LoaderContainer>
 )
+
+const LoaderContainer = styled.div([xw`
+  fixed inset-0 
+  bg-gradient-to-br from-gray-900 to-wildblue-800 
+  flex flex-col justify-center items-center
+`, css`
+  z-index: 20000; 
+  &[data-hide='true']{
+    animation: fadeOut ease-out 0.5s;
+    animation-fill-mode: forwards;
+  } 
+  @keyframes fadeOut { 
+    0% {opacity:1}  
+    100% {opacity:0; visibility: hidden}
+  }
+`])
+
+const LogoWrapper = styled.div(xw`
+  w-44 h-44 rounded-full 
+  flex justify-center items-center 
+  animate-pulse
+`)
 
 export default Loader

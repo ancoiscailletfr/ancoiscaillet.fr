@@ -4,29 +4,27 @@ import { motion, useTransform, useViewportScroll } from 'framer-motion'
 import styled from '@emotion/styled'
 import dynamic from 'next/dynamic'
 import GraphemeSplitter from 'grapheme-splitter'
-import { connect } from 'react-redux'
-import NavigationWrapper from '@/components/navigation/NavigationWrapper'
-import { useInView } from 'react-intersection-observer'
 import xw from 'xwind'
+
+import { connect } from 'react-redux'
+import { css } from '@emotion/react'
 
 const Typewriter = dynamic(() => import('typewriter-effect'), { ssr: false })
 const Copola = dynamic(() => import('@/components/assets/Copola'), { ssr: false })
 
 /**
- * Home intro component
+ * Intro component
  * short presentation of myself
  * @returns {JSX.Element}
  * @constructor
  */
 const Intro = ({ us }) => {
   const { fullname } = us
-  const [ref, inView] = useInView({ threshold: 0.5 })
-  // capture scroll on viewport
   const { scrollYProgress } = useViewportScroll()
 
   /**
    * Typewriter emoji splitter
-   * avoid strange chars
+   * prevent strange chars
    * @param string
    * @returns {string[]}
    */
@@ -67,44 +65,39 @@ const Intro = ({ us }) => {
   const fadeOutInOnScroll = useTransform(scrollYProgress, [0, 0.1], [1, 0])
 
   return (
-    <NavigationWrapper slug='intro' inView={inView}>
-      <motion.div
-        css={[xw`absolute h-full w-full z-30`]}
-        style={{ opacity: fadeOutInOnScroll }}
-        animate={{ opacity: [0, 1] }}
-        ref={ref}
-      >
-        <Box>
-          <h3 css={xw`text-sm md[text-base] p-2.5`}>
-            Hello! je m&apos;appelle
-          </h3>
-          <h1 css={xw`text-2xl md[text-4xl] tracking-wider font-extrabold p-1.5`}>
-            {fullname}
-          </h1>
-          <h2 css={xw`text-xl md:text-3xl font-bold pt-4 pb-1.5`}>
-            {inView && (
-              <Typewriter
-                onInit={initTypewriter()}
-                options={{
-                  loop: true,
-                  delay: 100,
-                  stringSplitter
-                }}
-              />
-            )}
-          </h2>
-        </Box>
-        <Copola />
-      </motion.div>
-    </NavigationWrapper>
+    <motion.div
+      css={[xw`absolute inset-0 z-30`]}
+      style={{ opacity: fadeOutInOnScroll }}
+      animate={{ opacity: [0, 1] }}
+    >
+      <Box>
+        <h3 css={xw`text-sm md[text-base] p-2`}>
+          Hello! je m&apos;appelle
+        </h3>
+        <h1 css={xw`text-2xl md[text-4xl] font-extrabold`}>
+          {fullname}
+        </h1>
+        <h2 css={xw`text-xl md:text-3xl font-bold pt-4 pb-1.5`}>
+          <Typewriter
+            onInit={initTypewriter()}
+            options={{
+              loop: true,
+              delay: 100,
+              stringSplitter
+            }}
+          />
+        </h2>
+      </Box>
+      <Copola />
+    </motion.div>
   )
 }
-const Box = styled.div(xw`
+const Box = styled.section([xw`
   hmd:hidden
-  flex flex-wrap flex-col justify-center 
-  h-1/3 pt-6
+  flex flex-col justify-center 
+  h-1/3
   text-gray-platinum text-center
-`)
+`, css`padding-top: 56px`])
 
 Intro.propTypes = {
   us: PropTypes.object.isRequired

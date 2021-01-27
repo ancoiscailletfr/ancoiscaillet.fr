@@ -3,7 +3,7 @@ import { mainActionType } from '@/store/actions'
 
 const navigationInitialState = {
   showSidebar: false,
-  active: '#intro'
+  active: null
 }
 
 export default function reducer (state = navigationInitialState, action) {

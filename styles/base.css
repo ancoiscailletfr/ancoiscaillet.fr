@@ -550,6 +550,57 @@ html {
   --tw-gradient-to: #393D6A;
 }
 
+body {
+  font-family: Fira\ Code;
+  height: 100%;
+  width: 100%;
+}
+
+@media (max-width: 350px) {
+  body {
+    position: fixed;
+  }
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+.header{
+  --tw-bg-opacity: 1;
+  background-color: rgba(20, 20, 20, var(--tw-bg-opacity));
+  --tw-bg-opacity: 0.4;
+  position: fixed;
+  -webkit-backdrop-filter: blur(3px);
+          backdrop-filter: blur(3px);
+}
+
+.logo-bg{
+  background: linear-gradient(
+            180deg,
+            rgba(184, 184, 184, 0) 0%,
+            rgba(184, 184, 184, 0.35) 100%
+    );
+}
+
+@media (max-height: 536px) {
+  body {
+    position: fixed
+  }
+
+  @media (min-width: 1024px) {
+    body {
+      position: static;
+    }
+  }
+
+  @media (max-height: 315px) {
+    body {
+      position: fixed;
+    }
+  }
+}
+
 @media screen and (max-width: 350px) and (orientation: portrait) {
   html {
     transform: rotate(-90deg);

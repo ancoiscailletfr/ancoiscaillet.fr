@@ -8,6 +8,7 @@ import { css } from '@emotion/react'
 
 /**
  * running device(s) icon(s)
+ * used in projects
  * @param title device's name
  * @param content fontawesome icon(s)
  * @returns {JSX.Element}

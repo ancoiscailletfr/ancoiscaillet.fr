@@ -6,11 +6,13 @@ import styled from '@emotion/styled'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { useCycle } from 'framer-motion'
 import Platforms from '@/components/assets/Platforms'
-import { openLinkInNewTabProps as newTab } from '@/lib/constants'
-import { Image, Transformation } from 'cloudinary-react'
+import { openLinkInNewTabProps as newTab } from '@/lib/utlis'
+import { Transformation } from 'cloudinary-react'
 import xw from 'xwind'
 import AvailableStatus from '@/components/assets/AvailableStatus'
 import { css } from '@emotion/react'
+import Button from '@/components/assets/Button'
+import Image from '@/components/Image'
 
 /**
  * contact infos component
@@ -29,14 +31,10 @@ const Infos = ({ us }) => {
     <InfosContainer>
       <div css={xw`flex flex-col items-center`}>
         <Image
-          width={profilePicture.width} height={profilePicture.height}
-          loading='lazy'
-          publicId={profilePicture.provider_metadata.public_id}
-          alt={profilePicture.alternativeText}
+          image={profilePicture}
           css={xw`w-32`}
-          secure='true'
         >
-          <Transformation width='100' fetchFormat='auto' radius='max' crop='fill' gravity='face' quality='auto' dpr='2.0' />
+          <Transformation width='150' crop='fill' />
         </Image>
         <h3 css={xw`font-bold text-base mt-1.5`}>{fullname}</h3>
         <h4 css={xw`font-light text-sm mb-5`}>
@@ -49,7 +47,7 @@ const Infos = ({ us }) => {
             <FontAwesomeIcon icon='map-marked-alt' />
             {`\t${location}`}
           </p>
-          <div>
+          <div css={xw`flex flex-row`}>
             <a href={`mailto:${email}`}>
               <FontAwesomeIcon icon='envelope' />
               {`\t${email}`}
@@ -91,12 +89,10 @@ const InfosContainer = styled.div([xw`
   }
 `])
 
-const CopyButton = styled.button(xw`
-  transform scale-75 
-  py-0.5 px-1 rounded
-  text-xs text-gray-platinum
+const CopyButton = styled(Button)(xw`
+  transform scale-75 px-1
+  text-xs capitalize
   bg-orange-500 hover:bg-orange-700
-  focus[outline-none ring]
 `)
 
 const mapStateToProps = (state) => ({

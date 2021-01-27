@@ -3,10 +3,11 @@ import React, { useEffect, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AnimatePresence, motion, useCycle } from 'framer-motion'
 import styled from '@emotion/styled'
-import { Image, Transformation } from 'cloudinary-react'
+import { Transformation } from 'cloudinary-react'
 import xw from 'xwind'
 import { css } from '@emotion/react'
-import useRefDimension from '@/lib/useRefDimension'
+
+import Image from '@/components/Image'
 
 /**
  * Badges types
@@ -19,9 +20,17 @@ const BADGE_TYPES = {
 }
 
 /**
- * List of skills
+ * @type {number} in px
+ */
+const BADGE_SIZE = 26
+
+/**
+ * List of skills each skill as badge
+ * it take up all the available space
+ * if all cant be displayed, adding a toggle button to show rest
  * @param badges an array of badge
  * @param all if all is set displayed all badges
+ * @param line number of line which have to be displayed
  * @param props
  * @returns {JSX.Element}
  * @constructor
@@ -31,19 +40,22 @@ const Badges = ({ badges, line, all, ...props }) => {
   const [nbBadgesDisplayed, setNbBadgesDisplayed] = useState(all ? badges.length : 0)
   const [showMore, toggleShowMore] = useCycle(false, true)
 
-  const updateDisplayedBadges = () => {
-    const displayedBadges = Math.floor(ref.current.clientWidth / 26)
+  /**
+   * take up all the available space, recalculated on resize
+   */
+  const updateNbDisplayedBadges = () => {
+    const displayedBadges = Math.floor(ref.current.clientWidth / BADGE_SIZE)
     setNbBadgesDisplayed(displayedBadges >= badges.length ? displayedBadges * line : (displayedBadges - 1) * line)
   }
 
   useEffect(() => {
     if (!all) {
       setTimeout(() => {
-        updateDisplayedBadges()
+        updateNbDisplayedBadges()
       }, 100)
-      window.addEventListener('resize', updateDisplayedBadges, false)
+      window.addEventListener('resize', updateNbDisplayedBadges, false)
       return () => {
-        window.removeEventListener('resize', updateDisplayedBadges, false)
+        window.removeEventListener('resize', updateNbDisplayedBadges, false)
       }
     }
   }, [ref])
@@ -86,7 +98,7 @@ const Badges = ({ badges, line, all, ...props }) => {
 }
 
 /**
- * Badge component
+ * Badge component a circle with icon or letter inside, on hover or tap show name
  * represent a skill
  * @param props
  * @returns {JSX.Element}
@@ -126,38 +138,44 @@ const Badge = (props) => {
   )
 }
 
+Badge.propTypes = {
+  title: PropTypes.string
+}
+
 /**
  * icon to display
  * @param type svg,icon,letter
- * @param icon font awesome icon string
+ * @param icon font awesome icon
  * @param svg image
  * @param title icon name
  * @param props
  * @returns {JSX.Element|null}
  * @constructor
  */
-export const Icon = ({ type, icon, svg, title, ...props }) => {
+export const Icon = ({ type, icon, svg, title }) => {
   switch (type) {
     case BADGE_TYPES.ICON:
-      return <FontAwesomeIcon icon={icon.length > 1 ? icon : icon[0]} {...props} />
+      return <FontAwesomeIcon icon={icon.length > 1 ? icon : icon[0]} />
     case BADGE_TYPES.IMG:
       return (
         <Image
-          width={25} height={25}
-          publicId={svg?.provider_metadata.public_id}
-          loading='lazy'
-          alt={svg?.alternativeText}
-          secure='true'
-          {...props}
+          image={svg}
         >
-          <Transformation width='25' fetchFormat='auto' crop='fit' quality='auto' dpr='2.0' />
+          <Transformation width='25' crop='fit' />
         </Image>
       )
     case BADGE_TYPES.LETTER:
-      return <span {...props}>{title.charAt(0)}</span>
+      return <span>{title.charAt(0)}</span>
     default:
       return null
   }
+}
+
+Icon.propTypes = {
+  icon: PropTypes.any,
+  svg: PropTypes.any,
+  title: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired
 }
 
 const Pop = styled(motion.span)(xw`
@@ -183,17 +201,6 @@ const BadgeStyled = styled(motion.div)([xw`
   span { ${xw`uppercase text-sm font-semibold text-gray-700`} }
 `])
 
-Icon.propTypes = {
-  icon: PropTypes.any,
-  svg: PropTypes.any,
-  title: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired
-}
-
-Badge.propTypes = {
-  title: PropTypes.string
-}
-
 Badges.propTypes = {
   all: PropTypes.bool,
   badges: PropTypes.array,
@@ -201,9 +208,9 @@ Badges.propTypes = {
   maxBadgesDisplayed: PropTypes.number
 }
 
-export default Badges
-
 Badges.defaultProps = {
   all: false,
   line: 1
 }
+
+export default Badges

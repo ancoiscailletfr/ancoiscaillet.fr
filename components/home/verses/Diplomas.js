@@ -5,10 +5,11 @@ import FlipCard from '@/components/assets/FlipCard'
 import dynamic from 'next/dynamic'
 import { connect } from 'react-redux'
 import RichTextContainer from '@/components/RichTextContainer'
-import { Image, Transformation } from 'cloudinary-react'
+import { Transformation } from 'cloudinary-react'
 import moment from 'moment'
 import xw from 'xwind'
 import { css } from '@emotion/react'
+import Image from '@/components/Image'
 
 const DragSlider = dynamic(() => import('@/components/assets/DragSlider'), { ssr: false })
 
@@ -17,18 +18,20 @@ const DIPLOMA_BOX = xw`bg-kaki-400 border-kaki-700 text-kaki-100 bg-opacity-75 b
 const Diplomas = ({ diplomas }) => {
   const sortedDiplomas = diplomas.sort((a, b) => moment(b.beginning).diff(moment(a.beginning)))
   return (
-    <DragSlider childPerPage={{ _: 1, md: 2 }} sliderRatio={{ _: 2, md: 1 }} css={xw`z-20 grid grid-cols-2 md[grid-cols-1 grid-rows-2] gap-6 lg:gap-12`}>
-      <div css={xw`grid grid-rows-2 md[grid-rows-1 grid-cols-2] gap-6 lg:gap-12`}>
-        {sortedDiplomas.slice(0, 2).map(({ id, ...props }) =>
-          <Diploma key={id} {...props} />
-        )}
-      </div>
-      <div css={xw`grid grid-rows-2 md[grid-rows-1 grid-cols-2] gap-6 lg:gap-12`}>
-        {sortedDiplomas.slice(2, 4).map(({ id, ...props }) =>
-          <Diploma key={id} {...props} />
-        )}
-      </div>
-    </DragSlider>
+    <section className='container' css={xw`bg-kaki-400`}>
+      <DragSlider childPerPage={{ _: 1, md: 2 }} sliderRatio={{ _: 2, md: 1 }} css={xw`z-20 grid grid-cols-2 md[grid-cols-1 grid-rows-2] gap-6 lg:gap-12`}>
+        <div css={xw`grid grid-rows-2 md[grid-rows-1 grid-cols-2] gap-6 lg:gap-12`}>
+          {sortedDiplomas.slice(0, 2).map(({ id, ...props }) =>
+            <Diploma key={id} {...props} />
+          )}
+        </div>
+        <div css={xw`grid grid-rows-2 md[grid-rows-1 grid-cols-2] gap-6 lg:gap-12`}>
+          {sortedDiplomas.slice(2, 4).map(({ id, ...props }) =>
+            <Diploma key={id} {...props} />
+          )}
+        </div>
+      </DragSlider>
+    </section>
   )
 }
 
@@ -57,14 +60,10 @@ const Diploma = ({ title, fullTitle, school, beginning, ending, description, sta
           {stamps.map((stamp) => (
             <Image
               key={stamp?.id}
-              width={80} height={80}
-              publicId={stamp?.provider_metadata.public_id}
-              alt={stamp?.alternativeText}
+              image={stamp}
               css={xw`block w-auto h-auto max-h-full max-w-sm`}
-              secure='true'
-              loading='lazy'
             >
-              <Transformation width='80' height='80' opacity='50' fetchFormat='auto' crop='fit' quality='auto' dpr='2.0' />
+              <Transformation width='80' height='80' opacity='50' crop='fit' />
             </Image>
           ))}
         </div>

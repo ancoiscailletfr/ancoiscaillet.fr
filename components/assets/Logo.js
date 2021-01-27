@@ -3,7 +3,6 @@ import { motion } from 'framer-motion'
 import { useRouter } from 'next/router'
 import styled from '@emotion/styled'
 import xw from 'xwind'
-import { css } from '@emotion/react'
 
 /**
  * My animated Logo 🎬
@@ -21,6 +20,7 @@ const Logo = ({ ...props }) => {
   }
   return (
     <LogoStyled
+      className='logo-bg'
       name='home' aria-label='home' onClick={handleClick}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
@@ -67,18 +67,12 @@ const Logo = ({ ...props }) => {
   )
 }
 
-const LogoStyled = styled(motion.button)([xw`
+const LogoStyled = styled(motion.button)(xw`
   focus[outline-none] rounded-full 
   cursor-pointer 
   w-12 h-12 
   flex justify-center items-center
-`, css`
-  background: linear-gradient(
-      180deg,
-      rgba(184, 184, 184, 0) 0%,
-      rgba(184, 184, 184, 0.35) 100%
-  )
-`])
+`)
 
 const icon = {
   hidden: {

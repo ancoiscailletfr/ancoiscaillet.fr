@@ -3,18 +3,20 @@ import PropTypes from 'prop-types'
 import React, { useRef } from 'react'
 import { motion, useTransform, useViewportScroll } from 'framer-motion'
 import styled from '@emotion/styled'
-import AvailableStatus from '@/components/assets/AvailableStatus'
 import xw from 'xwind'
+
 import { connect } from 'react-redux'
+
+import AvailableStatus from '@/components/assets/AvailableStatus'
 
 /**
  * Copola component
+ * a circle with 6 trapezium around
  * SSR: false
  * @returns {JSX.Element}
  * @constructor
  */
 const Copola = ({ available }) => {
-  // capture scroll on viewport
   const { scrollYProgress } = useViewportScroll()
   const statusTooltip = useRef()
 
@@ -37,10 +39,11 @@ const Copola = ({ available }) => {
     statusTooltip.current.style.display = 'none'
   }
 
-  const translateTrapezoidsBotOnScroll = useTransform(scrollYProgress, [0, 0.05], [0, 50])
-  const translateTrapezoidsTopOnScroll = useTransform(scrollYProgress, [0, 0.05], [0, -50])
-  const reduceCopolaCircleRadiusOnScroll = useTransform(scrollYProgress, [0, 0.05], [100, 0])
-  const reduceStatusCircleRadius = useTransform(scrollYProgress, [0, 0.05], [15, 0])
+  const inputRange = [0, 0.05]
+  const translateTrapeziumsBotOnScroll = useTransform(scrollYProgress, inputRange, [0, 50])
+  const translateTrapeziumsTopOnScroll = useTransform(scrollYProgress, inputRange, [0, -50])
+  const reduceCopolaCircleRadiusOnScroll = useTransform(scrollYProgress, inputRange, [100, 0])
+  const reduceStatusCircleRadius = useTransform(scrollYProgress, inputRange, [15, 0])
 
   // noinspection HtmlDeprecatedTag
   return (
@@ -53,12 +56,12 @@ const Copola = ({ available }) => {
             <feBlend in='SourceGraphic' in2='blurOut' mode='normal' />
           </filter>
           <mask id='clipSpace'>
-            <motion.g initial={{ y: -50 }} animate={{ y: 0 }} style={{ y: translateTrapezoidsTopOnScroll }}>
+            <motion.g initial={{ y: -50 }} animate={{ y: 0 }} style={{ y: translateTrapeziumsTopOnScroll }}>
               <polygon points='125,45 275,45 250,80 150,80' fill='#ffffff' />
               <polygon points='28,187 103,58 121,97 71,183' fill='#ffffff' />
               <polygon points='297,58 372,187 329,183 279,97' fill='#ffffff' />
             </motion.g>
-            <motion.g initial={{ y: 50 }} animate={{ y: 0 }} style={{ y: translateTrapezoidsBotOnScroll }}>
+            <motion.g initial={{ y: 50 }} animate={{ y: 0 }} style={{ y: translateTrapeziumsBotOnScroll }}>
               <polygon points='297,342 372,213 329,217 279,303' fill='#ffffff' />
               <polygon points='28,213 103,342 121,303 71,217' fill='#ffffff' />
               <polygon points='125,355 275,355 250,320 150,320' fill='#ffffff' />

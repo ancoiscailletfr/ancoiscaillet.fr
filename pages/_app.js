@@ -1,81 +1,44 @@
 /* eslint-disable react/prop-types */
-import '@/styles/base.css'
-import React, { useEffect } from 'react'
-import { wrapper } from '@/store/store'
-import { AnimatePresence, motion } from 'framer-motion'
-import smoothScroll from '@/lib/smoothScroll'
-import { library } from '@fortawesome/fontawesome-svg-core'
+import React from 'react'
 import { DefaultSeo } from 'next-seo'
 import { CloudinaryContext } from 'cloudinary-react'
-import SEO from '../next-seo.config'
 import { Global } from '@emotion/react'
+import { AnimatePresence, motion } from 'framer-motion'
 import xw from 'xwind'
 
-// Define app fontawesome library
-import { faCopyright } from '@fortawesome/free-regular-svg-icons'
-import {
-  faAngleRight,
-  faCheckCircle,
-  faClock,
-  faDatabase,
-  faDiagnoses,
-  faEnvelope,
-  faExternalLinkAlt,
-  faFilePdf,
-  faGraduationCap,
-  faHandshake,
-  faHandsHelping,
-  faLaptop,
-  faLightbulb,
-  faMapMarkedAlt,
-  faMapPin,
-  faMinus,
-  faMobileAlt,
-  faPalette,
-  faPlus,
-  faSearch,
-  faShareAlt,
-  faSpinner,
-  faStreetView,
-  faTablet,
-  faTimes,
-  faTimesCircle,
-  faTv,
-  faUsers,
-  faWater
-} from '@fortawesome/free-solid-svg-icons'
-import { fab } from '@fortawesome/free-brands-svg-icons'
-import moment from 'moment'
+import { wrapper } from '@/store/store'
 
-library.add(faCopyright, faShareAlt, faTimes, faCheckCircle, faSpinner, faEnvelope, faExternalLinkAlt, faMapMarkedAlt,
-  faDatabase, faHandshake, faMobileAlt, faUsers, faTablet, faLaptop, faTv, faMapPin, faPlus, faMinus, faFilePdf,
-  faTimesCircle, faDiagnoses, faStreetView, faPalette, faGraduationCap, faHandsHelping, faLightbulb, faWater, faSearch,
-  faClock, faAngleRight, fab)
+import '@/styles/base.css'
+import '@/lib/fontawesome'
+import '@/lib/smoothScroll'
+import '@/lib/moment'
+import SEO from '../next-seo.config'
 
-moment.locale('FR')
+import Loader from '@/components/assets/Loader'
+import Meta from '@/components/Meta'
+import LayoutWrapper from '@/layout/layoutWrapper'
+import ContactModal from '@/components/modal/ContactModal'
 
-function App ({ Component, pageProps, router }) {
-  useEffect(() => {
-    smoothScroll().then(null)
-  }, [])
-
-  return (
-    <>
-      <CloudinaryContext cloudName='francoiscaillet'>
-        <DefaultSeo {...SEO} />
-        <Global styles={xw`XWIND_GLOBAL`} />
-        <AnimatePresence exitBeforeEnter>
-          <motion.div
-            css={xw`h-full`}
-            key={router.route} initial='pageInitial' animate='pageAnimate' exit='pageExit' variants={pageVariants}
-          >
+const App = ({ Component, pageProps, router }) => (
+  <>
+    <Loader />
+    <DefaultSeo {...SEO} />
+    <Meta />
+    <Global styles={xw`XWIND_GLOBAL`} />
+    <AnimatePresence exitBeforeEnter>
+      <motion.div
+        key={router.route} initial='pageInitial' animate='pageAnimate' exit='pageExit' variants={pageVariants}
+      >
+        <CloudinaryContext cloudName='francoiscaillet'>
+          <ContactModal />
+          <LayoutWrapper {...pageProps}>
             <Component {...pageProps} />
-          </motion.div>
-        </AnimatePresence>
-      </CloudinaryContext>
-    </>
-  )
-}
+          </LayoutWrapper>
+        </CloudinaryContext>
+      </motion.div>
+    </AnimatePresence>
+  </>
+)
 
 const pageVariants = {
   pageInitial: {

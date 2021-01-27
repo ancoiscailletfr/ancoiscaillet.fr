@@ -41,7 +41,7 @@ const bridgeVariants = {
   }
 }
 
-const BridgeContainer = styled(motion.div)(xw`
+const BridgeContainer = styled(motion.section)(xw`
   mx-auto my-0 
   bg-gradient-to-br from-gray-900 to-wildblue-900 
   max-w-screen-lg w-full 

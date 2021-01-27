@@ -1,4 +1,5 @@
 import { apiActionTypes } from '@/store/api/action'
+import { camelizeKeys } from '@/lib/camelCase'
 
 const apiInitialState = {
   us: {},
@@ -11,41 +12,16 @@ const apiInitialState = {
   poweredBy: {}
 }
 
-export default function reducer (state = apiInitialState, action) {
+export default function reducer (state = apiInitialState, action, name = null) {
   switch (action.type) {
-    case apiActionTypes.FETCH_US_FULFILLED:
+    case apiActionTypes.FETCH_FULFILLED:
+      name = action.payload.request.path.split('/')[1]
+      if (name === 'me') name = 'us'
+      if (name === 'powered-bies') name = 'poweredBy'
       return Object.assign({}, state, {
-        us: action.payload.data
+        [name]: camelizeKeys(action.payload.data)
       })
-    case apiActionTypes.FETCH_EXPERIENCES_FULFILLED:
-      return Object.assign({}, state, {
-        experiences: action.payload.data
-      })
-    case apiActionTypes.FETCH_PROJECTS_FULFILLED:
-      return Object.assign({}, state, {
-        projects: action.payload.data
-      })
-    case apiActionTypes.FETCH_DIPLOMAS_FULFILLED:
-      return Object.assign({}, state, {
-        diplomas: action.payload.data
-      })
-    case apiActionTypes.FETCH_REFERENCES_FULFILLED:
-      return Object.assign({}, state, {
-        references: action.payload.data
-      })
-    case apiActionTypes.FETCH_SKILLS_FULFILLED:
-      return Object.assign({}, state, {
-        skills: action.payload.data
-      })
-    case apiActionTypes.FETCH_SERVICES_FULFILLED:
-      return Object.assign({}, state, {
-        services: action.payload.data
-      })
-    case apiActionTypes.FETCH_POWEREDBY_FULFILLED:
-      return Object.assign({}, state, {
-        poweredBy: action.payload.data
-      })
-    case apiActionTypes.FETCH_US_REJECTED:
+    case apiActionTypes.FETCH_REJECTED:
       return {
         error: action.payload
       }

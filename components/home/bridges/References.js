@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { Image, Transformation } from 'cloudinary-react'
+import { Transformation } from 'cloudinary-react'
 import RichTextContainer from '@/components/RichTextContainer'
 import { connect } from 'react-redux'
-import { openLinkInNewTabProps as newTab } from '@/lib/constants'
+import { openLinkInNewTabProps as newTab } from '@/lib/utlis'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { motion, useSpring } from 'framer-motion'
 import styled from '@emotion/styled'
@@ -12,6 +12,7 @@ import { ContentPlaceholder, Word } from '@/components/assets/ContentPlaceholder
 import xw from 'xwind'
 import { css } from '@emotion/react'
 import moment from 'moment'
+import Image from '@/components/Image'
 
 const References = ({ references }) => {
   const [degree, setDegree] = useState(0)
@@ -28,7 +29,7 @@ const References = ({ references }) => {
     rotateX.set(degree)
   }, [degree])
 
-  const sortedRefs = references.sort((a, b) => moment(b.updated_at).diff(moment(a.updated_at)))
+  const sortedRefs = references.sort((a, b) => moment(b.updatedAt).diff(moment(a.updatedAt)))
 
   return (
     <RefsContainer>
@@ -67,13 +68,9 @@ const Reference = ({ active, avatar, author, description, company, companyUrl, r
           <Avatar>
             {avatar && (
               <Image
-                width={60} height={60}
-                publicId={avatar?.provider_metadata.public_id}
-                alt={avatar?.alternativeText}
-                secure='true'
-                loading='lazy'
+                image={avatar}
               >
-                <Transformation width='60' fetchFormat='auto' crop='fit' quality='auto' dpr='2.0' />
+                <Transformation width='60' crop='fit' />
               </Image>
             )}
           </Avatar>

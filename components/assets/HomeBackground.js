@@ -4,8 +4,7 @@ import xw from 'xwind'
 import { css } from '@emotion/react'
 
 /**
- * Home fixed background with two layers of particles
- * (cause particles emitter dont work as expected..)
+ * Home fixed background with particles
  * https://particles.matteobruni.it/ 🪐
  * @returns {JSX.Element}
  * @constructor
@@ -13,7 +12,7 @@ import { css } from '@emotion/react'
 const HomeBackground = () => {
   return (
     <div
-      css={[xw`fixed bg-gradient-to-br from-gray-900 to-wildblue-800 bg-fixed h-full w-full`,
+      css={[xw`fixed bg-gradient-to-br from-gray-900 to-wildblue-800 bg-fixed inset-0`,
         css`#tsparticles{${xw`h-full w-full bg-fixed bg-no-repeat bg-center`} canvas{${xw`absolute -z-10`}}}`]}
     >
       <Particles
@@ -93,7 +92,7 @@ const HomeBackground = () => {
               out_mode: 'out'
             }
           },
-          retina_detect: false
+          retina_detect: true
         }}
       />
     </div>

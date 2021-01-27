@@ -6,12 +6,13 @@ import { toggleContactModal } from '@/store/contact/action'
 import { hideModals } from '@/store/actions'
 import styled from '@emotion/styled'
 import xw from 'xwind'
+import Button from '@/components/assets/Button'
 
 const WorkTogether = ({ email, toggleContactModal, hideModals }) => {
   return (
     <div css={xw`flex flex-row flex-wrap justify-around w-4/5 mx-auto text-gray-platinum mt-4`}>
       <ButtonStyled
-        css={xw`bg-darkblue-500 hover:bg-darkblue-400 mb-6 select-none`}
+        css={xw`mb-6`}
         onClick={() => {
           hideModals()
           toggleContactModal()
@@ -19,8 +20,8 @@ const WorkTogether = ({ email, toggleContactModal, hideModals }) => {
       >
         Formulaire de contact
       </ButtonStyled>
-      <div css={xw`mt-4`}>
-        <ButtonStyled as='a' href={`mailto:${email}`} css={xw`bg-gray-400 hover:bg-gray-300`}>
+      <div>
+        <ButtonStyled as='a' href={`mailto:${email}`} css={xw`bg-gray-400 hover:bg-gray-300 lowercase`}>
           {email}
         </ButtonStyled>
       </div>
@@ -28,12 +29,9 @@ const WorkTogether = ({ email, toggleContactModal, hideModals }) => {
   )
 }
 
-const ButtonStyled = styled.button(xw`
-  rounded-md shadow-inner
-  bg-opacity-75
-  focus[outline-none border-wildblue-700 ring bg-opacity-100]
-  px-10 py-5 leading-5
-  font-medium tracking-wide
+const ButtonStyled = styled(Button)(xw`
+  focus:border-wildblue-700
+  px-10 py-5
 `)
 
 const mapStateToProps = (state) => ({

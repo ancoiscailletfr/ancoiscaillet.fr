@@ -2,26 +2,30 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import Badges from '@/components/assets/Badges'
 import Device from '@/components/assets/Device'
-import { bp, openLinkInNewTabProps as newTab } from '@/lib/constants'
+import { bp } from '@/lib/constants'
+import { openLinkInNewTabProps as newTab } from '@/lib/utlis'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Box from '@/components/assets/Box'
 import dynamic from 'next/dynamic'
 import { connect } from 'react-redux'
-import { Image, Transformation } from 'cloudinary-react'
+import { Transformation } from 'cloudinary-react'
 import RichTextContainer from '@/components/RichTextContainer'
 import styled from '@emotion/styled'
 import * as moment from 'moment'
 import xw from 'xwind'
 import { css } from '@emotion/react'
+import Image from '@/components/Image'
 
 const DragSlider = dynamic(() => import('@/components/assets/DragSlider'), { ssr: false })
 
 const Projects = ({ projects }) => {
   const sortedProjects = projects.sort((a, b) => moment(b.beginning ?? moment.now()).diff(moment(a.beginning ?? moment.now())))
   return (
-    <ProjectsSlider childPerPage={{ _: 1, md: 2, xl: 3 }} sliderRatio={{ _: 3, md: 2, xl: 1 }} nbProject={projects.length} css={xw`grid gap-4`}>
-      {sortedProjects.map(projet => <Project key={projet.id} {...projet} />)}
-    </ProjectsSlider>
+    <section className='container' css={xw`bg-yellow-400`}>
+      <ProjectsSlider childPerPage={{ _: 1, md: 2, xl: 3 }} sliderRatio={{ _: 3, md: 2, xl: 1 }} nbProject={projects.length} css={xw`grid gap-4`}>
+        {sortedProjects.map(projet => <Project key={projet.id} {...projet} />)}
+      </ProjectsSlider>
+    </section>
   )
 }
 
@@ -36,14 +40,8 @@ const Project = ({ title, description, url, color, thumbnail, logo, badges, devi
     >
       {logo
         ? (
-          <Image
-            width={80} height={80}
-            loading='lazy'
-            publicId={logo.provider_metadata.public_id}
-            alt={logo.alternativeText}
-            secure='true'
-          >
-            <Transformation width='80' fetchFormat='auto' crop='fill' quality='auto' dpr='2.0' />
+          <Image image={logo}>
+            <Transformation width='80' crop='fill' />
           </Image>
           )
         : <span css={xw`font-extrabold text-center text-6xl text-gray-800`}>α</span>}

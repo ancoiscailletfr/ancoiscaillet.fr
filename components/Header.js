@@ -1,11 +1,13 @@
 import React from 'react'
-import Logo from '@/components/assets/Logo'
 import { motion, useSpring, useTransform, useViewportScroll } from 'framer-motion'
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
 import xw from 'xwind'
-import Navigation from '@/components/navigation'
+
 import { bp } from 'lib/constants'
+
+import Logo from '@/components/assets/Logo'
+import Navigation from '@/components/navigation'
 
 /**
  * Main header component
@@ -15,12 +17,14 @@ import { bp } from 'lib/constants'
  */
 const Header = () => {
   const { scrollYProgress, scrollY } = useViewportScroll()
-  const transformedHeight = useTransform(scrollYProgress, [0, 0.05], ['66,6667%', '0%'])
-  const transformedBoxShadow = useTransform(scrollYProgress, [0, 0.05], ['0px 25px 50px -12px rgba(0,0,0,0.4)', '0px 1px 3px 0px rgba(0,0,0,0.1)'])
-  const y = useSpring(0, { damping: 10 })
+  const scaleY = useTransform(scrollYProgress, [0, 0.05], [1, 0])
+  const y = useSpring(0, { damping: 15 })
 
-  scrollY.onChange(() => {
-    if (window.innerWidth < bp.md && scrollY.get() > 500 && Math.sign(scrollY.getPrevious() - scrollY.get()) < 0) {
+  /**
+   * hide header when scroll down, reappear on scroll up, for medium devices
+   */
+  scrollY.onChange((latest) => {
+    if (window.innerWidth < bp.md && latest > 500 && Math.sign(scrollY.getPrevious() - latest) < 0) {
       y.set(-60)
     } else {
       y.set(0)
@@ -29,31 +33,28 @@ const Header = () => {
 
   return (
     <>
-      <HeaderBg style={{ height: transformedHeight, boxShadow: transformedBoxShadow, y }} />
-      <NavWrapper style={{ y }}>
+      <RollUpShutter className='header' style={{ scaleY }} />
+      <HeaderWrapper className='header' style={{ y }}>
         <Logo />
         <Navigation />
-      </NavWrapper>
+      </HeaderWrapper>
     </>
   )
 }
 
-const HeaderBg = styled(motion.header)([xw`
-  fixed inset-0
+const RollUpShutter = styled(motion.div)([xw`
+  inset-0
   h-7/12 md:h-2/3
-  bg-gray-900 bg-opacity-50 md:bg-opacity-25
-  shadow z-20
+  z-20 origin-top
 `,
 css`
-  min-height: 56px;
-  backdrop-filter: blur(3px);
+  top: 56px;
 `])
 
-const NavWrapper = styled(motion.nav)(xw`
-  w-full fixed 
-  flex-wrap flex items-center justify-between 
+const HeaderWrapper = styled(motion.header)(xw`
+  inset-x-0 top-0 z-50
+  flex items-center justify-between 
   py-1 px-2 md:px-4
-  z-50
 `)
 
 export default Header

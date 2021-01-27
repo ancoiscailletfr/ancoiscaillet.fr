@@ -1,41 +1,49 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import xw from 'xwind'
-import { css } from '@emotion/react'
-import { Image, Transformation } from 'cloudinary-react'
+import { Transformation } from 'cloudinary-react'
 import moment from 'moment'
+import { css } from '@emotion/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { connect } from 'react-redux'
-import { openLinkInNewTabProps as newTab } from '@/lib/constants'
-import Platforms from '@/components/assets/Platforms'
+import { openLinkInNewTabProps as newTab } from '@/lib/utlis'
 import styled from '@emotion/styled'
-import RichTextContainer from '@/components/RichTextContainer'
 
+import Platforms from '@/components/assets/Platforms'
+import RichTextContainer from '@/components/RichTextContainer'
+import Button from '@/components/assets/Button'
+import ResumeButton from '@/components/assets/ResumeButton'
+import Image from '@/components/Image'
+
+/**
+ * this is my "visit card", primary infos and contact
+ * mark- visit card is displayed on very small screen or on mobile horizontal direction
+ * @param us
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const VisitCard = ({ us }) => {
-  const { profilePicture, fullname, birthday, location, currentJob, shifting, brief, email, socialNetworks, whoami, hobbies } = us
+  const {
+    profilePicture, fullname, birthday, location,
+    currentJob, shifting, brief, email, socialNetworks, whoami, hobbies
+  } = us
   return (
-    <div css={[xw`hidden xs:block hmd[block hsm:block lg:hidden] absolute overflow-scroll h-full w-full bg-gradient-to-tl from-darkblue-600 to-orange-500 grid-cols-3`,
-      css`z-index: 10000`]}
-    >
+    <VisitCardWrapper>
       <div css={xw`grid grid-cols-3 gap-y-6 text-gray-platinum mt-2 mx-5`}>
         <div css={xw`grid grid-rows-2 items-center`}>
           <Image
-            loading='lazy'
-            publicId={profilePicture.provider_metadata.public_id}
-            alt={profilePicture.alternativeText} width={profilePicture.width} height={profilePicture.height}
-            css={xw`w-36 lg:w-24 xl:w-32 -mb-4 select-none text-right mx-auto`}
-            draggable={false}
-            secure='true'
+            image={profilePicture}
+            css={xw`w-36 -mb-4 select-none text-right mx-auto`}
           >
-            <Transformation width='150' fetchFormat='auto' crop='fill' quality='auto' dpr='2.0' />
+            <Transformation width='150' crop='fill' />
           </Image>
           <div css={xw`flex flex-col justify-around items-center h-5/6`}>
             <div css={xw`text-center leading-relaxed`}>
               <h2 css={xw`font-medium text-xl text-orange-900`}>{fullname}</h2>
               <span>{moment().diff(birthday, 'years')} ans</span>
-              <h3 css={xw`font-medium text-lg mb-2.5 xl:mb-5`}>{currentJob}</h3>
-              <h4 css={xw`font-medium mb-1 text-sm lg:text-xs xl:text-sm`}><FontAwesomeIcon icon='map-pin' /> {location}</h4>
-              <h4 css={xw`text-sm lg:text-xs xl:text-sm`}>{shifting}</h4>
+              <h3 css={xw`font-medium text-lg mb-2.5`}>{currentJob}</h3>
+              <h4 css={xw`font-medium mb-1 text-sm`}><FontAwesomeIcon icon='map-pin' /> {location}</h4>
+              <h4 css={xw`text-sm`}>{shifting}</h4>
             </div>
           </div>
         </div>
@@ -45,21 +53,15 @@ const VisitCard = ({ us }) => {
           </p>
           <div css={xw`grid grid-rows-2 items-center gap-4`}>
             <div css={xw`flex justify-center`}>
-              <ButtonStyled as='a' href={`mailto:${email}`} css={xw`lowercase bg-darkblue-600`}>{email}</ButtonStyled>
+              <Button as='a' href={`mailto:${email}`} css={xw`lowercase`}>{email}</Button>
             </div>
             <div css={xw`flex justify-center`}>
-              <ButtonStyled
-                {...newTab}
-                href='CV_François_Caillet.pdf'
-                draggable={false}
-              >
-                Mon CV <FontAwesomeIcon icon='file-pdf' css={xw`ml-1 mb-0.5`} size='xs' />
-              </ButtonStyled>
+              <ResumeButton />
             </div>
           </div>
           <div css={xw`grid grid-cols-2 gap-6 items-center`}>
             <div css={xw`flex flex-row w-full justify-evenly`}>
-              {socialNetworks.map(({ id, title, url, icon }, index) => (
+              {socialNetworks.map(({ id, title, url, icon }) => (
                 <a
                   key={id}
                   aria-label={title} href={url} {...newTab}
@@ -88,16 +90,15 @@ const VisitCard = ({ us }) => {
           </RichTextContainer>
         </div>
       </div>
-    </div>
+    </VisitCardWrapper>
   )
 }
 
-const ButtonStyled = styled.button(xw`
-  leading-5 px-2 py-0.5
-  rounded-md
-  uppercase font-medium tracking-wide
-  bg-darkblue-600 bg-opacity-75 hover:bg-darkblue-500
-`)
+const VisitCardWrapper = styled.div([xw`
+  inset-0 hidden xs:block hmd[block hsm:block lg:hidden] absolute 
+  overflow-scroll h-full w-full 
+  bg-gradient-to-tl from-darkblue-600 to-orange-500`,
+css`z-index: 10000`])
 
 const mapStateToProps = (state) => ({
   us: state.api.us

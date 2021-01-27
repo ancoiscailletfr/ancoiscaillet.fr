@@ -1,16 +1,15 @@
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { mix } from '@popmotion/popcorn'
 import styled from '@emotion/styled'
 import xw from 'xwind'
 import { css } from '@emotion/react'
+import { randomInt } from '@/lib/utlis'
 
-const randomInt = (min, max) => Math.round(mix(min, max, Math.random()))
 const generateParagraphLength = () => randomInt(10, 20)
 const generateWordLength = () => randomInt(20, 100)
 
 /**
- * a rounded div
+ * word placeholder a rounded div
  * @param width of div
  * @returns {JSX.Element}
  * @constructor
@@ -22,7 +21,7 @@ Word.propTypes = {
 }
 
 /**
- * a series of words
+ * paragraph placeholder, a series of words
  * @param words
  * @returns {JSX.Element}
  * @constructor
@@ -40,7 +39,7 @@ Paragraph.propTypes = {
 }
 
 /**
- * content placeholder
+ * content placeholder, a series of paragraphs
  * @see https://codesandbox.io/s/framer-motion-accordion-qx958?file=/src/ContentPlaceholder.tsx
  * @param nbParagraph paragraphs number
  * @param props

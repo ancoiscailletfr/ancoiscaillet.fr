@@ -5,7 +5,7 @@ import xw from 'xwind'
 import { css } from '@emotion/react'
 
 /**
- * A container box
+ * A stupid container box
  * @param children inner element
  * @param props box customisation
  * @returns {JSX.Element}

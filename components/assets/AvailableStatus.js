@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import xw from 'xwind'
 
 /**
- * my availability
- * @param available status from redux
+ * my availability status
+ * @param available status from store
  * @returns {JSX.Element}
  * @constructor
  */

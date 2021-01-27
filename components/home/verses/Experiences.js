@@ -5,13 +5,15 @@ import PropTypes from 'prop-types'
 import Badges from '@/components/assets/Badges'
 import dynamic from 'next/dynamic'
 import { connect } from 'react-redux'
-import { Image, Transformation } from 'cloudinary-react'
+import { Transformation } from 'cloudinary-react'
 import styled from '@emotion/styled'
 import RichTextContainer from '@/components/RichTextContainer'
 import moment from 'moment'
 import xw from 'xwind'
 import { css } from '@emotion/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Button from '@/components/assets/Button'
+import Image from '@/components/Image'
 
 const DragSlider = dynamic(() => import('@/components/assets/DragSlider'), { ssr: false })
 
@@ -21,14 +23,16 @@ const Experiences = ({ experiences }) => {
   const visibleExperience = experiences.find(exp => exp.id === active)
   const sortedExperiences = experiences.sort((a, b) => moment(b.beginning).diff(moment(a.beginning)))
   return (
-    <DragSlider childPerPage={{ _: 1, md: 2 }} sliderRatio={{ _: 2, md: 1 }} css={xw`grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3`}>
-      <Experience key={visibleExperience.id} css={xw`col-span-1 md:col-span-3`} {...visibleExperience} visible />
-      <div css={xw`w-full h-full flex flex-col justify-center sm:justify-evenly col-span-1 lg:col-span-2`}>
-        {sortedExperiences.filter(({ id }) => id !== active).map(experience => (
-          <Experience key={experience.id} {...experience} toggle={() => toggleOpen(experience.id)} />
-        ))}
-      </div>
-    </DragSlider>
+    <section className='container' css={xw`bg-grape-400`}>
+      <DragSlider childPerPage={{ _: 1, md: 2 }} sliderRatio={{ _: 2, md: 1 }} css={xw`grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3`}>
+        <Experience key={visibleExperience.id} css={xw`col-span-1 md:col-span-3`} {...visibleExperience} visible />
+        <div css={xw`w-full h-full flex flex-col justify-center sm:justify-evenly col-span-1 lg:col-span-2`}>
+          {sortedExperiences.filter(({ id }) => id !== active).map(experience => (
+            <Experience key={experience.id} {...experience} toggle={() => toggleOpen(experience.id)} />
+          ))}
+        </div>
+      </DragSlider>
+    </section>
   )
 }
 
@@ -59,26 +63,17 @@ const Experience = ({ title, description, badges, logo, beginning, ending, toggl
     >
       <div css={[visible ? xw`px-4 border-b-4 border-grape-600 border-opacity-40` : xw`md:grid-cols-1`, xw`py-4 select-none grid grid-cols-4 lg:grid-cols-6 items-center z-10`]}>
         <div css={[xw`flex flex-row lg:col-span-2`, !visible && xw`justify-start md:justify-center lg:justify-start`]}>
-          {logo.map(({ id, provider_metadata: { public_id }, alternativeText }, i) => (
+          {logo.map((img, i) => (
             <LogoContainer
               visible={visible}
-              key={id}
+              key={i}
               css={(i === 0 && logo.length > 1) && xw`-mr-8 md:-mr-4`}
               initial={{ '--tw-bg-opacity': 0.75 }}
               whileHover={{ scale: 1.2, zIndex: 10, '--tw-bg-opacity': 1 }}
               whileTap={{ scale: 1.2, zIndex: 10, '--tw-bg-opacity': 1 }}
             >
-              <Image
-                width={80} height={80}
-                publicId={public_id}
-                alt={alternativeText}
-                secure='true'
-                loading='lazy'
-              >
-                <Transformation
-                  width='80' height='80' fetchFormat='auto'
-                  crop='lpad' quality='auto' dpr='2.0'
-                />
+              <Image image={img} css={xw`w-auto h-auto`}>
+                <Transformation width='80' height='80' crop='lpad' />
               </Image>
             </LogoContainer>
           )
@@ -154,19 +149,16 @@ css`
   li, blockquote {${xw`text-grape-900`}}
 `])
 
-const More = styled.button([xw`
+const More = styled(Button)([xw`
   absolute w-8
-  select-none
-  bg-grape-500  bg-opacity-40 hover[bg-opacity-50 bg-grape-600] active[bg-opacity-50 bg-grape-600]
-  focus:outline-none
-  rounded-r-md border-l border-grape-600 border-opacity-40
-  right-0 inset-y-0  
-  flex items-center justify-center 
+  bg-grape-500 bg-opacity-40 hover[bg-opacity-50 bg-grape-600] active[bg-opacity-50 bg-grape-600]
+  rounded-none rounded-r-md border-l border-grape-600 border-opacity-40
+  right-0 inset-y-0
   text-grape-800 hover:text-grape-900
 `, props => props.selected && xw`bg-opacity-50 bg-grape-600 text-grape-900`])
 
 const LogoContainer = styled(motion.div)([xw`
-  w-auto
+  w-24
   shadow bg-grape-100 bg-opacity-75
   rounded-full
   overflow-hidden flex items-center

@@ -2,7 +2,6 @@ import React from 'react'
 import { motion, useCycle } from 'framer-motion'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { useRouter } from 'next/router'
 import { bindActionCreators } from 'redux'
 import { setActive } from '@/store/navigation/action'
 import styled from '@emotion/styled'
@@ -16,22 +15,17 @@ import xw from 'xwind'
  * @param content children
  * @param active current active navigation
  * @param setActiveNavigation dispatch active page
- * @param hideModals hide all modals
+ * @param hideModals hide all modals (contact, sidebar..)
  * @returns {JSX.Element}
  * @constructor
  */
 const Link = ({ slug, title, active, setActiveNavigation, hideModals }) => {
   const [hover, toggleHover] = useCycle(false, true)
-  const router = useRouter()
 
-  const handleClick = () => () => {
+  const handleClick = () => (e) => {
+    e.preventDefault()
     hideModals()
-    if (router.pathname === '/') {
-      slug.charAt(0) === '#' && document.querySelector(slug).scrollIntoView({ behavior: 'smooth' })
-      slug.charAt(0) === '/' && router.push(slug).then(setActiveNavigation(slug))
-    } else {
-      router.push('/').then(() => setTimeout(() => document.querySelector(slug).scrollIntoView({ behavior: 'smooth' }), 500))
-    }
+    document.querySelector(slug).scrollIntoView({ behavior: 'smooth' })
   }
 
   return (

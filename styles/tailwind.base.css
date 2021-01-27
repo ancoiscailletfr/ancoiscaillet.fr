@@ -1,8 +1,36 @@
 @tailwind base;
+@tailwind screens;
 
 html {
     scroll-behavior: smooth;
     @apply bg-gradient-to-br from-gray-900 to-wildblue-800;
+}
+
+body {
+    @apply font-body h-full w-full xs:fixed;
+}
+
+html, body {
+    @apply overflow-x-hidden;
+}
+
+.header{
+    @apply fixed bg-gray-900 bg-opacity-40;
+    backdrop-filter: blur(3px);
+}
+
+.logo-bg{
+    background: linear-gradient(
+            180deg,
+            rgba(184, 184, 184, 0) 0%,
+            rgba(184, 184, 184, 0.35) 100%
+    );
+}
+
+@screen hmd {
+    body {
+        @apply fixed hsm:fixed lg:static
+    }
 }
 
 @media screen and (max-width: 350px) and (orientation: portrait) {

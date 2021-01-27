@@ -6,8 +6,9 @@ import { css } from '@emotion/react'
 
 /**
  * flip card
- * box rotate X on click
+ * X axis rotating box while tap it
  * @param children first child display front second back
+ * @param props additional style
  * @returns {JSX.Element}
  * @constructor
  */

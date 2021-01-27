@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import { AnimatePresence, motion, useTransform, useViewportScroll } from 'framer-motion'
 import styled from '@emotion/styled'
 import xw from 'xwind'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Socials from '@/components/assets/Socials'
-import { openLinkInNewTabProps as newTab } from '@/lib/constants'
 import { css } from '@emotion/react'
-import { Image, Transformation } from 'cloudinary-react'
+import { Transformation } from 'cloudinary-react'
+
+import { openLinkInNewTabProps as newTab } from '@/lib/utlis'
+import Socials from '@/components/assets/Socials'
+import Image from '@/components/Image'
 
 /**
  * Main footer
@@ -16,34 +17,36 @@ import { Image, Transformation } from 'cloudinary-react'
 const Footer = () => {
   const { scrollYProgress } = useViewportScroll()
   const [showThanksMsg, setShowThanksMsg] = useState(false)
-  const toggleOnScroll = useTransform(scrollYProgress, [0, 0.05, 0.95, 1], ['0%', '100%', '100%', '0%'])
-  const toggleOnScrollWrapper = useTransform(scrollYProgress, [0, 0.05, 0.95, 1], [0, 300, 300, 0])
-  const transformBoxShadowOnScroll = useTransform(scrollYProgress, [0, 0.05], ['1px -25px 50px -12px rgba(0,0,0,0.4)', '1px 0px 3px 0px rgba(0,0,0,0.2)'])
+  const toggleOnScroll = useTransform(scrollYProgress, [0, 0.05, 0.95, 1], [0, 300, 300, 0])
+  const scaleY = useTransform(scrollYProgress, [0, 0.05, 0.95, 1], [1, 0, 0, 1])
 
-  scrollYProgress.onChange((p) => {
-    p >= 0.94 ? setShowThanksMsg(true) : setShowThanksMsg(false)
+  /**
+   * show thanks message only at the bottom of the page
+   */
+  scrollYProgress.onChange((latest) => {
+    latest >= 0.95 ? setShowThanksMsg(true) : setShowThanksMsg(false)
   })
 
   return (
     <div>
-      <FooterBg
-        style={{ y: toggleOnScroll, boxShadow: transformBoxShadowOnScroll }}
+      <ToggleShutter
+        style={{ scaleY }}
       />
-      <FooterWrapper style={{ y: toggleOnScrollWrapper }}>
+      <FooterWrapper style={{ y: toggleOnScroll }}>
         <div css={xw`relative h-full w-full`}>
           <FooterContainer>
             <AnimatePresence>
               {showThanksMsg && (
                 <MessageStyled variants={message} initial='hide' animate='view' exit='hide'>
                   <Image
-                    css={xw`w-24 h-24 select-none text-right`}
-                    publicId='emoji2_sticker_b38b0af9da.png'
-                    alt='emoji François Caillet'
-                    loading='lazy'
-                    secure='true'
-                    width={421} height={444}
+                    image={{
+                      providerMetadata: { publicId: 'emoji2_sticker_b38b0af9da.png' },
+                      alternativeText: 'François Caillet emoji',
+                      width: 421,
+                      height: 444
+                    }}
                   >
-                    <Transformation width='100' fetchFormat='auto' crop='fill' quality='auto' dpr='2.0' />
+                    <Transformation width='100' crop='fill' />
                   </Image>
                   <span>
                     Merci d'avoir parcouru mon site ! J'espère qu'il vous a plu 😁
@@ -74,12 +77,35 @@ const Footer = () => {
   )
 }
 
+const message = {
+  view: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      y: {
+        type: 'spring',
+        stiffness: 300
+      }
+    }
+  },
+  hide: {
+    opacity: 0,
+    y: -100,
+    transition: {
+      opacity: {
+        duration: 0.1
+      }
+    }
+  }
+}
+
 const MessageStyled = styled(motion.div)([xw`
   flex mx-auto items-center mb-10
 `, css`
-  img{
-    ${xw``}
+  img {
+    ${xw`w-24 h-24 select-none text-right`}
   }
+  
   span{
     ${xw`relative rounded-3xl py-2 px-3 break-words bg-gray-200 text-gray-platinum text-sm md:text-base`}
   }
@@ -107,32 +133,11 @@ const MessageStyled = styled(motion.div)([xw`
 `
 ])
 
-const message = {
-  view: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      y: {
-        type: 'spring',
-        stiffness: 300
-      }
-    }
-  },
-  hide: {
-    opacity: 0,
-    y: -100,
-    transition: {
-      opacity: {
-        duration: 0.1
-      }
-    }
-  }
-}
-
-const FooterBg = styled(motion.div)(xw`
-    fixed z-20 bottom-0
-    h-5/12 md:h-1/3 w-full hmd:h-1/2 
+const ToggleShutter = styled(motion.div)(xw`
+    fixed z-20 bottom-0 w-full
+    h-5/12 md:h-1/3 hmd:h-1/2 
     bg-gray-platinum
+    origin-bottom
 `)
 
 const FooterWrapper = styled(motion.footer)(xw`
@@ -147,14 +152,14 @@ const FooterContainer = styled.div([xw`
   flex flex-wrap justify-between items-center
   text-xs tracking-tighter
 `, css`
-  a {
+  span a {
     ${xw`font-bold underline hover[no-underline text-gray-500]
       cursor-pointer`}
   }
 `])
 
 const Box = styled.div(xw`
-  flex flex-wrap flex-col
+  flex flex-col
   w-5/6 md:w-9/12
   pr-1
   leading-5 md:leading-6 text-gray-800

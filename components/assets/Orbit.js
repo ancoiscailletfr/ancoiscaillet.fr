@@ -70,7 +70,9 @@ const Orbit = ({ from, duration, skills, ...props }) => {
                     </motion.span>
                   </AnimatePresence>
                 )}
-                <Icon {...skill} css={xw`text-duck-600 text-2xl font-extrabold text-center uppercase`} />
+                <div css={xw`flex items-center text-duck-600 text-2xl font-extrabold text-center uppercase`}>
+                  <Icon {...skill} />
+                </div>
               </motion.div>
             </motion.div>
           </SkillWrapper>

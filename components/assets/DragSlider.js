@@ -15,7 +15,10 @@ const swipePower = (offset, velocity) => {
  * create a slider when it's necessary
  * especially for mobile and tablet devices
  * @param children list of child, each child could be a slide
- * @param breakpoint arrays pixel breakpoint on x & y
+ * @param childPerPage number of child per page according to viewport width, e.g. childPerPage={{ _: 1, md: 2 }}
+ * @param sliderRatio slider size multiplier  e.g. {{ _: 2, md: 1 }},
+ *        or with custom step e.g. {{ _: 3, md: { _: 5 / 3, step: 2 / 3 }, lg: 1 }}
+ * @param props
  * @returns {JSX.Element}
  * @constructor
  */
@@ -28,6 +31,10 @@ const DragSlider = ({ children, childPerPage, sliderRatio, ...props }) => {
   const step = carouselRatio.step ?? 1
   const nbPages = Math.ceil(Children.count(children) / itemPerPage)
 
+  /**
+   * update pageIndex
+   * @param newDirection page jump
+   */
   const paginate = (newDirection) => {
     const validatedPageIndex = Math.min(nbPages - 1, Math.max(pageIndex + newDirection, 0))
     setPageIndex([validatedPageIndex])
@@ -39,6 +46,7 @@ const DragSlider = ({ children, childPerPage, sliderRatio, ...props }) => {
    */
   const handleDragEnd = () => (e, { offset, velocity }) => {
     const swipe = swipePower(offset.x, velocity.x)
+    // mark - prevent annoying swipe during scroll
     if (Math.abs(swipe) > 30000) {
       if (swipe < -swipeConfidenceThreshold) {
         paginate(1)
@@ -49,7 +57,7 @@ const DragSlider = ({ children, childPerPage, sliderRatio, ...props }) => {
   }
 
   useEffect(() => {
-    /* workaround */
+    /* hack - back to first page on children change */
     setPageIndex([0])
   }, [children, nbPages])
 
@@ -66,10 +74,10 @@ const DragSlider = ({ children, childPerPage, sliderRatio, ...props }) => {
             drag={nbPages > 1 && 'x'}
             style={{ x: -width * step * pageIndex }}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-            {...props}
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={1.3}
             onDragEnd={handleDragEnd()}
+            {...props}
           >
             {children}
           </SliderContainer>
@@ -80,7 +88,7 @@ const DragSlider = ({ children, childPerPage, sliderRatio, ...props }) => {
           <ul>
             {Array.from({ length: nbPages }, (_, i) => (
               <li key={i} onClick={() => paginate(i - pageIndex)}>
-                <motion.button
+                <motion.span
                   variants={dot}
                   initial='inactive'
                   animate={pageIndex === i ? 'active' : 'inactive'}
@@ -116,7 +124,7 @@ const DotWrapper = styled.div([xw`
       border-2 border-solid border-gray-platinum`};
     float: left;
   }
-  button {
+  span {
     ${xw`absolute top-0 left-0
       bg-gray-platinum w-full h-full 
       outline-none rounded-full focus:outline-none`}
@@ -135,18 +143,13 @@ const dot = {
 }
 
 DragSlider.propTypes = {
-  breakpoint: PropTypes.number,
   childPerPage: PropTypes.object,
   children: PropTypes.any.isRequired,
-  flexDirection: PropTypes.oneOf(['col', 'row']),
-  itemsSize: PropTypes.array,
-  sliderRatio: PropTypes.object,
-  step: PropTypes.number
+  sliderRatio: PropTypes.object
 }
 
 DragSlider.defaultProps = {
   childPerPage: { _: 1, md: 2, lg: 3 },
-  flexDirection: 'row',
   sliderRatio: { _: 3, md: 2, lg: 1 }
 }
 

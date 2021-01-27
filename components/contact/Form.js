@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 import { clearFormData, updateFormData } from '@/store/contact/action'
 import xw from 'xwind'
 import { css } from '@emotion/react'
+import Button from '@/components/assets/Button'
 
 /**
  * contact form component
@@ -139,11 +140,10 @@ const SentIcon = ({ sent }) => {
 
 const Error = styled.p(xw`text-status-red text-xs italic`)
 
-const SubmitButton = styled.button([xw`
-  mx-auto flex flex-row items-center
+const SubmitButton = styled(Button)([xw`
+  mx-auto capitalize
   bg-darkblue-500 hover:bg-darkblue-700 
-  text-white font-bold 
-  py-2 px-4 rounded focus[outline-none ring]
+  py-2 px-4
 `, props => props.disabled && xw`bg-gray-500 cursor-not-allowed pointer-events-none`])
 
 const Label = styled.label([xw`
