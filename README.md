@@ -1,30 +1,90 @@
+<p align="center">
+  <a href="https://www.ancoiscaillet.fr">
+    <img alt="Gatsby" src="https://res.cloudinary.com/francoiscaillet/image/upload/v1611746706/cover_twitter_oojepm.png" width="100%" />
+    <h2 align="center">François Caillet</h2>
+  </a>
+</p> 
+<p align="center">Fullstack Developer - Java/Spring - React/Next</p>
+
+-------
+![François Caillet portfolio preview](https://res.cloudinary.com/francoiscaillet/image/upload/v1611749869/Capture_d_e%CC%81cran_2021-01-27_a%CC%80_13.17.31_nmavyx.png)
+
+* 🇫🇷 French developer
+* 👨‍💻 [Freelance](https://www.malt.fr/profile/francoiscaillet) 
+* ✉️ [contact@ancoiscaillet.fr](mailto:contact@ancoiscaillet.fr)
+* 🤩 Passionate developer
+* 💼 Open to work
+* 🚀 Ready for java & javascript development 
+    - ✓ API & Batch with Java EE, Spring (boot, data, batch)
+    - ✓ Front end with React.js & Next.js❤️ emotionjs, tailwindcss...
+    - ✓ Database Postgres, MySQL, NoSQL & XML...
+
+### Socials
+* [Twitter](https://twitter.com/ancoiscailletfr)
+* [LinkedIn](http://linkedin.com/in/francoiscaillet)
+* [Codepen](https://codepen.io/ancoiscailletfr)
+
+
+
+--------
+
+**This is a copy of my bitbucket repository**     
+
+## Live
+**[ancoiscaillet.fr](https://www.ancoiscaillet.fr)**
+
+## Quick start 🧨
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+### Run locally 
 
-First, run the development server:
+_Mark - this website work with [Strapi](https://github.com/strapi/strapi) back api 
+& [Cloudinary](https://cloudinary.com/) for content, you can not run it out of the box. 
+If you would like, I could try to create a stateless version_
 
+#### Clone repository
+
+```bash
+git clone https://github.com/ancoiscailletfr/ancoiscaillet.fr
+```
+
+#### Install Dependencies
+```bash 
+cd ancoiscaillet.fr
+yarn install
+# or
+npm install 
+```
+
+#### Start Development Server
 ```bash
 npm run dev
 # or
 yarn dev
 ```
-
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### How it works
 
-## Learn More
+![simple architecture](https://res.cloudinary.com/francoiscaillet/image/upload/v1611754441/architecture_simple.001_hecji3.jpg)
 
-To learn more about Next.js, take a look at the following resources:
+## Powered by 
+* [Next.js](https://github.com/vercel/next.js/)
+* [React.js](https://github.com/facebook/react)
+* [Redux](https://github.com/reduxjs/redux) 
+* [Emotion](https://github.com/emotion-js/emotion) 
+* [Tailwindcss](https://github.com/tailwindlabs/tailwindcss)
+* [Framer motion](https://github.com/framer/motion)
+* [and so on...](https://github.com/ancoiscailletfr/ancoiscaillet.fr/blob/main/package.json)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Next step
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- [ ] blog
+- [ ] projects section improvement 
+- [ ] services options
+- [ ] english version
+- [ ] quote ?
 
-## Deploy on Vercel
+## Deployed on Vercel 
+Check out [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
