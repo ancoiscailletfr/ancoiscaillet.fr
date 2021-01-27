@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind screens;
+
+html {
+    scroll-behavior: smooth;
+    @apply bg-gradient-to-br from-gray-900 to-wildblue-800;
+}
+
+body {
+    @apply font-body h-full w-full xs:fixed;
+}
+
+html, body {
+    @apply overflow-x-hidden;
+}
+
+.header{
+    @apply fixed bg-gray-900 bg-opacity-40;
+    backdrop-filter: blur(3px);
+}
+
+.logo-bg{
+    background: linear-gradient(
+            180deg,
+            rgba(184, 184, 184, 0) 0%,
+            rgba(184, 184, 184, 0.35) 100%
+    );
+}
+
+@screen hmd {
+    body {
+        @apply fixed hsm:fixed lg:static
+    }
+}
+
+@media screen and (max-width: 350px) and (orientation: portrait) {
+    html {
+        transform: rotate(-90deg);
+        transform-origin: left top;
+        width: 100vh;
+        height: 100vw;
+        @apply overflow-x-hidden absolute top-full left-0;
+    }
+}
+
+@font-face {
+    font-family: "Fira Code";
+    font-style: normal;
+    font-display: swap;
+    font-weight: 300;
+    src:    local("FiraCode Light"),
+            local("FiraCode-Light"),
+            url("https://cdn.jsdelivr.net/gh/tonsky/FiraCode@4/distr/woff2/FiraCode-Light.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Fira Code";
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src:    local("FiraCode Regular"),
+            local("FiraCode-Regular"),
+            url("https://cdn.jsdelivr.net/gh/tonsky/FiraCode@4/distr/woff2/FiraCode-Regular.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Fira Code";
+    font-style: normal;
+    font-display: swap;
+    font-weight: 500;
+    src:    local("FiraCode Medium"),
+            local("FiraCode-Medium"),
+            url("https://cdn.jsdelivr.net/gh/tonsky/FiraCode@4/distr/woff2/FiraCode-Medium.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Fira Code";
+    font-style: normal;
+    font-display: swap;
+    font-weight: 600;
+    src:    local("FiraCode SemiBold"),
+            local("FiraCode-SemiBold"),
+            url("https://cdn.jsdelivr.net/gh/tonsky/FiraCode@4/distr/woff2/FiraCode-SemiBold.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Fira Code";
+    font-style: normal;
+    font-display: swap;
+    font-weight: 700;
+    src:    local("FiraCode Bold"),
+            local("FiraCode-Bold"),
+            url("https://cdn.jsdelivr.net/gh/tonsky/FiraCode@4/distr/woff2/FiraCode-Bold.woff2") format("woff2");
+}
