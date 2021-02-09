@@ -52,7 +52,7 @@ css`
 `])
 
 const HeaderWrapper = styled(motion.header)(xw`
-  inset-x-0 top-0 z-50
+  inset-x-0 top-0 z-40
   flex items-center justify-between 
   py-1 px-2 md:px-4
 `)

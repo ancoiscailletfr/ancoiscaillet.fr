@@ -141,7 +141,7 @@ const ToggleShutter = styled(motion.div)(xw`
 `)
 
 const FooterWrapper = styled(motion.footer)(xw`
-  fixed z-40 bottom-0
+  fixed z-30 bottom-0
   h-1/12 w-full
   mb-1 py-4 px-2 md:px-4
 `)

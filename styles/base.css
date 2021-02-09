@@ -571,8 +571,6 @@ html, body {
   background-color: rgba(20, 20, 20, var(--tw-bg-opacity));
   --tw-bg-opacity: 0.4;
   position: fixed;
-  -webkit-backdrop-filter: blur(3px);
-          backdrop-filter: blur(3px);
 }
 
 .logo-bg{

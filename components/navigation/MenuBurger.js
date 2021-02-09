@@ -71,6 +71,7 @@ const MenuBurger = ({ showSidebar, toggleSidebar }) => {
 const MenuBurgerStyled = styled(motion.button)(xw`
   lg:hidden z-10
   h-10 
+  focus:outline-none
   text-gray-platinum
 `)
 

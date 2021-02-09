@@ -16,7 +16,6 @@ html, body {
 
 .header{
     @apply fixed bg-gray-900 bg-opacity-40;
-    backdrop-filter: blur(3px);
 }
 
 .logo-bg{

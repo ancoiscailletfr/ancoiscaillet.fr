@@ -20,7 +20,7 @@ const Sidebar = ({ showSidebar }) => {
   return (
     <AnimatePresence exitBeforeEnter>
       {showSidebar && (
-        <Overlay css={xw`block lg:hidden`}>
+        <Overlay css={xw`lg:hidden`}>
           <SidebarContainer
             variants={sidebar}
             initial='closed'
