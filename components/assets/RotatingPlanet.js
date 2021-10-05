@@ -51,7 +51,7 @@ const RotatingPlanet = ({ planet, satellite }) => {
 
   // noinspection HtmlDeprecatedTag - cause '<image>' it's not html but svg 🙄
   return (
-    <div ref={ref} css={[xw`absolute inset-0 -z-10`, css`transform: translateZ(-150px) scale(1.2125)`]}>
+    <div ref={ref} css={[xw`absolute inset-0 -z-20`, css`transform: translateZ(-150px) scale(1.2125)`]}>
       <motion.svg
         css={xw`text-gray-platinum`}
         style={{ originX: '50%', originY: '50%', scale: scaleAll }}
