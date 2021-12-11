@@ -25,7 +25,7 @@ const Intro = ({ us }) => {
    * @param string
    * @returns {string[]}
    */
-  const stringSplitter = string => {
+  const stringSplitter = (string) => {
     const splitter = new GraphemeSplitter()
     return splitter.splitGraphemes(string)
   }
@@ -80,7 +80,7 @@ const Intro = ({ us }) => {
             options={{
               loop: true,
               delay: 100,
-              stringSplitter
+              stringSplitter,
             }}
           />
         </h2>
@@ -97,7 +97,7 @@ const Box = styled.section([xw`
 `, css`padding-top: 56px`])
 
 const mapStateToProps = (state) => ({
-  us: state.api.us
+  us: state.api.us,
 })
 
 export default connect(mapStateToProps, null)(Intro)

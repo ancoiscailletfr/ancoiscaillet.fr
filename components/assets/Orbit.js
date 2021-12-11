@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import styled from '@emotion/styled'
-import { Icon } from '@/components/assets/Badges'
 import xw from 'xwind'
 import { css } from '@emotion/react'
+import { Icon } from '@/components/assets/Badges'
 
 /**
  * orbit with skills as planets
@@ -14,13 +14,15 @@ import { css } from '@emotion/react'
  * @returns {JSX.Element}
  * @constructor
  */
-const Orbit = ({ from, duration, skills, ...props }) => {
+const Orbit = ({
+  from, duration, skills, ...props
+}) => {
   const [front, setFront] = useState(false)
   const to = from + 360
   return (
     <OrbitStyled
       animate={{ rotate: [from, to] }}
-      transition={{ ease: 'linear', duration: duration, repeat: Infinity }}
+      transition={{ ease: 'linear', duration, repeat: Infinity }}
       style={{ zIndex: front ? 9999 : 'auto' }}
       {...props}
     >
@@ -28,7 +30,7 @@ const Orbit = ({ from, duration, skills, ...props }) => {
         const [hovered, setHovered] = useState(false)
         return (
           <SkillWrapper
-            key={index}
+            key={skill.title}
             index={index}
             length={skills.length}
           >
@@ -43,8 +45,8 @@ const Orbit = ({ from, duration, skills, ...props }) => {
                 setFront(false)
               }}
               onTap={() => {
-                setHovered(v => !v)
-                setFront(v => !v)
+                setHovered((v) => !v)
+                setFront((v) => !v)
                 setTimeout(() => {
                   setHovered(false)
                   setFront(false)
@@ -54,7 +56,7 @@ const Orbit = ({ from, duration, skills, ...props }) => {
               <motion.div
                 className='bubble'
                 animate={{ rotate: [-from, -to] }}
-                transition={{ ease: 'linear', duration: duration, repeat: Infinity }}
+                transition={{ ease: 'linear', duration, repeat: Infinity }}
               >
                 {hovered && (
                   <AnimatePresence>
@@ -87,7 +89,7 @@ const OrbitStyled = styled(motion.div)(xw`
 
 const SkillWrapper = styled.div([xw`
   flex justify-center absolute transform -translate-x-1/2 -translate-y-1/2
-`, props => css`
+`, (props) => css`
   left:  ${(50 - 50 * Math.cos(-0.5 * Math.PI - 2 * (1 / props.length) * props.index * Math.PI)).toFixed(4)}%;
   top: ${(50 - 50 * Math.sin(-0.5 * Math.PI - 2 * (1 / props.length) * props.index * Math.PI)).toFixed(4)}%;
   .bubble{

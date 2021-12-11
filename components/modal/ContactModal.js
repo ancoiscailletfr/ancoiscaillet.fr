@@ -1,17 +1,68 @@
 import { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { toggleContactModal } from '@/store/contact/action'
 import { bindActionCreators } from 'redux'
 import { AnimatePresence, motion, useViewportScroll } from 'framer-motion'
 import styled from '@emotion/styled'
 import xw from 'xwind'
-import Overlay from '@/components/Overlay'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useWindowWidth } from '@react-hook/window-size'
+import { css } from '@emotion/react'
+import Overlay from '@/components/Overlay'
 import Infos from '@/components/contact/Infos'
 import Form from '@/components/contact/Form'
-import { useWindowWidth } from '@react-hook/window-size'
 import { bp } from '@/lib/constants'
-import { css } from '@emotion/react'
+import { toggleContactModal } from '@/store/contact/action'
+
+const ContactContainerStyled = styled(motion.div)(xw`
+  fixed z-50
+  text-gray-platinum
+  w-full h-full md[rounded w-full h-auto max-h-full max-w-5xl]
+  top-1/2 left-1/2
+  overflow-y-auto
+  bg-gradient-to-tl from-darkblue-600 to-orange-500
+`)
+
+const ContactContainer = styled.div(xw`
+  relative h-auto 
+  flex flex-col justify-between 
+  p-2 lg[px-8 py-4]
+`)
+
+const CloseModalButton = styled.button(xw`
+  absolute top-0 right-0 
+  py-4 px-5 
+  text-xl 
+  focus[outline-none]
+`)
+
+const ButtonGroup = styled.button([xw`
+  py-0.5 px-2
+  border-r border-gray-platinum border-opacity-50
+`,
+(props) => props.active && xw`bg-gray-platinum bg-opacity-25`,
+])
+
+const variants = {
+  infos: {
+    x: 0,
+  },
+  form: {
+    x: '-50%',
+  },
+}
+
+const modal = {
+  hidden: {
+    y: '-100%',
+    x: '-50%',
+    opacity: 0,
+  },
+  visible: {
+    y: '-50%',
+    x: '-50%',
+    opacity: 1,
+  },
+}
 
 /**
  * Contact modal component
@@ -27,12 +78,12 @@ const ContactModal = ({ showContactModal, toggleContactModal }) => {
   const windowWidth = useWindowWidth()
 
   useEffect(() => {
-    const body = document.body
+    const { body } = document
     if (showContactModal) {
       body.style.position = 'fixed'
       setPreviousScroll(scrollY.get())
     } else {
-      const body = document.body
+      const { body } = document
       body.style.position = ''
       body.style.top = ''
       window.scrollTo(0, previousScroll)
@@ -95,64 +146,13 @@ const ContactModal = ({ showContactModal, toggleContactModal }) => {
   )
 }
 
-const ContactContainerStyled = styled(motion.div)(xw`
-  fixed z-50
-  text-gray-platinum
-  w-full h-full md[rounded w-full h-auto max-h-full max-w-5xl]
-  top-1/2 left-1/2
-  overflow-y-auto
-  bg-gradient-to-tl from-darkblue-600 to-orange-500
-`)
-
-const ContactContainer = styled.div(xw`
-  relative h-auto 
-  flex flex-col justify-between 
-  p-2 lg[px-8 py-4]
-`)
-
-const CloseModalButton = styled.button(xw`
-  absolute top-0 right-0 
-  py-4 px-5 
-  text-xl 
-  focus[outline-none]
-`)
-
-const ButtonGroup = styled.button([xw`
-  py-0.5 px-2
-  border-r border-gray-platinum border-opacity-50
-`,
-props => props.active && xw`bg-gray-platinum bg-opacity-25`
-])
-
-const variants = {
-  infos: {
-    x: 0
-  },
-  form: {
-    x: '-50%'
-  }
-}
-
-const modal = {
-  hidden: {
-    y: '-100%',
-    x: '-50%',
-    opacity: 0
-  },
-  visible: {
-    y: '-50%',
-    x: '-50%',
-    opacity: 1
-  }
-}
-
 const mapStateToProps = (state) => ({
-  showContactModal: state.contact.showContactModal
+  showContactModal: state.contact.showContactModal,
 })
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    toggleContactModal: bindActionCreators(toggleContactModal, dispatch)
+    toggleContactModal: bindActionCreators(toggleContactModal, dispatch),
   }
 }
 

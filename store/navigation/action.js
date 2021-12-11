@@ -4,7 +4,7 @@
  */
 export const navigationActionTypes = {
   TOGGLE_SIDEBAR: 'TOGGLE_SIDEBAR',
-  ACTIVE: 'ACTIVE'
+  ACTIVE: 'ACTIVE',
 }
 
 /**

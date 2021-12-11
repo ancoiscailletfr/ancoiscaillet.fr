@@ -4,8 +4,8 @@ import moment from 'moment'
 import { css } from '@emotion/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { connect } from 'react-redux'
-import { openLinkInNewTabProps as newTab } from '@/lib/utlis'
 import styled from '@emotion/styled'
+import { openLinkInNewTabProps as newTab } from '@/lib/utlis'
 import Platforms from '@/components/assets/Platforms'
 import RichTextContainer from '@/components/RichTextContainer'
 import Button from '@/components/assets/Button'
@@ -22,7 +22,7 @@ import Image from '@/components/Image'
 const VisitCard = ({ us }) => {
   const {
     profilePicture, fullname, birthday, location,
-    currentJob, shifting, brief, email, socialNetworks, whoami, hobbies
+    currentJob, shifting, brief, email, socialNetworks, whoami, hobbies,
   } = us
   return (
     <VisitCardWrapper>
@@ -37,9 +37,17 @@ const VisitCard = ({ us }) => {
           <div css={xw`flex flex-col justify-around items-center h-5/6`}>
             <div css={xw`text-center leading-relaxed`}>
               <h2 css={xw`font-medium text-xl text-orange-900`}>{fullname}</h2>
-              <span>{moment().diff(birthday, 'years')} ans</span>
+              <span>
+                {moment().diff(birthday, 'years')}
+                {' '}
+                ans
+              </span>
               <h3 css={xw`font-medium text-lg mb-2.5`}>{currentJob}</h3>
-              <h4 css={xw`font-medium mb-1 text-sm`}><FontAwesomeIcon icon='map-pin' /> {location}</h4>
+              <h4 css={xw`font-medium mb-1 text-sm`}>
+                <FontAwesomeIcon icon='map-pin' />
+                {' '}
+                {location}
+              </h4>
               <h4 css={xw`text-sm`}>{shifting}</h4>
             </div>
           </div>
@@ -58,10 +66,14 @@ const VisitCard = ({ us }) => {
           </div>
           <div css={xw`grid grid-cols-2 gap-6 items-center`}>
             <div css={xw`flex flex-row w-full justify-evenly`}>
-              {socialNetworks.map(({ id, title, url, icon }) => (
+              {socialNetworks.map(({
+                id, title, url, icon,
+              }) => (
                 <a
                   key={id}
-                  aria-label={title} href={url} {...newTab}
+                  aria-label={title}
+                  href={url}
+                  {...newTab}
                 >
                   <FontAwesomeIcon icon={['fab', icon]} size='lg' />
                 </a>
@@ -98,7 +110,7 @@ const VisitCardWrapper = styled.div([xw`
 css`z-index: 10000`])
 
 const mapStateToProps = (state) => ({
-  us: state.api.us
+  us: state.api.us,
 })
 
 export default connect(mapStateToProps, null)(VisitCard)

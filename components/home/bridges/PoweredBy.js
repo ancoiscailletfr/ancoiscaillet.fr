@@ -3,10 +3,10 @@ import styled from '@emotion/styled'
 import { css } from '@emotion/react'
 import { Transformation } from 'cloudinary-react'
 import { connect } from 'react-redux'
-import { openLinkInNewTabProps as newTab, random } from '@/lib/utlis'
-import Image from '@/components/Image'
 import { motion } from 'framer-motion'
 import { InView } from 'react-intersection-observer'
+import { openLinkInNewTabProps as newTab, random } from '@/lib/utlis'
+import Image from '@/components/Image'
 
 /**
  * Main libraries logos list used
@@ -22,7 +22,9 @@ const PoweredBy = ({ poweredBy }) => (
           {({ inView, ref }) => (
             <div css={xw`flex px-3 py-1.5 md[px-6 py-3] items-center h-20 sm:h-28 md:h-36`} ref={ref}>
               <motion.div
-                layout initial={{ opacity: 0 }} animate={inView && { opacity: 1 }}
+                layout
+                initial={{ opacity: 0 }}
+                animate={inView && { opacity: 1 }}
                 transition={{ delay: random(0.1, 1), duration: 0.5 }}
               >
                 <Image
@@ -48,7 +50,7 @@ const PoweredByContainer = styled.div([xw`
 `])
 
 const mapStateToProps = (state) => ({
-  poweredBy: state.api.poweredBy
+  poweredBy: state.api.poweredBy,
 })
 
 export default connect(mapStateToProps, null)(PoweredBy)

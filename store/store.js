@@ -8,6 +8,7 @@ import api from '@/store/api/reducer'
 
 const bindMiddleware = (middleware) => {
   if (process.env.NODE_ENV !== 'production') {
+    // eslint-disable-next-line global-require
     const { composeWithDevTools } = require('redux-devtools-extension')
     return composeWithDevTools(applyMiddleware(...middleware))
   }
@@ -15,21 +16,24 @@ const bindMiddleware = (middleware) => {
 }
 
 const combinedReducer = combineReducers({
-  contact, navigation, api
+  contact, navigation, api,
 })
 
 const reducer = (state, action) => {
   if (action.type === HYDRATE) {
     const nextState = {
       ...state, // use previous state
-      ...action.payload // apply delta from hydration
+      ...action.payload, // apply delta from hydration
     }
-    if (state.contact.showContactModal) nextState.contact.showContactModal = state.contact.showContactModal
-    if (state.navigation.showSidebar) nextState.navigation.showSidebar = state.navigation.showSidebar
+    if (state.contact.showContactModal) {
+      nextState.contact.showContactModal = state.contact.showContactModal
+    }
+    if (state.navigation.showSidebar) {
+      nextState.navigation.showSidebar = state.navigation.showSidebar
+    }
     return nextState
-  } else {
-    return combinedReducer(state, action)
   }
+  return combinedReducer(state, action)
 }
 
 const initStore = () => {

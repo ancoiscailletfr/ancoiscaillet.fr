@@ -1,7 +1,7 @@
-import MenuBurger from '@/components/navigation/MenuBurger'
 import styled from '@emotion/styled'
-import Links from '@/components/navigation/Links'
 import xw from 'xwind'
+import MenuBurger from '@/components/navigation/MenuBurger'
+import Links from '@/components/navigation/Links'
 
 /**
  * navigation component

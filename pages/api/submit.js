@@ -10,12 +10,14 @@ export default async (req, res) => {
     secure: false,
     auth: {
       user: process.env.MAILER_USER,
-      pass: process.env.MAILER_PASS
-    }
+      pass: process.env.MAILER_PASS,
+    },
   })
 
   if (req.method === 'POST') {
-    const { fullname, email, phone, message } = req.body
+    const {
+      fullname, email, phone, message,
+    } = req.body
 
     const text = `
   --------------------------
@@ -33,11 +35,11 @@ ${message}
       from: `"ancoiscaillet.fr" ${process.env.MAILER_USER}`, // from myself
       to: process.env.MAILER_TO, // to myself
       subject: `Message de ${fullname}`,
-      text
+      text,
     })
 
     res.json({
-      message: `Message sent: ${info}`
+      message: `Message sent: ${info}`,
     })
   } else {
     res.status(401).json({ message: 'unauthorized' })

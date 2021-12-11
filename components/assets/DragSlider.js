@@ -10,18 +10,61 @@ const swipeConfidenceThreshold = 10000
 const swipePower = (offset, velocity) => {
   return Math.abs(offset) * velocity
 }
+
+const Slider = styled(motion.div)([xw`
+  relative w-full overflow-hidden z-10
+`, (prop) => (prop.pagesNb > 1 ? css` cursor:grab` : css` cursor:default`),
+])
+
+const SliderContainer = styled(motion.div)([xw`
+  flex relative top-0 px-1.5
+`, (props) => css`width: ${100 * props.ratio}%;`])
+
+const DotWrapper = styled.div([xw`
+  absolute bottom-0 w-full text-center -mb-3 z-10
+`, css`
+  ul {
+    ${xw`inline-block cursor-default select-none`}
+  }
+  li {
+    ${xw`relative block cursor-pointer 
+      mx-2 w-4 h-4 rounded-full 
+      border-2 border-solid border-gray-platinum`};
+    float: left;
+  }
+  span {
+    ${xw`absolute top-0 left-0
+      bg-gray-platinum w-full h-full 
+      outline-none rounded-full focus:outline-none`}
+  }
+`])
+
+const dot = {
+  active: {
+    scale: 0.75,
+    opacity: 1,
+  },
+  inactive: {
+    scale: 0.75,
+    opacity: 0,
+  },
+}
+
 /**
  * create a slider when it's necessary
  * especially for mobile and tablet devices
  * @param children list of child, each child could be a slide
- * @param childPerPage number of child per page according to viewport width, e.g. childPerPage={{ _: 1, md: 2 }}
+ * @param childPerPage number of child per page according to viewport width,
+ *        e.g. childPerPage={{ _: 1, md: 2 }}
  * @param sliderRatio slider size multiplier  e.g. {{ _: 2, md: 1 }},
  *        or with custom step e.g. {{ _: 3, md: { _: 5 / 3, step: 2 / 3 }, lg: 1 }}
  * @param props
  * @returns {JSX.Element}
  * @constructor
  */
-const DragSlider = ({ children, childPerPage = { _: 1, md: 2, lg: 3 }, sliderRatio = { _: 3, md: 2, lg: 1 }, ...props }) => {
+const DragSlider = ({
+  children, childPerPage = { _: 1, md: 2, lg: 3 }, sliderRatio = { _: 3, md: 2, lg: 1 }, ...props
+}) => {
   const [[pageIndex], setPageIndex] = useState([0])
   const { width } = useWindowDimension()
   const itemPerPage = select(childPerPage)
@@ -86,6 +129,9 @@ const DragSlider = ({ children, childPerPage = { _: 1, md: 2, lg: 3 }, sliderRat
         <DotWrapper>
           <ul>
             {Array.from({ length: nbPages }, (_, i) => (
+              // TODO: fix it
+              // eslint-disable-next-line max-len
+              // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions
               <li key={i} onClick={() => paginate(i - pageIndex)}>
                 <motion.span
                   variants={dot}
@@ -93,52 +139,12 @@ const DragSlider = ({ children, childPerPage = { _: 1, md: 2, lg: 3 }, sliderRat
                   animate={pageIndex === i ? 'active' : 'inactive'}
                 />
               </li>
-            )
-            )}
+            ))}
           </ul>
         </DotWrapper>
       )}
     </div>
   )
-}
-
-const Slider = styled(motion.div)([xw`
-  relative w-full overflow-hidden z-10
-`, prop => prop.pagesNb > 1 ? css` cursor:grab` : css` cursor:default`
-])
-
-const SliderContainer = styled(motion.div)([xw`
-  flex relative top-0 px-1.5
-`, props => css`width: ${100 * props.ratio}%;`])
-
-const DotWrapper = styled.div([xw`
-  absolute bottom-0 w-full text-center -mb-3 z-10
-`, css`
-  ul {
-    ${xw`inline-block cursor-default select-none`}
-  }
-  li {
-    ${xw`relative block cursor-pointer 
-      mx-2 w-4 h-4 rounded-full 
-      border-2 border-solid border-gray-platinum`};
-    float: left;
-  }
-  span {
-    ${xw`absolute top-0 left-0
-      bg-gray-platinum w-full h-full 
-      outline-none rounded-full focus:outline-none`}
-  }
-`])
-
-const dot = {
-  active: {
-    scale: 0.75,
-    opacity: 1
-  },
-  inactive: {
-    scale: 0.75,
-    opacity: 0
-  }
 }
 
 export default DragSlider

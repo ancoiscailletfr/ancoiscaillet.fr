@@ -1,7 +1,9 @@
-import Orbit from '@/components/assets/Orbit'
 import xw from 'xwind'
+import Orbit from '@/components/assets/Orbit'
 
-const SkillsSystem = ({ orbit1, orbit2, orbit3, orbit4, orbit5, orbit6 }) => {
+const SkillsSystem = ({
+  orbit1, orbit2, orbit3, orbit4, orbit5, orbit6,
+}) => {
   return (
     <div css={xw`absolute inset-0 m-auto select-none`}>
       <Orbit css={xw`w-full h-full`} from={66} duration={44} skills={orbit6} />

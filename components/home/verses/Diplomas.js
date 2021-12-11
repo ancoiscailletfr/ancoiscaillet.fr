@@ -1,12 +1,12 @@
-import Box from '@/components/assets/Box'
-import FlipCard from '@/components/assets/FlipCard'
 import dynamic from 'next/dynamic'
 import { connect } from 'react-redux'
-import RichTextContainer from '@/components/RichTextContainer'
 import { Transformation } from 'cloudinary-react'
 import moment from 'moment'
 import xw from 'xwind'
 import { css } from '@emotion/react'
+import RichTextContainer from '@/components/RichTextContainer'
+import FlipCard from '@/components/assets/FlipCard'
+import Box from '@/components/assets/Box'
 import Image from '@/components/Image'
 
 const DragSlider = dynamic(() => import('@/components/assets/DragSlider'), { ssr: false })
@@ -19,21 +19,19 @@ const Diplomas = ({ diplomas }) => {
     <section className='container' css={xw`bg-kaki-400`}>
       <DragSlider childPerPage={{ _: 1, md: 2 }} sliderRatio={{ _: 2, md: 1 }} css={xw`z-20 grid grid-cols-2 md[grid-cols-1 grid-rows-2] gap-6 lg:gap-12`}>
         <div css={xw`grid grid-rows-2 md[grid-rows-1 grid-cols-2] gap-6 lg:gap-12`}>
-          {sortedDiplomas.slice(0, 2).map(({ id, ...props }) =>
-            <Diploma key={id} {...props} />
-          )}
+          {sortedDiplomas.slice(0, 2).map(({ id, ...props }) => <Diploma key={id} {...props} />)}
         </div>
         <div css={xw`grid grid-rows-2 md[grid-rows-1 grid-cols-2] gap-6 lg:gap-12`}>
-          {sortedDiplomas.slice(2, 4).map(({ id, ...props }) =>
-            <Diploma key={id} {...props} />
-          )}
+          {sortedDiplomas.slice(2, 4).map(({ id, ...props }) => <Diploma key={id} {...props} />)}
         </div>
       </DragSlider>
     </section>
   )
 }
 
-const Diploma = ({ title, fullTitle, school, beginning, ending, description, stamps }) => {
+const Diploma = ({
+  title, fullTitle, school, beginning, ending, description, stamps,
+}) => {
   return (
     <FlipCard>
       <Box
@@ -47,7 +45,8 @@ const Diploma = ({ title, fullTitle, school, beginning, ending, description, sta
         {fullTitle && (
           <h6 css={xw`overflow-ellipsis overflow-hidden uppercase text-center text-xs text-kaki-900 py-0.5 px-1 md:px-3 lg:px-6`}>
             {fullTitle}
-          </h6>)}
+          </h6>
+        )}
         <div css={xw`flex flex-row justify-between mt-1`}>
           <h2 css={xw`uppercase text-sm font-extrabold`}>{school}</h2>
           <span css={xw`text-sm font-light`}>
@@ -76,7 +75,7 @@ const Diploma = ({ title, fullTitle, school, beginning, ending, description, sta
 }
 
 const mapStateToProps = (state) => ({
-  diplomas: state.api.diplomas.sort((r, l) => r.id - l.id)
+  diplomas: state.api.diplomas.sort((r, l) => r.id - l.id),
 })
 
 export default connect(mapStateToProps, null)(Diplomas)

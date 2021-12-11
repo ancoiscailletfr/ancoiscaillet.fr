@@ -1,6 +1,6 @@
-import { openLinkInNewTabProps as newTab } from '@/lib/utlis'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import xw from 'xwind'
+import { openLinkInNewTabProps as newTab } from '@/lib/utlis'
 import Button from '@/components/assets/Button'
 
 const ResumeButton = () => {
@@ -11,7 +11,9 @@ const ResumeButton = () => {
       href='CV_François_Caillet.pdf'
       draggable={false}
     >
-      Mon CV <FontAwesomeIcon icon='file-pdf' css={xw`ml-1 mb-0.5`} size='xs' />
+      Mon CV
+      {' '}
+      <FontAwesomeIcon icon='file-pdf' css={xw`ml-1 mb-0.5`} size='xs' />
     </Button>
   )
 }

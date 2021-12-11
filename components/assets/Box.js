@@ -15,7 +15,8 @@ const Box = ({ children, ...props }) => (
   </BoxStyled>
 )
 
-const BoxStyled = styled.div(xw`
+const BoxStyled = styled.div(
+  xw`
    relative
    w-full h-full max-h-full
    flex flex-col 
@@ -24,8 +25,8 @@ const BoxStyled = styled.div(xw`
    p-1.5 md:p-3 lg:p-2.5 xl:p-4
    border border-solid
 `,
-css`
-  box-shadow: inset 0.05rem 0.1rem 0 rgba(255,255,255,0.125)`
+  css`
+  box-shadow: inset 0.05rem 0.1rem 0 rgba(255,255,255,0.125)`,
 )
 
 export default Box

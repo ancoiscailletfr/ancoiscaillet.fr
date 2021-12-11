@@ -3,6 +3,35 @@ import { useRouter } from 'next/router'
 import styled from '@emotion/styled'
 import xw from 'xwind'
 
+const LogoStyled = styled(motion.button)(xw`
+  focus[outline-none] rounded-full 
+  cursor-pointer 
+  w-12 h-12 
+  flex justify-center items-center
+`)
+
+const icon = {
+  hidden: {
+    opacity: 0,
+    pathLength: 0,
+  },
+  visible: {
+    opacity: 1,
+    pathLength: 0.3,
+  },
+}
+
+const fill = {
+  hidden: {
+    opacity: 0,
+    fill: 'transparent',
+  },
+  visible: {
+    opacity: 0.8,
+    fill: 'url(#paint0_linear)',
+  },
+}
+
 /**
  * My animated Logo 🎬
  * based on framer-motion path example (https://codesandbox.io/s/rutrh?module=%2Fsrc%2FExample.tsx)
@@ -13,14 +42,15 @@ const Logo = ({ ...props }) => {
   const router = useRouter()
   const handleClick = (e) => {
     e.preventDefault()
-    // noinspection JSIgnoredPromiseFromCall
-    router.pathname !== '/' && router.push('/')
+    if (router.pathname !== '/') router.push('/')
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
   return (
     <LogoStyled
       className='logo-bg'
-      name='home' aria-label='home' onClick={handleClick}
+      name='home'
+      aria-label='home'
+      onClick={handleClick}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
       {...props}
@@ -50,7 +80,7 @@ const Logo = ({ ...props }) => {
           variants={fill}
           transition={{
             duration: 2,
-            ease: [1, 0, 0.8, 1]
+            ease: [1, 0, 0.8, 1],
           }}
         />
         <motion.path
@@ -64,35 +94,6 @@ const Logo = ({ ...props }) => {
       </svg>
     </LogoStyled>
   )
-}
-
-const LogoStyled = styled(motion.button)(xw`
-  focus[outline-none] rounded-full 
-  cursor-pointer 
-  w-12 h-12 
-  flex justify-center items-center
-`)
-
-const icon = {
-  hidden: {
-    opacity: 0,
-    pathLength: 0
-  },
-  visible: {
-    opacity: 1,
-    pathLength: 0.3
-  }
-}
-
-const fill = {
-  hidden: {
-    opacity: 0,
-    fill: 'transparent'
-  },
-  visible: {
-    opacity: 0.8,
-    fill: 'url(#paint0_linear)'
-  }
 }
 
 export default Logo

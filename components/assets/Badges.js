@@ -14,7 +14,7 @@ import Image from '@/components/Image'
 const BADGE_TYPES = {
   ICON: 'icon',
   IMG: 'img',
-  LETTER: 'letter'
+  LETTER: 'letter',
 }
 
 /**
@@ -33,7 +33,9 @@ const BADGE_SIZE = 26
  * @returns {JSX.Element}
  * @constructor
  */
-const Badges = ({ badges, line = 1, all, ...props }) => {
+const Badges = ({
+  badges, line = 1, all, ...props
+}) => {
   const ref = useRef(null)
   const [nbBadgesDisplayed, setNbBadgesDisplayed] = useState(all ? badges.length : 0)
   const [showMore, toggleShowMore] = useCycle(false, true)
@@ -43,7 +45,11 @@ const Badges = ({ badges, line = 1, all, ...props }) => {
    */
   const updateNbDisplayedBadges = () => {
     const displayedBadges = Math.floor(ref.current.clientWidth / BADGE_SIZE)
-    setNbBadgesDisplayed(displayedBadges >= badges.length ? displayedBadges * line : (displayedBadges - 1) * line)
+    setNbBadgesDisplayed(
+      displayedBadges >= badges.length
+        ? displayedBadges * line
+        : (displayedBadges - 1) * line,
+    )
   }
 
   useEffect(() => {
@@ -52,9 +58,9 @@ const Badges = ({ badges, line = 1, all, ...props }) => {
         updateNbDisplayedBadges()
       }, 100)
       window.addEventListener('resize', updateNbDisplayedBadges, false)
-      return () => {
-        window.removeEventListener('resize', updateNbDisplayedBadges, false)
-      }
+    }
+    return () => {
+      window.removeEventListener('resize', updateNbDisplayedBadges, false)
     }
   }, [ref])
 
@@ -115,7 +121,7 @@ const Badge = (props) => {
         <BadgeStyled
           onHoverStart={() => setIsOpen(true)}
           onHoverEnd={() => setIsOpen(false)}
-          onTap={() => setIsOpen(v => !v)}
+          onTap={() => setIsOpen((v) => !v)}
         >
           {badge}
         </BadgeStyled>
@@ -146,7 +152,9 @@ const Badge = (props) => {
  * @returns {JSX.Element|null}
  * @constructor
  */
-export const Icon = ({ type, icon, svg, title }) => {
+export const Icon = ({
+  type, icon, svg, title,
+}) => {
   switch (type) {
     case BADGE_TYPES.ICON:
       return <FontAwesomeIcon icon={icon.length > 1 ? icon : icon[0]} />

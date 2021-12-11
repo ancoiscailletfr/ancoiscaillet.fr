@@ -1,8 +1,8 @@
 import styled from '@emotion/styled'
-import RichTextContainer from '@/components/RichTextContainer'
 import { connect } from 'react-redux'
 import xw from 'xwind'
 import { css } from '@emotion/react'
+import RichTextContainer from '@/components/RichTextContainer'
 
 const Services = ({ services }) => {
   const { brief, service1, service2 } = services
@@ -13,7 +13,8 @@ const Services = ({ services }) => {
         <Service>
           <div className='thumbnail'>
             <img
-              width={587} height={398}
+              width={587}
+              height={398}
               src='/images/service-leaddev.svg'
               alt='Lead developer'
             />
@@ -56,7 +57,7 @@ const ServiceBrief = styled(RichTextContainer)([xw`h-auto`, css`
 `])
 
 const mapStateToProps = (state) => ({
-  services: state.api.services
+  services: state.api.services,
 })
 
 export default connect(mapStateToProps, null)(Services)

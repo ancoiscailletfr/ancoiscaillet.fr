@@ -24,6 +24,7 @@ export const Word = ({ width }) => <WordStyled className='word' style={{ width }
 const Paragraph = ({ words }) => (
   <div css={xw`pb-5`}>
     {words.map((width, i) => (
+      // eslint-disable-next-line react/no-array-index-key -- here we dont give a fuu
       <Word key={i} width={width} />
     ))}
   </div>
@@ -48,6 +49,7 @@ export const ContentPlaceholder = ({ nbParagraph, ...props }) => {
   return (
     <ContentPlaceholderStyled {...props}>
       {paragraphs.map((words, i) => (
+        // eslint-disable-next-line react/no-array-index-key
         <Paragraph key={i} words={words} />
       ))}
     </ContentPlaceholderStyled>

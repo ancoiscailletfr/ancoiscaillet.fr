@@ -1,12 +1,17 @@
 import { Image, Transformation } from 'cloudinary-react'
 
-const CloudinaryImage = ({ image: { providerMetadata: { publicId }, alternativeText, width, height }, children, ...props }) => {
+const CloudinaryImage = ({
+  image: {
+    providerMetadata: { publicId }, alternativeText, width, height,
+  }, children, ...props
+}) => {
   return (
     <Image
       {...props}
       publicId={publicId}
       alt={alternativeText}
-      width={width} height={height}
+      width={width}
+      height={height}
       secure='true'
       loading='lazy'
       draggable={false}

@@ -23,8 +23,8 @@ const Copola = ({ available }) => {
    */
   const showStatusTooltip = (evt) => {
     statusTooltip.current.style.display = 'block'
-    statusTooltip.current.style.left = evt.pageX + 10 + 'px'
-    statusTooltip.current.style.top = evt.pageY + 10 + 'px'
+    statusTooltip.current.style.left = `${evt.pageX + 10 }px`
+    statusTooltip.current.style.top = `${evt.pageY + 10 }px`
   }
 
   /**
@@ -52,12 +52,20 @@ const Copola = ({ available }) => {
             <feBlend in='SourceGraphic' in2='blurOut' mode='normal' />
           </filter>
           <mask id='clipSpace'>
-            <motion.g initial={{ y: -50 }} animate={{ y: 0 }} style={{ y: translateTrapeziumsTopOnScroll }}>
+            <motion.g
+              initial={{ y: -50 }}
+              animate={{ y: 0 }}
+              style={{ y: translateTrapeziumsTopOnScroll }}
+            >
               <polygon points='125,45 275,45 250,80 150,80' fill='#ffffff' />
               <polygon points='28,187 103,58 121,97 71,183' fill='#ffffff' />
               <polygon points='297,58 372,187 329,183 279,97' fill='#ffffff' />
             </motion.g>
-            <motion.g initial={{ y: 50 }} animate={{ y: 0 }} style={{ y: translateTrapeziumsBotOnScroll }}>
+            <motion.g
+              initial={{ y: 50 }}
+              animate={{ y: 0 }}
+              style={{ y: translateTrapeziumsBotOnScroll }}
+            >
               <polygon points='297,342 372,213 329,217 279,303' fill='#ffffff' />
               <polygon points='28,213 103,342 121,303 71,217' fill='#ffffff' />
               <polygon points='125,355 275,355 250,320 150,320' fill='#ffffff' />
@@ -71,14 +79,17 @@ const Copola = ({ available }) => {
           css={xw`h-full w-full`}
           mask='url(#clipSpace)'
           xlinkHref={Modernizr.webp ? '/images/space.webp' : '/images/space.jpg'}
-          height={400} width={400}
+          height={400}
+          width={400}
           preserveAspectRatio='xMidYMid slice'
         />
         <image
           css={xw`h-full w-full`}
-          mask='url(#clipFace)' filter='inset-shadow'
+          mask='url(#clipFace)'
+          filter='inset-shadow'
           xlinkHref={Modernizr.webp ? '/images/face.webp' : '/images/face.jpg'}
-          height={400} width={400}
+          height={400}
+          width={400}
           preserveAspectRatio='xMidYMid slice'
         />
         <motion.circle
@@ -86,7 +97,9 @@ const Copola = ({ available }) => {
           onMouseMove={(evt) => showStatusTooltip(evt)}
           onMouseOut={() => hideStatusTooltip()}
           filter='url(#dropShadow)'
-          cx='271' cy='271' r='15'
+          cx='271'
+          cy='271'
+          r='15'
           transition={{ duration: 2, repeat: Infinity }}
           style={{ r: reduceStatusCircleRadius }}
         />
@@ -119,7 +132,7 @@ const StatusTooltip = styled.div(xw`
 `)
 
 const mapStateToProps = (state) => ({
-  available: state.api.us.available
+  available: state.api.us.available,
 })
 
 export default connect(mapStateToProps, null)(Copola)

@@ -23,41 +23,41 @@ const HomeBackground = () => {
             events: {
               onClick: {
                 enable: true,
-                mode: 'repulse'
+                mode: 'repulse',
               },
               onHover: {
                 enable: true,
-                mode: 'bubble'
+                mode: 'bubble',
               },
-              resize: true
+              resize: true,
             },
             modes: {
               bubble: {
                 distance: 200,
                 duration: 3,
                 opacity: 0,
-                size: 0
+                size: 0,
               },
               repulse: {
                 distance: 400,
                 duration: 0.4,
-                speed: 1
-              }
-            }
+                speed: 1,
+              },
+            },
           },
           particles: {
             number: {
               value: 75,
               density: {
                 enable: true,
-                value_area: 700
-              }
+                value_area: 700,
+              },
             },
             color: {
-              value: '#e5e5e5'
+              value: '#e5e5e5',
             },
             shape: {
-              type: 'circle'
+              type: 'circle',
             },
             opacity: {
               value: 1,
@@ -65,12 +65,12 @@ const HomeBackground = () => {
               anim: {
                 enable: true,
                 speed: 1,
-                opacity_min: 0.05
-              }
+                opacity_min: 0.05,
+              },
             },
             size: {
               value: 5,
-              random: true
+              random: true,
             },
             line_linked: {
               enable: true,
@@ -80,18 +80,18 @@ const HomeBackground = () => {
               triangles: {
                 enable: true,
                 color: '#2B2E50',
-                opacity: 0.1
-              }
+                opacity: 0.1,
+              },
             },
             move: {
               enable: true,
               speed: 0.7,
               direction: 'none',
               random: true,
-              out_mode: 'out'
-            }
+              out_mode: 'out',
+            },
           },
-          retina_detect: true
+          retina_detect: true,
         }}
       />
     </div>

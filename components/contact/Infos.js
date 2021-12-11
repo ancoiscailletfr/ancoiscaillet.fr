@@ -3,12 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styled from '@emotion/styled'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { useCycle } from 'framer-motion'
-import Platforms from '@/components/assets/Platforms'
-import { openLinkInNewTabProps as newTab } from '@/lib/utlis'
 import { Transformation } from 'cloudinary-react'
 import xw from 'xwind'
-import AvailableStatus from '@/components/assets/AvailableStatus'
 import { css } from '@emotion/react'
+import Platforms from '@/components/assets/Platforms'
+import { openLinkInNewTabProps as newTab } from '@/lib/utlis'
+import AvailableStatus from '@/components/assets/AvailableStatus'
 import Button from '@/components/assets/Button'
 import Image from '@/components/Image'
 
@@ -18,8 +18,10 @@ import Image from '@/components/Image'
  * @constructor
  */
 const Infos = ({ us }) => {
-  const { fullname, location, email, profilePicture } = us
-  const linkedin = us.socialNetworks.find(social => social.title === 'Linkedin')
+  const {
+    fullname, location, email, profilePicture,
+  } = us
+  const linkedin = us.socialNetworks.find((social) => social.title === 'Linkedin')
   const [copied, toggleCopied] = useCycle(false, true)
   const handleClickOnCopy = () => {
     toggleCopied()
@@ -63,7 +65,8 @@ const Infos = ({ us }) => {
               <FontAwesomeIcon icon={['fab', linkedin.icon]} />
               {`\t${linkedin.title}\t`}
               <FontAwesomeIcon
-                icon='external-link-alt' size='xs'
+                icon='external-link-alt'
+                size='xs'
                 css={xw`relative bottom-0.5`}
               />
             </a>
@@ -94,7 +97,7 @@ const CopyButton = styled(Button)(xw`
 `)
 
 const mapStateToProps = (state) => ({
-  us: state.api.us
+  us: state.api.us,
 })
 
 export default connect(mapStateToProps, null)(Infos)
