@@ -6,7 +6,7 @@ import HomeLayout from '@/layout/home'
  * @type {{home: (function({children: *}): JSX.Element)}}
  */
 const layouts = {
-  home: HomeLayout
+  home: HomeLayout,
 }
 
 const LayoutWrapper = (props) => {
@@ -16,7 +16,7 @@ const LayoutWrapper = (props) => {
   if (Layout) {
     return <Layout {...props}>{props.children}</Layout>
   }
-  return <>{props.children}</>
+  return props.children
 }
 
 export default LayoutWrapper

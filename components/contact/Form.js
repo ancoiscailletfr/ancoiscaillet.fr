@@ -5,9 +5,9 @@ import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { clearFormData, updateFormData } from '@/store/contact/action'
 import xw from 'xwind'
 import { css } from '@emotion/react'
+import { clearFormData, updateFormData } from '@/store/contact/action'
 import Button from '@/components/assets/Button'
 
 /**
@@ -19,28 +19,14 @@ import Button from '@/components/assets/Button'
  * @constructor
  */
 const Form = ({ formData, handleChange, clearData }) => {
-  const { fullname, email, phone, message } = formData
-  const { register, handleSubmit, reset, formState: { errors } } = useForm()
+  const {
+    fullname, email, phone, message,
+  } = formData
+  const {
+    register, handleSubmit, reset, formState: { errors },
+  } = useForm()
   const [formLoading, setFormLoading] = useState(false)
   const [sent, setSent] = useState(undefined)
-
-  /**
-   * submit form
-   * @param data to send
-   */
-  const onSubmit = data => {
-    setFormLoading(true)
-    axios.post('/api/submit', data)
-      .then(response => {
-        if (response) setSent(true)
-        setFormLoading(false)
-        resetForm()
-      })
-      .catch(_ => {
-        setSent(false)
-        setFormLoading(false)
-      })
-  }
 
   const resetForm = () => {
     setTimeout(() => {
@@ -48,6 +34,24 @@ const Form = ({ formData, handleChange, clearData }) => {
       clearData()
       reset()
     }, 3000)
+  }
+
+  /**
+   * submit form
+   * @param data to send
+   */
+  const onSubmit = (data) => {
+    setFormLoading(true)
+    axios.post('/api/submit', data)
+      .then((response) => {
+        if (response) setSent(true)
+        setFormLoading(false)
+        resetForm()
+      })
+      .catch(() => {
+        setSent(false)
+        setFormLoading(false)
+      })
   }
 
   return (
@@ -66,7 +70,9 @@ const Form = ({ formData, handleChange, clearData }) => {
             error={errors.fullname}
             onChange={(evt) => handleChange({ name: 'fullname', value: evt.target.value })}
           />
-          {errors.fullname && <Error>Veuillez renseigner votre nom complet (maximum 100 caractères)</Error>}
+          {errors.fullname && (
+            <Error>Veuillez renseigner votre nom complet (maximum 100 caractères)</Error>
+          )}
         </div>
         <div>
           <Label mandatory htmlFor='email'>Email</Label>
@@ -79,7 +85,9 @@ const Form = ({ formData, handleChange, clearData }) => {
             error={errors.email}
             onChange={(evt) => handleChange({ name: 'email', value: evt.target.value })}
           />
-          {errors.email && <Error>Veuillez renseigner votre email (exemple: &apos;johndoe@foobar.foo&apos;)</Error>}
+          {errors.email && (
+            <Error>Veuillez renseigner votre email (exemple: &apos;johndoe@foobar.foo&apos;)</Error>
+          )}
         </div>
         <div>
           <Label htmlFor='phone'>Téléphone</Label>
@@ -104,7 +112,9 @@ const Form = ({ formData, handleChange, clearData }) => {
             error={errors.message}
             onChange={(evt) => handleChange({ name: 'message', value: evt.target.value })}
           />
-          {errors.message && <Error>Veuillez saisir un message compris entre 5 et 10000 caractères</Error>}
+          {errors.message && (
+            <Error>Veuillez saisir un message compris entre 5 et 10000 caractères</Error>
+          )}
         </div>
         <div css={xw`flex justify-end -mt-5`}>
           <p css={xw`font-thin tracking-tight italic text-xs transform scale-75`}>* Obligatoire</p>
@@ -138,11 +148,11 @@ const SubmitButton = styled(Button)([xw`
   mx-auto capitalize
   bg-darkblue-500 hover:bg-darkblue-700 
   py-2 px-4
-`, props => props.disabled && xw`bg-gray-500 cursor-not-allowed pointer-events-none`])
+`, (props) => props.disabled && xw`bg-gray-500 cursor-not-allowed pointer-events-none`])
 
 const Label = styled.label([xw`
   font-bold text-xs ml-0.5 leading-3
-`, props => props.mandatory && css`
+`, (props) => props.mandatory && css`
   &::after{
     content: '*';
     font-variant-position: super;
@@ -157,16 +167,16 @@ const FormInput = styled.input([xw`
   py-2 px-3
   text-gray-700 leading-tight 
   focus[outline-none ring]
-`, props => props.error && xw`border-2 border-status-red`])
+`, (props) => props.error && xw`border-2 border-status-red`])
 
 const mapStateToProps = (state) => ({
-  formData: state.contact.formData
+  formData: state.contact.formData,
 })
 
 const mapDispatchToProps = (dispatch) => {
   return {
     handleChange: bindActionCreators(updateFormData, dispatch),
-    clearData: bindActionCreators(clearFormData, dispatch)
+    clearData: bindActionCreators(clearFormData, dispatch),
   }
 }
 

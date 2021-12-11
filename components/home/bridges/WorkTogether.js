@@ -1,9 +1,9 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { toggleContactModal } from '@/store/contact/action'
-import { hideModals } from '@/store/actions'
 import styled from '@emotion/styled'
 import xw from 'xwind'
+import { toggleContactModal } from '@/store/contact/action'
+import { hideModals } from '@/store/actions'
 import Button from '@/components/assets/Button'
 
 const WorkTogether = ({ email, toggleContactModal, hideModals }) => {
@@ -33,13 +33,13 @@ const ButtonStyled = styled(Button)(xw`
 `)
 
 const mapStateToProps = (state) => ({
-  email: state.api.us.email
+  email: state.api.us.email,
 })
 
 const mapDispatchToProps = (dispatch) => {
   return {
     toggleContactModal: bindActionCreators(toggleContactModal, dispatch),
-    hideModals: bindActionCreators(hideModals, dispatch)
+    hideModals: bindActionCreators(hideModals, dispatch),
   }
 }
 

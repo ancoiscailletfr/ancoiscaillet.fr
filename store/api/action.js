@@ -5,13 +5,13 @@ const FETCH_TYPE = 'FETCH'
 
 export const apiActionTypes = {
   FETCH_FULFILLED: FETCH_TYPE.concat('_', ActionType.Fulfilled),
-  FETCH_REJECTED: FETCH_TYPE.concat('_', ActionType.Rejected)
+  FETCH_REJECTED: FETCH_TYPE.concat('_', ActionType.Rejected),
 }
 
 const fetch = (path) => (
   {
     type: FETCH_TYPE,
-    payload: axios.get(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/${path}`)
+    payload: axios.get(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/${path}`),
   }
 )
 

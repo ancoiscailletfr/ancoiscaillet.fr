@@ -14,6 +14,18 @@ import Meta from '@/components/Meta'
 import LayoutWrapper from '@/layout/layoutWrapper'
 import ContactModal from '@/components/modal/ContactModal'
 
+const pageVariants = {
+  pageInitial: {
+    opacity: 1,
+  },
+  pageAnimate: {
+    opacity: 1,
+  },
+  pageExit: {
+    opacity: 1,
+  },
+}
+
 const App = ({ Component, pageProps, router }) => (
   <>
     <Loader />
@@ -22,7 +34,11 @@ const App = ({ Component, pageProps, router }) => (
     <Global styles={xw`XWIND_GLOBAL`} />
     <AnimatePresence exitBeforeEnter>
       <motion.div
-        key={router.route} initial='pageInitial' animate='pageAnimate' exit='pageExit' variants={pageVariants}
+        key={router.route}
+        initial='pageInitial'
+        animate='pageAnimate'
+        exit='pageExit'
+        variants={pageVariants}
       >
         <CloudinaryContext cloudName='francoiscaillet'>
           <ContactModal />
@@ -34,17 +50,5 @@ const App = ({ Component, pageProps, router }) => (
     </AnimatePresence>
   </>
 )
-
-const pageVariants = {
-  pageInitial: {
-    opacity: 1
-  },
-  pageAnimate: {
-    opacity: 1
-  },
-  pageExit: {
-    opacity: 1
-  }
-}
 
 export default wrapper.withRedux(App)

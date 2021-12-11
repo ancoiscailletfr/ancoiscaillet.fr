@@ -54,7 +54,8 @@ const RotatingPlanet = ({ planet, satellite }) => {
       <motion.svg
         css={xw`text-gray-platinum`}
         style={{ originX: '50%', originY: '50%', scale: scaleAll }}
-        height='100%' width='100%'
+        height='100%'
+        width='100%'
         viewBox='0 0 1000 1000'
       >
         <motion.g style={{ originX: '50%', originY: '200%', rotate: rotateOrbit }}>
@@ -62,12 +63,17 @@ const RotatingPlanet = ({ planet, satellite }) => {
           <motion.g style={{ scale: scalePlanet }}>
             {planet}
           </motion.g>
-          <motion.g style={{ originX: '50%', originY: '50%', rotate: rotateSat, scale: scaleOrbit }}>
+          <motion.g style={{
+            originX: '50%', originY: '50%', rotate: rotateSat, scale: scaleOrbit,
+          }}
+          >
             <Orbit cx='50%' cy='50%' r='40%' />
             <image
               css={css`width: 10%; height: 10%`}
-              x='50%' y='5%'
-              width={16} height={16}
+              x='50%'
+              y='5%'
+              width={16}
+              height={16}
               href={`/images/${satellite}.svg`}
             />
           </motion.g>

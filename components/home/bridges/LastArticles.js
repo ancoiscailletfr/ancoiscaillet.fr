@@ -1,4 +1,3 @@
-
 /**
  * TODO last 3 articles of blog
  * @returns {JSX.Element}

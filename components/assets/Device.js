@@ -19,25 +19,25 @@ const Device = ({ title, content }) => {
     <div css={xw`relative flex flex-row mr-2`}>
       {
         (content.length > 2)
-          ? content.map((icon, i) => (
+          ? content.map((icon) => (
             <DeviceStyled
-              key={i}
+              key={icon}
               onHoverStart={() => setHovered(true)}
               onHoverEnd={() => setHovered(false)}
-              onTap={() => setHovered(v => !v)}
+              onTap={() => setHovered((v) => !v)}
             >
               <FontAwesomeIcon icon={icon} />
             </DeviceStyled>
-            ))
+          ))
           : (
             <DeviceStyled
               onHoverStart={() => setHovered(true)}
               onHoverEnd={() => setHovered(false)}
-              onTap={() => setHovered(v => !v)}
+              onTap={() => setHovered((v) => !v)}
             >
               <FontAwesomeIcon icon={content.length > 1 ? content : content[0]} />
             </DeviceStyled>
-            )
+          )
       }
       {isHovered && (
         <AnimatePresence>

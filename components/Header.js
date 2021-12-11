@@ -1,8 +1,10 @@
-import { motion, useSpring, useTransform, useViewportScroll } from 'framer-motion'
+import {
+  motion, useSpring, useTransform, useViewportScroll,
+} from 'framer-motion'
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
 import xw from 'xwind'
-import { bp } from 'lib/constants'
+import { bp } from '@/lib/constants'
 import Logo from '@/components/assets/Logo'
 import Navigation from '@/components/navigation'
 
@@ -21,7 +23,8 @@ const Header = () => {
    * hide header when scroll down, reappear on scroll up, for medium devices
    */
   scrollY.onChange((latest) => {
-    if (window.innerWidth < bp.md && latest > 500 && Math.sign(scrollY.getPrevious() - latest) < 0) {
+    if (window.innerWidth < bp.md && latest > 500
+        && Math.sign(scrollY.getPrevious() - latest) < 0) {
       y.set(-60)
     } else {
       y.set(0)

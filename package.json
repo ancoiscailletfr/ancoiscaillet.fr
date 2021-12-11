@@ -45,24 +45,24 @@
     "remark-react": "^8.0.0",
     "smoothscroll-polyfill": "^0.4.4",
     "typewriter-effect": "^2.18.2",
-    "unified": "^9.2.2"
+    "unified": "^9.2.2",
+    "xwind": "^0.7.4"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
+    "@babel/eslint-parser": "^7.16.3",
     "@emotion/babel-plugin": "^11.3.0",
     "autoprefixer": "^10.4.0",
     "babel-eslint": "^10.1.0",
     "babel-plugin-emotion": "^11.0.0",
-    "eslint": "^7.12.1",
-    "eslint-config-standard": "^16.0.3",
-    "eslint-config-standard-jsx": "^10.0.0",
+    "eslint": "^8.4.1",
+    "eslint-config-airbnb": "^19.0.2",
+    "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.3.1",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.27.1",
-    "eslint-plugin-standard": "^4.1.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
     "postcss": "^8.4.4",
-    "tailwindcss": "^2.0.2",
-    "xwind": "^0.7.4"
+    "tailwindcss": "^2.0.2"
   }
 }

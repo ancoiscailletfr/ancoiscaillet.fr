@@ -1,7 +1,6 @@
-import { APP_NAME } from '@/lib/constants'
 import Head from 'next/head'
+import { APP_NAME } from '@/lib/constants'
 
-// noinspection HtmlRequiredTitleElement - remove this warning because title is filled in by next-seo
 /**
  * populate head with vendor script & other meta data
  * @returns {JSX.Element}
@@ -10,12 +9,13 @@ import Head from 'next/head'
 const Meta = () => (
   <Head>
     <script async src='https://www.googletagmanager.com/gtag/js?id=G-NFPV2GTSD1' />
+    {/* eslint-disable-next-line react/no-danger -- TODO */}
     <script dangerouslySetInnerHTML={{
       __html: `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 
-gtag('config', 'G-NFPV2GTSD1');`
+gtag('config', 'G-NFPV2GTSD1');`,
     }}
     />
     <meta charSet='utf-8' />
@@ -30,7 +30,7 @@ gtag('config', 'G-NFPV2GTSD1');`
     <meta name='msapplication-TileColor' content='#D40707' />
     <meta name='theme-color' content='#141414' />
 
-    <link rel='shortcut icon' type='image/x-icon' href='/icons/favicon.ico' />
+    <link rel='icon' type='image/x-icon' href='/icons/favicon.ico' />
     <link rel='apple-touch-icon' sizes='180x180' href='/icons/apple-touch-icon.png' />
     <link rel='icon' type='image/png' sizes='32x32' href='/icons/favicon-32x32.png' />
     <link rel='icon' type='image/png' sizes='192x192' href='/icons/android-chrome-192x192.png' />
@@ -41,8 +41,9 @@ gtag('config', 'G-NFPV2GTSD1');`
 
     <script type='text/javascript' src='modernizr-custom.js' />
 
+    {/* eslint-disable-next-line react/no-danger -- TODO */}
     <script dangerouslySetInnerHTML={{
-      __html: 'window.onload = () => { document.getElementById(\'loader\').dataset.hide = \'true\'}'
+      __html: 'window.onload = () => { document.getElementById(\'loader\').dataset.hide = \'true\'}',
     }}
     />
   </Head>

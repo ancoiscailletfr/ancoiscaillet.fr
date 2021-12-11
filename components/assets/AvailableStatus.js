@@ -17,7 +17,7 @@ const AvailableStatus = ({ available }) => (
 )
 
 const mapStateToProps = (state) => ({
-  available: state.api.us.available
+  available: state.api.us.available,
 })
 
 export default connect(mapStateToProps, null)(AvailableStatus)

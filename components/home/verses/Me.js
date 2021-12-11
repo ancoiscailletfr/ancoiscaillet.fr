@@ -9,12 +9,15 @@ import Box from '@/components/assets/Box'
 import RichTextContainer from '@/components/RichTextContainer'
 import ResumeButton from '@/components/assets/ResumeButton'
 import Image from '@/components/Image'
+
 const DragSlider = dynamic(() => import('@/components/assets/DragSlider'), { ssr: false })
 
 const ME_BOX_COLOR = xw`bg-orange-400 border-orange-700 text-gray-platinum bg-opacity-75 border-opacity-50`
 
 const Me = ({ us }) => {
-  const { profilePicture, fullname, birthday, location, currentJob, shifting, whoami, hobbies, brief } = us
+  const {
+    profilePicture, fullname, birthday, location, currentJob, shifting, whoami, hobbies, brief,
+  } = us
   return (
     <section className='container' css={xw`bg-orange-400`}>
       <DragSlider
@@ -43,9 +46,17 @@ const Me = ({ us }) => {
           <div css={xw`flex flex-col justify-around items-center h-5/6`}>
             <div css={xw`text-center leading-relaxed`}>
               <h2 css={xw`font-medium text-xl text-orange-900`}>{fullname}</h2>
-              <span>{moment().diff(birthday, 'years')} ans</span>
+              <span>
+                {moment().diff(birthday, 'years')}
+                {' '}
+                ans
+              </span>
               <h3 css={xw`font-medium text-lg mb-2.5 xl:mb-5`}>{currentJob}</h3>
-              <h4 css={xw`font-medium mb-1 text-sm lg:text-xs xl:text-sm`}><FontAwesomeIcon icon='map-pin' /> {location}</h4>
+              <h4 css={xw`font-medium mb-1 text-sm lg:text-xs xl:text-sm`}>
+                <FontAwesomeIcon icon='map-pin' />
+                {' '}
+                {location}
+              </h4>
               <h4 css={xw`text-sm lg:text-xs xl:text-sm`}>{shifting}</h4>
             </div>
             <p css={xw`text-base lg:text-sm text-center font-medium tracking-tight text-orange-900 whitespace-pre-line`}>
@@ -73,7 +84,7 @@ const Me = ({ us }) => {
 }
 
 const mapStateToProps = (state) => ({
-  us: state.api.us
+  us: state.api.us,
 })
 
 export default connect(mapStateToProps, null)(Me)

@@ -12,7 +12,7 @@ import Verse from '@/components/home/Verse'
  */
 const SECTIONS = {
   [SECTION_TYPE.VERSE]: Verse,
-  [SECTION_TYPE.BRIDGE]: Bridge
+  [SECTION_TYPE.BRIDGE]: Bridge,
 }
 
 /**
@@ -20,13 +20,12 @@ const SECTIONS = {
  * My resume/portfolio/CV
  * each section is a part of my resume (experiences, diplomas..)
  * @returns {JSX.Element}
- * @constructor
  */
 export const Home = () => (
   <>
-    {sections.map(({ type, ...props }, i) => {
+    {sections.map(({ type, ...props }) => {
       const Section = SECTIONS[type] ?? null
-      return <Section key={i} {...props} />
+      return <Section key={props.title ?? props.slug} {...props} />
     })}
   </>
 )
@@ -35,7 +34,7 @@ export const Home = () => (
  * fetch app states
  */
 export const getStaticProps = wrapper.getStaticProps(
-  fetchData()
+  fetchData(),
 )
 
 Home.layout = 'home'

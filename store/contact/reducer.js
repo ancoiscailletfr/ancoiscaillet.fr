@@ -5,11 +5,11 @@ const defaultFormData = {
   fullname: '',
   email: '',
   phone: '',
-  message: ''
+  message: '',
 }
 const contactInitialState = {
   showContactModal: false,
-  formData: defaultFormData
+  formData: defaultFormData,
 }
 
 /**
@@ -18,26 +18,19 @@ const contactInitialState = {
  * @param action
  * @returns {{showContactModal: boolean}}
  */
-export default function reducer (state = contactInitialState, action) {
+export default function reducer(state = contactInitialState, action) {
   switch (action.type) {
     case contactActionTypes.TOGGLE_CONTACT_MODAL:
-      return Object.assign({}, state, {
-        showContactModal: !state.showContactModal
-      })
+      return { ...state, showContactModal: !state.showContactModal }
     case mainActionType.HIDE_MODALS:
-      return Object.assign({}, state, {
-        showContactModal: false
-      })
+      return { ...state, showContactModal: false }
     case contactActionTypes.CLEAR_FORM_DATA:
-      return Object.assign({}, state, {
-        formData: defaultFormData
-      })
+      return { ...state, formData: defaultFormData }
     case contactActionTypes.UPDATE_FORM_DATA:
-      return Object.assign({}, state, {
-        formData: Object.assign({}, state.formData, {
-          [action.payload.name]: action.payload.value
-        })
-      })
+      return {
+        ...state,
+        formData: { ...state.formData, [action.payload.name]: action.payload.value },
+      }
     default:
       return state
   }

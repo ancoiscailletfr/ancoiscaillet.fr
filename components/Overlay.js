@@ -2,6 +2,17 @@ import styled from '@emotion/styled'
 import { motion } from 'framer-motion'
 import xw from 'xwind'
 
+const OverlayStyled = styled(motion.div)(xw`
+  fixed top-0 left-0
+  w-full h-full 
+  bg-gray-900 bg-opacity-50
+`)
+
+const backdrop = {
+  visible: { opacity: 1 },
+  hidden: { opacity: 0 },
+}
+
 /**
  * basic overlay
  * @param children
@@ -21,16 +32,5 @@ const Overlay = ({ children, ...props }) => (
     {children}
   </>
 )
-
-const OverlayStyled = styled(motion.div)(xw`
-  fixed top-0 left-0
-  w-full h-full 
-  bg-gray-900 bg-opacity-50
-`)
-
-const backdrop = {
-  visible: { opacity: 1 },
-  hidden: { opacity: 0 }
-}
 
 export default Overlay

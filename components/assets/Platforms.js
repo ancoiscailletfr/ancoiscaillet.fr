@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { connect } from 'react-redux'
-import { openLinkInNewTabProps as newTab } from '@/lib/utlis'
 import { Transformation } from 'cloudinary-react'
 import xw from 'xwind'
+import { openLinkInNewTabProps as newTab } from '@/lib/utlis'
 import Image from '@/components/Image'
 
 /**
@@ -31,7 +31,7 @@ const Platforms = ({ platforms }) => {
 }
 
 const mapStateToProps = (state) => ({
-  platforms: state.api.us.platforms
+  platforms: state.api.us.platforms,
 })
 
 export default connect(mapStateToProps, null)(Platforms)

@@ -3,6 +3,15 @@ import { motion, useCycle } from 'framer-motion'
 import xw from 'xwind'
 import { css } from '@emotion/react'
 
+const flipCard = {
+  back: {
+    rotateX: 180,
+  },
+  front: {
+    rotateX: 0,
+  },
+}
+
 /**
  * flip card
  * X axis rotating box while tap it
@@ -40,15 +49,6 @@ const FlipCard = ({ children, ...props }) => {
       </motion.div>
     </motion.div>
   )
-}
-
-const flipCard = {
-  back: {
-    rotateX: 180
-  },
-  front: {
-    rotateX: 0
-  }
 }
 
 export default FlipCard
