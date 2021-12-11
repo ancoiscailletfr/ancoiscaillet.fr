@@ -1,4 +1,3 @@
-import React from 'react'
 import Particles from 'react-tsparticles'
 import xw from 'xwind'
 import { css } from '@emotion/react'

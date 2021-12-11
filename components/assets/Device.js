@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styled from '@emotion/styled'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -64,10 +63,5 @@ const Tooltip = styled(motion.div)([xw`
     border-color: currentColor transparent transparent transparent;
   }
 `])
-
-Device.propTypes = {
-  content: PropTypes.any.isRequired,
-  title: PropTypes.string.isRequired
-}
 
 export default Device

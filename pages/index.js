@@ -1,8 +1,5 @@
-import React from 'react'
-
 import { wrapper } from '@/store/store'
 import { fetchData } from '@/store/api/action'
-
 import { SECTION_TYPE, sections } from '@/lib/constants'
 import Bridge from '@/components/home/Bridge'
 import Verse from '@/components/home/Verse'

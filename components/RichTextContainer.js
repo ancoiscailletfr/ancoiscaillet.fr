@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types'
-import React from 'react'
 import styled from '@emotion/styled'
 import xw from 'xwind'
 import { css } from '@emotion/react'
@@ -31,9 +29,5 @@ const RichTextStyled = styled.div([xw`
   hr:before, hr:after {${xw`table`}; content: "";}
   hr:after {${xw`clear-both`}}
 `])
-
-RichTextContainer.propTypes = {
-  children: PropTypes.string
-}
 
 export default RichTextContainer

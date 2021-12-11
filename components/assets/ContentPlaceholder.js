@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import xw from 'xwind'
 import { css } from '@emotion/react'
@@ -16,10 +15,6 @@ const generateWordLength = () => randomInt(20, 100)
  */
 export const Word = ({ width }) => <WordStyled className='word' style={{ width }} />
 
-Word.propTypes = {
-  width: PropTypes.number
-}
-
 /**
  * paragraph placeholder, a series of words
  * @param words
@@ -33,10 +28,6 @@ const Paragraph = ({ words }) => (
     ))}
   </div>
 )
-
-Paragraph.propTypes = {
-  words: PropTypes.array
-}
 
 /**
  * content placeholder, a series of paragraphs
@@ -72,7 +63,3 @@ const ContentPlaceholderStyled = styled.div([xw`
 const WordStyled = styled.div(xw`
   h-3 md:h-4 rounded-lg inline-block mb-2.5 mr-2
 `)
-
-ContentPlaceholder.propTypes = {
-  nbParagraph: PropTypes.number
-}

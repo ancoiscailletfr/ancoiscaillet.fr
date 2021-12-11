@@ -1,12 +1,8 @@
-/* eslint-disable no-undef */
-import PropTypes from 'prop-types'
-import React, { useRef } from 'react'
+/* eslint-disable no-undef */import { useRef } from 'react'
 import { motion, useTransform, useViewportScroll } from 'framer-motion'
 import styled from '@emotion/styled'
 import xw from 'xwind'
-
 import { connect } from 'react-redux'
-
 import AvailableStatus from '@/components/assets/AvailableStatus'
 
 /**
@@ -125,9 +121,5 @@ const StatusTooltip = styled.div(xw`
 const mapStateToProps = (state) => ({
   available: state.api.us.available
 })
-
-Copola.propTypes = {
-  available: PropTypes.bool
-}
 
 export default connect(mapStateToProps, null)(Copola)

@@ -1,7 +1,5 @@
-import React from 'react'
 import styled from '@emotion/styled'
 import { motion } from 'framer-motion'
-import PropTypes from 'prop-types'
 import xw from 'xwind'
 
 /**
@@ -33,11 +31,6 @@ const OverlayStyled = styled(motion.div)(xw`
 const backdrop = {
   visible: { opacity: 1 },
   hidden: { opacity: 0 }
-}
-
-Overlay.propTypes = {
-  children: PropTypes.any,
-  className: PropTypes.string
 }
 
 export default Overlay

@@ -1,8 +1,6 @@
-import React from 'react'
 import { bindActionCreators } from 'redux'
 import { toggleSidebar } from '@/store/navigation/action'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 import Sidebar from '@/components/modal/Sidebar'
 import { motion } from 'framer-motion'
 import styled from '@emotion/styled'
@@ -83,11 +81,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     toggleSidebar: bindActionCreators(toggleSidebar, dispatch)
   }
-}
-
-MenuBurger.propTypes = {
-  showSidebar: PropTypes.bool,
-  toggleSidebar: PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuBurger)

@@ -1,5 +1,3 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import xw from 'xwind'
 
@@ -17,10 +15,6 @@ const AvailableStatus = ({ available }) => (
       : <span css={xw`text-status-unavailable`}>indisponible</span>}
   </>
 )
-
-AvailableStatus.propTypes = {
-  available: PropTypes.bool.isRequired
-}
 
 const mapStateToProps = (state) => ({
   available: state.api.us.available

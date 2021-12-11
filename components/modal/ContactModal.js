@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
+import { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { toggleContactModal } from '@/store/contact/action'
 import { bindActionCreators } from 'redux'
@@ -145,11 +144,6 @@ const modal = {
     x: '-50%',
     opacity: 1
   }
-}
-
-ContactModal.propTypes = {
-  showContactModal: PropTypes.bool.isRequired,
-  toggleContactModal: PropTypes.any.isRequired
 }
 
 const mapStateToProps = (state) => ({

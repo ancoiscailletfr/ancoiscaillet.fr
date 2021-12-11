@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types'
-import React from 'react'
 import { useInView } from 'react-intersection-observer'
 import { motion } from 'framer-motion'
 import styled from '@emotion/styled'
@@ -50,10 +48,5 @@ const BridgeContainer = styled(motion.section)(xw`
   text-gray-100 
   py-12 lg:py-24 px-3 md:px-6 lg:px-12
 `)
-
-Bridge.propTypes = {
-  content: PropTypes.node,
-  title: PropTypes.string
-}
 
 export default Bridge

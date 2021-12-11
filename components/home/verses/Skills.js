@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types'
-import React from 'react'
 import Box from '@/components/assets/Box'
 import SkillsSystem from '@/components/assets/SkillsSystem'
 import AspectRatio from '@/components/utils/AspectRatio'
@@ -44,7 +42,3 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, null)(Skills)
-
-Skills.propTypes = {
-  skills: PropTypes.object
-}

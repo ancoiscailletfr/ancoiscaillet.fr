@@ -1,11 +1,8 @@
-import React from 'react'
 import { motion, useSpring, useTransform, useViewportScroll } from 'framer-motion'
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
 import xw from 'xwind'
-
 import { bp } from 'lib/constants'
-
 import Logo from '@/components/assets/Logo'
 import Navigation from '@/components/navigation'
 

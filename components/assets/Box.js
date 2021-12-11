@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types'
-import React from 'react'
 import styled from '@emotion/styled'
 import xw from 'xwind'
 import { css } from '@emotion/react'
@@ -29,9 +27,5 @@ const BoxStyled = styled.div(xw`
 css`
   box-shadow: inset 0.05rem 0.1rem 0 rgba(255,255,255,0.125)`
 )
-
-Box.propTypes = {
-  children: PropTypes.any
-}
 
 export default Box

@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types'
-import React from 'react'
 import xw from 'xwind'
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
@@ -52,9 +50,5 @@ const PoweredByContainer = styled.div([xw`
 const mapStateToProps = (state) => ({
   poweredBy: state.api.poweredBy
 })
-
-PoweredBy.propTypes = {
-  poweredBy: PropTypes.array
-}
 
 export default connect(mapStateToProps, null)(PoweredBy)

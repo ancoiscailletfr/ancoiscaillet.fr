@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types'
-import React from 'react'
 import styled from '@emotion/styled'
 import xw from 'xwind'
 
@@ -27,9 +25,5 @@ const ButtonStyled = styled.button(xw`
   bg-darkblue-600 bg-opacity-75 hover:bg-darkblue-500
   focus[outline-none ring bg-opacity-100]
 `)
-
-Button.propTypes = {
-  children: PropTypes.any
-}
 
 export default Button

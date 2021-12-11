@@ -1,4 +1,3 @@
-import React from 'react'
 
 /**
  * TODO last 3 articles of blog

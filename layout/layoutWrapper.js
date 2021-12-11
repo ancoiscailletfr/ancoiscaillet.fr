@@ -1,6 +1,3 @@
-import PropTypes from 'prop-types'
-import React from 'react'
-
 import HomeLayout from '@/layout/home'
 
 /**
@@ -20,10 +17,6 @@ const LayoutWrapper = (props) => {
     return <Layout {...props}>{props.children}</Layout>
   }
   return <>{props.children}</>
-}
-
-LayoutWrapper.propTypes = {
-  children: PropTypes.any
 }
 
 export default LayoutWrapper

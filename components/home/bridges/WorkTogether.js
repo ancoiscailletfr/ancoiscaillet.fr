@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types'
-import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { toggleContactModal } from '@/store/contact/action'
@@ -43,12 +41,6 @@ const mapDispatchToProps = (dispatch) => {
     toggleContactModal: bindActionCreators(toggleContactModal, dispatch),
     hideModals: bindActionCreators(hideModals, dispatch)
   }
-}
-
-WorkTogether.propTypes = {
-  email: PropTypes.string,
-  hideModals: PropTypes.func,
-  toggleContactModal: PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkTogether)

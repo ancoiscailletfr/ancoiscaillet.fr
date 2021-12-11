@@ -1,5 +1,4 @@
-import React, { Fragment } from 'react'
-import PropTypes from 'prop-types'
+import { Fragment } from 'react'
 import { navigations } from '@/lib/constants'
 import Link from '@/components/navigation/Link'
 import ButtonContactStyled from '@/components/navigation/ButtonContactStyled'
@@ -27,15 +26,6 @@ const Links = ({ noSeparator }) => {
       </li>
     </ul>
   )
-}
-
-Links.propTypes = {
-  children: PropTypes.any,
-  noSeparator: PropTypes.bool
-}
-
-Links.defaultProps = {
-  noSeparator: false
 }
 
 export default Links

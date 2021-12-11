@@ -1,11 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { motion, useTransform, useViewportScroll } from 'framer-motion'
 import styled from '@emotion/styled'
 import dynamic from 'next/dynamic'
 import GraphemeSplitter from 'grapheme-splitter'
 import xw from 'xwind'
-
 import { connect } from 'react-redux'
 import { css } from '@emotion/react'
 
@@ -98,10 +95,6 @@ const Box = styled.section([xw`
   h-1/3
   text-gray-platinum text-center
 `, css`padding-top: 56px`])
-
-Intro.propTypes = {
-  us: PropTypes.object.isRequired
-}
 
 const mapStateToProps = (state) => ({
   us: state.api.us

@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types'
-import React from 'react'
 import Badges from '@/components/assets/Badges'
 import Device from '@/components/assets/Device'
 import { bp } from '@/lib/constants'
@@ -108,25 +106,8 @@ const Logo = styled.div(xw`
   border-4 border-solid border-yellow-400
 `)
 
-Project.propTypes = {
-  badges: PropTypes.any,
-  beginning: PropTypes.string,
-  color: PropTypes.string,
-  description: PropTypes.string,
-  devices: PropTypes.array,
-  ending: PropTypes.string,
-  logo: PropTypes.any,
-  thumbnail: PropTypes.object,
-  title: PropTypes.string,
-  url: PropTypes.string
-}
-
 const mapStateToProps = (state) => ({
   projects: state.api.projects
 })
-
-Projects.propTypes = {
-  projects: PropTypes.array
-}
 
 export default connect(mapStateToProps, null)(Projects)

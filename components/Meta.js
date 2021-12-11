@@ -1,4 +1,3 @@
-import React from 'react'
 import { APP_NAME } from '@/lib/constants'
 import Head from 'next/head'
 

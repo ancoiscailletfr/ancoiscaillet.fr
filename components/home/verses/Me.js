@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types'
-import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import dynamic from 'next/dynamic'
 import { connect } from 'react-redux'
@@ -7,7 +5,6 @@ import xw from 'xwind'
 import { Transformation } from 'cloudinary-react'
 import moment from 'moment'
 import { css } from '@emotion/react'
-
 import Box from '@/components/assets/Box'
 import RichTextContainer from '@/components/RichTextContainer'
 import ResumeButton from '@/components/assets/ResumeButton'
@@ -73,10 +70,6 @@ const Me = ({ us }) => {
       </DragSlider>
     </section>
   )
-}
-
-Me.propTypes = {
-  us: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
