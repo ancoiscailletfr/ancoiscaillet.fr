@@ -63,7 +63,6 @@
     "eslint-plugin-standard": "^4.1.0",
     "postcss": "^8.4.4",
     "tailwindcss": "^2.0.2",
-    "webpack": "^4.46.0",
     "xwind": "^0.7.4"
   }
 }
