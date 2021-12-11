@@ -1,12 +1,10 @@
-import PropTypes from 'prop-types'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AnimatePresence, motion, useCycle } from 'framer-motion'
 import styled from '@emotion/styled'
 import { Transformation } from 'cloudinary-react'
 import xw from 'xwind'
 import { css } from '@emotion/react'
-
 import Image from '@/components/Image'
 
 /**
@@ -35,7 +33,7 @@ const BADGE_SIZE = 26
  * @returns {JSX.Element}
  * @constructor
  */
-const Badges = ({ badges, line, all, ...props }) => {
+const Badges = ({ badges, line = 1, all, ...props }) => {
   const ref = useRef(null)
   const [nbBadgesDisplayed, setNbBadgesDisplayed] = useState(all ? badges.length : 0)
   const [showMore, toggleShowMore] = useCycle(false, true)
@@ -138,10 +136,6 @@ const Badge = (props) => {
   )
 }
 
-Badge.propTypes = {
-  title: PropTypes.string
-}
-
 /**
  * icon to display
  * @param type svg,icon,letter
@@ -171,13 +165,6 @@ export const Icon = ({ type, icon, svg, title }) => {
   }
 }
 
-Icon.propTypes = {
-  icon: PropTypes.any,
-  svg: PropTypes.any,
-  title: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired
-}
-
 const Pop = styled(motion.span)(xw`
   absolute inset-y-0 right-0.5 z-0 
   w-auto h-full rounded-full bg-gray-platinum
@@ -200,17 +187,5 @@ const BadgeStyled = styled(motion.div)([xw`
   img { ${xw`p-1`} }
   span { ${xw`uppercase text-sm font-semibold text-gray-700`} }
 `])
-
-Badges.propTypes = {
-  all: PropTypes.bool,
-  badges: PropTypes.array,
-  line: PropTypes.number,
-  maxBadgesDisplayed: PropTypes.number
-}
-
-Badges.defaultProps = {
-  all: false,
-  line: 1
-}
 
 export default Badges

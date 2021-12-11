@@ -1,7 +1,5 @@
-import React from 'react'
 import { motion } from 'framer-motion'
 import styled from '@emotion/styled'
-import PropTypes from 'prop-types'
 import { toggleContactModal } from '@/store/contact/action'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -17,7 +15,7 @@ import Button from '@/components/assets/Button'
  * @returns {JSX.Element}
  * @constructor
  */
-const ButtonContactStyled = ({ repeatDelay, toggleContactModal, hideModals }) => (
+const ButtonContactStyled = ({ repeatDelay = 300, toggleContactModal, hideModals }) => (
   <motion.div
     animate={{ x: [0, -4, 4, -8, 8, 0] }}
     transition={{ type: 'spring', delay: repeatDelay, duration: 1, repeat: Infinity, repeatDelay: repeatDelay }}
@@ -52,18 +50,6 @@ const EnvelopeIcon = styled.svg(xw`
   fill-current 
   transition ease-in-out duration-150 animate-pulse
 `)
-
-ButtonContactStyled.propTypes = {
-  hideModal: PropTypes.func,
-  hideModals: PropTypes.func,
-  repeatDelay: PropTypes.number.isRequired,
-  showContactModal: PropTypes.bool,
-  toggleContactModal: PropTypes.func.isRequired
-}
-
-ButtonContactStyled.defaultProps = {
-  repeatDelay: 300
-}
 
 const mapDispatchToProps = (dispatch) => {
   return {

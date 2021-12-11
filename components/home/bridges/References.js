@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Transformation } from 'cloudinary-react'
 import RichTextContainer from '@/components/RichTextContainer'
 import { connect } from 'react-redux'
@@ -153,22 +152,6 @@ const refCard = {
   behind: {
     opacity: 0.4
   }
-}
-
-Reference.propTypes = {
-  active: PropTypes.bool,
-  author: PropTypes.string,
-  avatar: PropTypes.object,
-  company: PropTypes.string,
-  companyUrl: PropTypes.string,
-  description: PropTypes.string,
-  next: PropTypes.func,
-  previous: PropTypes.func,
-  rotateX: PropTypes.any
-}
-
-References.propTypes = {
-  references: PropTypes.array
 }
 
 const mapStateToProps = (state) => ({

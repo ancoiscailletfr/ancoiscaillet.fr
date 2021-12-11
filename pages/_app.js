@@ -1,19 +1,14 @@
-/* eslint-disable react/prop-types */
-import React from 'react'
 import { DefaultSeo } from 'next-seo'
 import { CloudinaryContext } from 'cloudinary-react'
 import { Global } from '@emotion/react'
 import { AnimatePresence, motion } from 'framer-motion'
 import xw from 'xwind'
-
 import { wrapper } from '@/store/store'
-
 import '@/styles/base.css'
 import '@/lib/fontawesome'
 import '@/lib/smoothScroll'
 import '@/lib/moment'
 import SEO from '../next-seo.config'
-
 import Loader from '@/components/assets/Loader'
 import Meta from '@/components/Meta'
 import LayoutWrapper from '@/layout/layoutWrapper'

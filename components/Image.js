@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types'
-import React from 'react'
 import { Image, Transformation } from 'cloudinary-react'
 
 const CloudinaryImage = ({ image: { providerMetadata: { publicId }, alternativeText, width, height }, children, ...props }) => {
@@ -17,11 +15,6 @@ const CloudinaryImage = ({ image: { providerMetadata: { publicId }, alternativeT
       <Transformation fetchFormat='auto' quality='auto' dpr='2.0' />
     </Image>
   )
-}
-
-CloudinaryImage.propTypes = {
-  children: PropTypes.any,
-  image: PropTypes.object
 }
 
 export default CloudinaryImage

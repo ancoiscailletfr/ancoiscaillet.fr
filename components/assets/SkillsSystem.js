@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types'
-import React from 'react'
 import Orbit from '@/components/assets/Orbit'
 import xw from 'xwind'
 
@@ -14,15 +12,6 @@ const SkillsSystem = ({ orbit1, orbit2, orbit3, orbit4, orbit5, orbit6 }) => {
       <Orbit css={xw`w-2/12 h-2/12`} from={90} duration={34} skills={orbit1} />
     </div>
   )
-}
-
-SkillsSystem.propTypes = {
-  orbit1: PropTypes.array,
-  orbit2: PropTypes.array,
-  orbit3: PropTypes.array,
-  orbit4: PropTypes.array,
-  orbit5: PropTypes.array,
-  orbit6: PropTypes.array
 }
 
 export default SkillsSystem

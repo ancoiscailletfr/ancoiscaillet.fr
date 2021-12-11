@@ -22,7 +22,6 @@ export const toggleContactModal = () => (dispatch) => {
  * @returns {function(*): *}
  */
 export const updateFormData = (data) => (dispatch) => {
-  console.log(data)
   return dispatch({ type: contactActionTypes.UPDATE_FORM_DATA, payload: data })
 }
 

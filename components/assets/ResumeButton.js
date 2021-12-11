@@ -1,8 +1,6 @@
-import React from 'react'
 import { openLinkInNewTabProps as newTab } from '@/lib/utlis'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import xw from 'xwind'
-
 import Button from '@/components/assets/Button'
 
 const ResumeButton = () => {

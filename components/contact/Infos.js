@@ -1,5 +1,3 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styled from '@emotion/styled'
@@ -98,9 +96,5 @@ const CopyButton = styled(Button)(xw`
 const mapStateToProps = (state) => ({
   us: state.api.us
 })
-
-Infos.propTypes = {
-  us: PropTypes.object.isRequired
-}
 
 export default connect(mapStateToProps, null)(Infos)

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
+import { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { bp } from '@/lib/constants'
 import { openLinkInNewTabProps as newTab } from '@/lib/utlis'
@@ -116,10 +115,6 @@ const ToggleButton = styled(Button)(xw`
   bg-darkblue-800 hover:bg-darkblue-700
   md:hidden
 `)
-
-Socials.propTypes = {
-  socials: PropTypes.array.isRequired
-}
 
 const mapStateToProps = (state) => ({
   socials: state.api.us.socialNetworks

@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types'
-import React from 'react'
 import { css } from '@emotion/react'
 
 const AspectRatio = ({ children, ...props }) => {
@@ -12,7 +10,3 @@ const AspectRatio = ({ children, ...props }) => {
 }
 
 export default AspectRatio
-
-AspectRatio.propTypes = {
-  children: PropTypes.any.isRequired
-}

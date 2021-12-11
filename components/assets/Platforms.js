@@ -1,5 +1,3 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { connect } from 'react-redux'
 import { openLinkInNewTabProps as newTab } from '@/lib/utlis'
@@ -30,11 +28,6 @@ const Platforms = ({ platforms }) => {
       ))}
     </>
   )
-}
-
-Platforms.propTypes = {
-  className: PropTypes.string,
-  platforms: PropTypes.array.isRequired
 }
 
 const mapStateToProps = (state) => ({

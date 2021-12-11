@@ -1,4 +1,3 @@
-import React from 'react'
 import MenuBurger from '@/components/navigation/MenuBurger'
 import styled from '@emotion/styled'
 import Links from '@/components/navigation/Links'

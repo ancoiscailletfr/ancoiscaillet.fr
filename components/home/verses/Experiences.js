@@ -1,7 +1,5 @@
-/* eslint-disable camelcase */
-import React, { useState } from 'react'
+/* eslint-disable camelcase */import { useState } from 'react'
 import { motion } from 'framer-motion'
-import PropTypes from 'prop-types'
 import Badges from '@/components/assets/Badges'
 import dynamic from 'next/dynamic'
 import { connect } from 'react-redux'
@@ -172,26 +170,6 @@ const ExperienceBox = styled(motion.div)([xw`
   flex flex-col
   border border-solid border-grape-700 border-opacity-50
 `, props => props.visible ? xw`h-full cursor-default` : xw`h-auto cursor-pointer pr-12 pl-4`])
-
-Experience.propTypes = {
-  badges: PropTypes.array,
-  beginning: PropTypes.any,
-  description: PropTypes.string,
-  ending: PropTypes.any,
-  logo: PropTypes.array,
-  open: PropTypes.bool,
-  title: PropTypes.string,
-  toggle: PropTypes.func,
-  visible: PropTypes.bool
-}
-
-Experience.defaultProps = {
-  open: false
-}
-
-Experiences.propTypes = {
-  experiences: PropTypes.array
-}
 
 const mapStateToProps = (state) => ({
   experiences: state.api.experiences

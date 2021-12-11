@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import styled from '@emotion/styled'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
@@ -126,7 +125,6 @@ const Form = ({ formData, handleChange, clearData }) => {
   )
 }
 
-// eslint-disable-next-line react/prop-types
 const SentIcon = ({ sent }) => {
   switch (sent) {
     case true:
@@ -164,12 +162,6 @@ const FormInput = styled.input([xw`
   text-gray-700 leading-tight 
   focus[outline-none ring]
 `, props => props.error && xw`border-2 border-status-red`])
-
-Form.propTypes = {
-  clearData: PropTypes.func,
-  formData: PropTypes.object,
-  handleChange: PropTypes.func
-}
 
 const mapStateToProps = (state) => ({
   formData: state.contact.formData

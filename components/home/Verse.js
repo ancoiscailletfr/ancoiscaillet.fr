@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
+import { useEffect, useState } from 'react'
 import { motion, useSpring, useViewportScroll } from 'framer-motion'
 import styled from '@emotion/styled'
 import { useInView } from 'react-intersection-observer'
 import xw from 'xwind'
 import { css } from '@emotion/react'
-
 import { bindActionCreators } from 'redux'
 import { setActive } from '@/store/navigation/action'
 import { connect } from 'react-redux'
-
 import RotatingPlanet from '@/components/assets/RotatingPlanet'
 
 /**
@@ -108,14 +105,6 @@ const verse = {
   behind: {
     opacity: [null, 0]
   }
-}
-
-Verse.propTypes = {
-  slug: PropTypes.string.isRequired,
-  content: PropTypes.node,
-  orbit: PropTypes.object,
-  setActiveSection: PropTypes.func,
-  activeSection: PropTypes.string
 }
 
 const mapStateToProps = (state) => ({

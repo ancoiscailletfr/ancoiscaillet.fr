@@ -1,8 +1,5 @@
-import PropTypes from 'prop-types'
-import React from 'react'
 import xw from 'xwind'
 import { css } from '@emotion/react'
-
 import VisitCard from '@/components/assets/VisitCard'
 import Header from '@/components/Header'
 import HomeBackground from '@/components/assets/HomeBackground'
@@ -32,7 +29,3 @@ const HomeLayout = ({ children }) => {
 }
 
 export default HomeLayout
-
-HomeLayout.propTypes = {
-  children: PropTypes.any
-}

@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import styled from '@emotion/styled'
 import { Icon } from '@/components/assets/Badges'
@@ -104,12 +103,5 @@ const SkillWrapper = styled.div([xw`
       pr-2 py-1 bg-gray-platinum`}
   }
 `])
-
-Orbit.propTypes = {
-  skills: PropTypes.array,
-  className: PropTypes.string,
-  duration: PropTypes.number,
-  from: PropTypes.number
-}
 
 export default Orbit

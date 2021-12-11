@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types'
-import React from 'react'
 import xw from 'xwind'
 import { Transformation } from 'cloudinary-react'
 import moment from 'moment'
@@ -8,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { connect } from 'react-redux'
 import { openLinkInNewTabProps as newTab } from '@/lib/utlis'
 import styled from '@emotion/styled'
-
 import Platforms from '@/components/assets/Platforms'
 import RichTextContainer from '@/components/RichTextContainer'
 import Button from '@/components/assets/Button'
@@ -105,7 +102,3 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, null)(VisitCard)
-
-VisitCard.propTypes = {
-  us: PropTypes.object
-}

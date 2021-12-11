@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types'
-import React, { Children, useEffect, useState } from 'react'
+import { Children, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { AnimateSharedLayout, motion } from 'framer-motion'
 import xw from 'xwind'
@@ -22,7 +21,7 @@ const swipePower = (offset, velocity) => {
  * @returns {JSX.Element}
  * @constructor
  */
-const DragSlider = ({ children, childPerPage, sliderRatio, ...props }) => {
+const DragSlider = ({ children, childPerPage = { _: 1, md: 2, lg: 3 }, sliderRatio = { _: 3, md: 2, lg: 1 }, ...props }) => {
   const [[pageIndex], setPageIndex] = useState([0])
   const { width } = useWindowDimension()
   const itemPerPage = select(childPerPage)
@@ -140,17 +139,6 @@ const dot = {
     scale: 0.75,
     opacity: 0
   }
-}
-
-DragSlider.propTypes = {
-  childPerPage: PropTypes.object,
-  children: PropTypes.any.isRequired,
-  sliderRatio: PropTypes.object
-}
-
-DragSlider.defaultProps = {
-  childPerPage: { _: 1, md: 2, lg: 3 },
-  sliderRatio: { _: 3, md: 2, lg: 1 }
 }
 
 export default DragSlider

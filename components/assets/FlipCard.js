@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types'
-import React, { Children } from 'react'
+import { Children } from 'react'
 import { motion, useCycle } from 'framer-motion'
 import xw from 'xwind'
 import { css } from '@emotion/react'
@@ -50,10 +49,6 @@ const flipCard = {
   front: {
     rotateX: 0
   }
-}
-
-FlipCard.propTypes = {
-  children: PropTypes.any.isRequired
 }
 
 export default FlipCard

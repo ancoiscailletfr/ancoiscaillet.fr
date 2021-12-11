@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types'
-import React from 'react'
 import styled from '@emotion/styled'
 import RichTextContainer from '@/components/RichTextContainer'
 import { connect } from 'react-redux'
@@ -56,10 +54,6 @@ const ServiceBrief = styled(RichTextContainer)([xw`h-auto`, css`
     ${xw`text-center`}
   }
 `])
-
-Services.propTypes = {
-  services: PropTypes.object
-}
 
 const mapStateToProps = (state) => ({
   services: state.api.services

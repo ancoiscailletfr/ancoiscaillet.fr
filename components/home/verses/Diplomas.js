@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types'
-import React from 'react'
 import Box from '@/components/assets/Box'
 import FlipCard from '@/components/assets/FlipCard'
 import dynamic from 'next/dynamic'
@@ -75,20 +73,6 @@ const Diploma = ({ title, fullTitle, school, beginning, ending, description, sta
       </Box>
     </FlipCard>
   )
-}
-
-Diploma.propTypes = {
-  beginning: PropTypes.any,
-  description: PropTypes.string,
-  ending: PropTypes.any,
-  fullTitle: PropTypes.string,
-  school: PropTypes.string,
-  stamps: PropTypes.array,
-  title: PropTypes.string
-}
-
-Diplomas.propTypes = {
-  diplomas: PropTypes.arrayOf(PropTypes.object).isRequired
 }
 
 const mapStateToProps = (state) => ({

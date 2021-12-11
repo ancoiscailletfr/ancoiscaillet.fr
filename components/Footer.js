@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { AnimatePresence, motion, useTransform, useViewportScroll } from 'framer-motion'
 import styled from '@emotion/styled'
 import xw from 'xwind'
 import { css } from '@emotion/react'
 import { Transformation } from 'cloudinary-react'
-
 import { openLinkInNewTabProps as newTab } from '@/lib/utlis'
 import Socials from '@/components/assets/Socials'
 import Image from '@/components/Image'

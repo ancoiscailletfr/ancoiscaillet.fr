@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, useTransform, useViewportScroll } from 'framer-motion'
 import styled from '@emotion/styled'
 import xw from 'xwind'
@@ -82,10 +81,5 @@ const Orbit = styled.circle(xw`
   stroke-2 lg:stroke-1 stroke-current 
   opacity-25 fill-none
 `)
-
-RotatingPlanet.propTypes = {
-  planet: PropTypes.node.isRequired,
-  satellite: PropTypes.string.isRequired
-}
 
 export default RotatingPlanet

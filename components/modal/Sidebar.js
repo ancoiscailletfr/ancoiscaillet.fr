@@ -1,5 +1,3 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { AnimatePresence, motion } from 'framer-motion'
 import { connect } from 'react-redux'
 import styled from '@emotion/styled'
@@ -67,10 +65,6 @@ const sidebar = {
       damping: 40
     }
   }
-}
-
-Sidebar.propTypes = {
-  showSidebar: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = (state) => ({

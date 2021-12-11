@@ -1,6 +1,4 @@
-import React from 'react'
 import { motion, useCycle } from 'framer-motion'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { setActive } from '@/store/navigation/action'
@@ -65,14 +63,6 @@ const line = {
     strokeWidth: [1, 0, 0],
     x2: '0%'
   }
-}
-
-Link.propTypes = {
-  active: PropTypes.any,
-  hideModals: PropTypes.func,
-  setActiveNavigation: PropTypes.func,
-  slug: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired
 }
 
 const mapStateToProps = (state) => ({
