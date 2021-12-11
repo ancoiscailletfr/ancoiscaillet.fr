@@ -20,7 +20,7 @@ import Button from '@/components/assets/Button'
  */
 const Form = ({ formData, handleChange, clearData }) => {
   const { fullname, email, phone, message } = formData
-  const { register, errors, handleSubmit, reset } = useForm()
+  const { register, handleSubmit, reset, formState: { errors } } = useForm()
   const [formLoading, setFormLoading] = useState(false)
   const [sent, setSent] = useState(undefined)
 
@@ -59,10 +59,10 @@ const Form = ({ formData, handleChange, clearData }) => {
         <div>
           <Label mandatory htmlFor='fullname'>Nom complet</Label>
           <FormInput
-            name='fullname' type='text'
+            type='text'
+            {...register('fullname', { required: true, minLength: 2, maxLength: 100 })}
             value={fullname}
             placeholder='Buzz Aldrin'
-            ref={register({ required: true, minLength: 2, maxLength: 100 })}
             error={errors.fullname}
             onChange={(evt) => handleChange({ name: 'fullname', value: evt.target.value })}
           />
@@ -71,14 +71,11 @@ const Form = ({ formData, handleChange, clearData }) => {
         <div>
           <Label mandatory htmlFor='email'>Email</Label>
           <FormInput
-            name='email' type='text'
+            type='text'
+            {...register('email', { required: true, pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ })}
             value={email}
             placeholder='timcook@pomme.com'
             aria-describedby='email'
-            ref={register({
-              required: true,
-              pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            })}
             error={errors.email}
             onChange={(evt) => handleChange({ name: 'email', value: evt.target.value })}
           />
@@ -87,11 +84,11 @@ const Form = ({ formData, handleChange, clearData }) => {
         <div>
           <Label htmlFor='phone'>Téléphone</Label>
           <FormInput
-            name='phone' type='tel'
+            type='tel'
+            {...register('phone', { required: false, pattern: /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/ })}
             value={phone}
             placeholder='XX XX XX XX XX'
             aria-describedby='phone'
-            ref={register({ required: false, pattern: /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/ })}
             error={errors.phone}
             onChange={(evt) => handleChange({ name: 'phone', value: evt.target.value })}
           />
@@ -101,10 +98,9 @@ const Form = ({ formData, handleChange, clearData }) => {
           <Label mandatory htmlFor='message'>Message</Label>
           <FormInput
             as='textarea'
-            name='message'
+            {...register('message', { required: true, minLength: 5, maxLength: 10000 })}
             value={message}
             css={xw`overflow-auto resize-none h-60 md:h-44`}
-            ref={register({ required: true, minLength: 5, maxLength: 10000 })}
             error={errors.message}
             onChange={(evt) => handleChange({ name: 'message', value: evt.target.value })}
           />
