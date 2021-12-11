@@ -2447,10 +2447,10 @@ cloudinary-core@^2.11.3:
   resolved "https://registry.yarnpkg.com/cloudinary-core/-/cloudinary-core-2.11.3.tgz#1440f61c6280485094aac87021b7e10f746dc69e"
   integrity sha512-ZRnpjSgvx+LbSf+aEz5NKzxDB4Z0436aY/0BSDa90kAHiwAyd84VyEi95I74SE80e15Ri9t5S2xtksTXpzk9Xw==
 
-cloudinary-react@^1.6.8:
-  version "1.6.8"
-  resolved "https://registry.yarnpkg.com/cloudinary-react/-/cloudinary-react-1.6.8.tgz#e13b229553521aa375db655e9e8a5d3a5a087ca2"
-  integrity sha512-2NSX45MEXT9v1l8XqIebgs+gBiGycjz0VbhvK8VgNWBuTstsbBMxMcaF/0oW9sBh4alZN6odVJaRsQpnHnFnIQ==
+cloudinary-react@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/cloudinary-react/-/cloudinary-react-1.7.0.tgz#c85f131acc97284453d94363c2219022dc6f1d63"
+  integrity sha512-Q2fQrQ+NwJ1Ei5ISHfWX7cZfC9z71OeOZYQv4MV8sDEDVCml2cvRexvbQ7ksDvqkYd3SCegn5vMDuHp5w3NlCQ==
   dependencies:
     cloudinary-core "^2.11.3"
     prop-types "^15.6.2"

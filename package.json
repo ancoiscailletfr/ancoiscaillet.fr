@@ -19,7 +19,7 @@
     "@popmotion/popcorn": "^0.4.4",
     "@react-hook/window-size": "^3.0.7",
     "axios": "^0.24.0",
-    "cloudinary-react": "^1.6.8",
+    "cloudinary-react": "^1.7.0",
     "framer-motion": "^2.9.5",
     "grapheme-splitter": "^1.0.4",
     "lodash": "^4.17.20",
