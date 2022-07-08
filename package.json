@@ -22,7 +22,7 @@
     "cloudinary-react": "^1.7.0",
     "framer-motion": "^2.9.5",
     "grapheme-splitter": "^1.0.4",
-    "moment": "^2.29.1",
+    "moment": "^2.29.4",
     "next": "latest",
     "next-pwa": "^5.4.4",
     "next-redux-wrapper": "^6.0.2",
