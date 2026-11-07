@@ -74,7 +74,7 @@ export function SiteNav({ lang }: { lang: Lang }) {
       f += (target - f) * 0.08;
       s += (width - s) * 0.08;
       ctx.clearRect(0, 0, W, H);
-      ctx.globalCompositeOperation = light ? 'source-over' : 'lighter';
+      ctx.globalCompositeOperation = light ? 'multiply' : 'lighter';
       const waves = [
         [0.09, 3, 0],
         [0.13, -2.4, 2],

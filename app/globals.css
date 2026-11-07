@@ -26,26 +26,51 @@
   --soft: color-mix(in srgb, var(--accent) 13%, transparent);
   --border: color-mix(in srgb, var(--accent) 70%, var(--bg));
   --stars: url(/stars.svg);
+  --aura: none;
+  --lift: 0 0 28px var(--glow);
+  --button-lift: 0 0 18px var(--soft);
+  --card-lift: none;
+  --term-surface: color-mix(in srgb, var(--bg) 70%, transparent);
+  --status-surface: var(--soft);
 }
 
 :root[data-theme="light"] {
   color-scheme: light;
-  --bg: #f3f7ff;
-  --bg-end: #dfe9f7;
+  --bg: #fbf8f3;
+  --bg-end: #ecebf8;
   --text: #18243a;
   --muted: #47576e;
-  --accent: #0f6e6a;
-  --orange: #a94c21;
-  --button-text: #f3f7ff;
+  --accent: #0e7370;
+  --orange: #bd3e0b;
+  --button-text: #fbf8f3;
   --glow: color-mix(in srgb, var(--accent) 19%, transparent);
-  --soft: color-mix(in srgb, var(--accent) 13%, transparent);
+  --soft: color-mix(in srgb, var(--accent) 4%, transparent);
   --border: color-mix(in srgb, var(--accent) 80%, var(--bg));
-  --stars: none;
+  --stars: url(/stars-light.svg);
+  --aura:
+    radial-gradient(
+      ellipse at 8% 5%,
+      color-mix(in srgb, var(--orange) 10%, transparent),
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse at 95% 95%,
+      color-mix(in srgb, var(--lavender) 10%, transparent),
+      transparent 65%
+    );
+  --lift:
+    0 1px 2px color-mix(in srgb, var(--text) 8%, transparent),
+    0 10px 28px color-mix(in srgb, var(--accent) 18%, transparent);
+  --button-lift: var(--lift);
+  --card-lift: var(--lift);
+  --term-surface: color-mix(in srgb, white 80%, transparent);
+  --status-surface: var(--term-surface);
 }
 
 html {
   min-height: 100%;
-  background: linear-gradient(135deg, var(--bg), var(--bg-end)) fixed;
+  background: var(--aura), linear-gradient(135deg, var(--bg), var(--bg-end));
+  background-attachment: fixed;
 }
 
 .body {
@@ -196,7 +221,7 @@ button:focus-visible {
 .portrait {
   width: clamp(120px, 19vw, 240px);
   background: linear-gradient(135deg, var(--accent), var(--orange));
-  box-shadow: 0 0 28px var(--glow);
+  box-shadow: var(--lift);
 }
 
 .subtitle {
@@ -220,7 +245,7 @@ button:focus-visible {
   gap: 0.35em;
   @apply inline-flex min-h-12 items-center justify-center rounded-md border border-accent bg-accent px-[1.2rem] py-[.6rem] font-code font-semibold no-underline;
   color: var(--button-text);
-  box-shadow: 0 0 18px var(--soft);
+  box-shadow: var(--button-lift);
 }
 
 .button:hover {
@@ -352,8 +377,8 @@ button:focus-visible {
   --status-available: #8edbb0;
 }
 :root[data-theme="light"] {
-  --lavender: #7064ad;
-  --status-off: #a94c21;
+  --lavender: #6c5fa7;
+  --status-off: #bd3e0b;
   --status-soon: #806400;
   --status-available: #26734b;
 }
@@ -372,7 +397,7 @@ button:focus-visible {
 }
 .portrait.wave-ready {
   background: transparent;
-  box-shadow: none;
+  box-shadow: var(--card-lift);
 }
 .status {
   display: inline-flex;
@@ -380,7 +405,8 @@ button:focus-visible {
   gap: 0.5rem;
   padding: 0.25rem 0.75rem;
   border: 1px solid var(--border);
-  background: var(--soft);
+  background: var(--status-surface);
+  box-shadow: var(--card-lift);
   border-radius: 999px;
   font: 0.78rem var(--font-code);
   color: var(--text);
@@ -576,19 +602,37 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root:not([data-theme]) {
     color-scheme: light;
-    --bg: #f3f7ff;
-    --bg-end: #dfe9f7;
+    --bg: #fbf8f3;
+    --bg-end: #ecebf8;
     --text: #18243a;
     --muted: #47576e;
-    --accent: #0f6e6a;
-    --orange: #a94c21;
-    --button-text: #f3f7ff;
+    --accent: #0e7370;
+    --orange: #bd3e0b;
+    --button-text: #fbf8f3;
     --glow: color-mix(in srgb, var(--accent) 19%, transparent);
-    --soft: color-mix(in srgb, var(--accent) 13%, transparent);
+    --soft: color-mix(in srgb, var(--accent) 4%, transparent);
     --border: color-mix(in srgb, var(--accent) 80%, var(--bg));
-    --stars: none;
-    --lavender: #7064ad;
-    --status-off: #a94c21;
+    --stars: url(/stars-light.svg);
+    --aura:
+      radial-gradient(
+        ellipse at 8% 5%,
+        color-mix(in srgb, var(--orange) 10%, transparent),
+        transparent 65%
+      ),
+      radial-gradient(
+        ellipse at 95% 95%,
+        color-mix(in srgb, var(--lavender) 10%, transparent),
+        transparent 65%
+      );
+    --lift:
+      0 1px 2px color-mix(in srgb, var(--text) 8%, transparent),
+      0 10px 28px color-mix(in srgb, var(--accent) 18%, transparent);
+    --button-lift: var(--lift);
+    --card-lift: var(--lift);
+    --term-surface: color-mix(in srgb, white 80%, transparent);
+    --status-surface: var(--term-surface);
+    --lavender: #6c5fa7;
+    --status-off: #bd3e0b;
     --status-soon: #806400;
     --status-available: #26734b;
   }
@@ -641,8 +685,8 @@ button:focus-visible {
   max-width: 520px;
   border: 1px solid var(--border);
   border-radius: 10px;
-  background: color-mix(in srgb, var(--bg) 70%, transparent);
-  box-shadow: 0 0 28px var(--glow);
+  background: var(--term-surface);
+  box-shadow: var(--lift);
   font: var(--text-meta) / 1.8 var(--font-code);
   overflow-wrap: anywhere;
 }
@@ -670,13 +714,4 @@ button:focus-visible {
 }
 .term .prompt {
   margin: 0;
-}
-
-:root[data-theme="light"] .badges li {
-  color: var(--text);
-}
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme]) .badges li {
-    color: var(--text);
-  }
 }

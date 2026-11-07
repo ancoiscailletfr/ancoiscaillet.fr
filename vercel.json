@@ -63,7 +63,7 @@
       ]
     },
     {
-      "source": "/(images/.*|icons/.*|stars\\.svg)",
+      "source": "/(images/.*|icons/.*|stars\\.svg|stars-light\\.svg)",
       "headers": [
         {
           "key": "Cache-Control",

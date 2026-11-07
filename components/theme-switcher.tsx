@@ -29,8 +29,10 @@ export function ThemeSwitcher({ lang }: { lang: Lang }) {
     const apply = () => {
       const theme = pref === 'system' ? (mq.matches ? 'light' : 'dark') : pref;
       document.documentElement.dataset.theme = theme;
-      const meta = document.querySelector('meta[name="theme-color"]');
-      if (meta instanceof HTMLMetaElement) meta.content = theme === 'light' ? '#f3f7ff' : '#0d0f1f';
+      for (const meta of document.querySelectorAll('meta[name="theme-color"]')) {
+        if (meta instanceof HTMLMetaElement)
+          meta.content = theme === 'light' ? '#fbf8f3' : '#0d0f1f';
+      }
     };
     apply();
     if (pref !== 'system') return;
