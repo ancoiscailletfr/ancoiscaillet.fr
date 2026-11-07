@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     apple: '/icons/apple-touch-icon.png',
   },
 };
-const script = `(function(){var saved=null;try{saved=localStorage.getItem('theme')}catch(e){}document.documentElement.dataset.theme=saved==='light'||saved==='dark'?saved:(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark')})();`;
+const script = `(function(){var c=null,d=document.documentElement;try{c=localStorage.getItem('theme')}catch(e){}if(c!=='light'&&c!=='dark')c='system';d.dataset.themeChoice=c;d.dataset.theme=c==='system'?(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'):c})();`;
 export const viewport: Viewport = { themeColor: '#0d0f1f' };
 export function RootLayout({ children, lang }: { children: ReactNode; lang: Lang }) {
   return (

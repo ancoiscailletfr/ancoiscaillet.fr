@@ -5,7 +5,6 @@ import { useEffect, useRef } from 'react';
 import { type Lang, languages, type Page, publicPath, routeKey } from '../content/site';
 import { type MessageKey, t } from '../lib/i18n';
 import { Logo } from './logo';
-import { ThemeToggle } from './theme-toggle';
 
 export function SiteNav({ lang }: { lang: Lang }) {
   const pathname = usePathname().replace(/\/$/, '') || '/';
@@ -226,7 +225,6 @@ export function SiteNav({ lang }: { lang: Lang }) {
               </span>
             ))}
           </div>
-          <ThemeToggle lang={lang} />
         </div>
         {/* biome-ignore lint/a11y/noAriaHiddenOnFocusable: This decorative canvas is not keyboard focusable. */}
         <canvas ref={canvasRef} className="signal" aria-hidden="true" />
