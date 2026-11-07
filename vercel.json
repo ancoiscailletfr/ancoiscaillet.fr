@@ -15,6 +15,16 @@
       "source": "/api/:path*",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/fr",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/:path*",
+      "destination": "/:path*",
+      "permanent": true
     }
   ],
   "headers": [
@@ -51,6 +61,12 @@
           "value": "no-cache"
         }
       ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "destination": "/fr/:path*"
     }
   ]
 }
