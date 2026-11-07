@@ -171,7 +171,7 @@ export function SiteNav({ lang }: { lang: Lang }) {
   }, [key, lang]);
   return (
     <header className="shell pt-4" style={{ viewTransitionName: 'site-header' }}>
-      <nav ref={barRef} className="nav" aria-label={t(lang, 'navLabel')}>
+      <nav ref={barRef} className="nav" data-page={key} aria-label={t(lang, 'navLabel')}>
         <Logo lang={lang} />
         <div className="nav-links">
           {(
