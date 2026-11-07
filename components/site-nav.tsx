@@ -188,7 +188,12 @@ export function SiteNav({ lang }: { lang: Lang }) {
               aria-current={key === page ? 'page' : undefined}
               onPointerEnter={(event) => animationRef.current?.hover(event.currentTarget)}
               onPointerLeave={() => animationRef.current?.hover(null)}
-              onFocus={(event) => animationRef.current?.focus(event.currentTarget)}
+              // A click focuses the link too; that focus outlives a back navigation.
+              onFocus={(event) =>
+                animationRef.current?.focus(
+                  event.currentTarget.matches(':focus-visible') ? event.currentTarget : null,
+                )
+              }
               onBlur={() => animationRef.current?.focus(null)}
             >
               <span className="nav-prefix" aria-hidden="true">
