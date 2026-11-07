@@ -130,25 +130,34 @@ button:focus-visible {
   @apply text-muted;
 }
 
-.theme-toggle {
-  @apply h-11 w-11 shrink-0 cursor-pointer p-[11px] text-muted;
+.theme-switch {
+  @apply inline-flex gap-0.5 rounded-full border p-[3px];
+  border-color: var(--border);
 }
 
-.theme-toggle svg {
-  @apply h-[22px] w-[22px] fill-none;
+.theme-switch button {
+  @apply grid h-7 w-7 cursor-pointer place-items-center rounded-full text-muted;
+}
+
+.theme-switch button:focus-visible {
+  outline-offset: 1px;
+}
+
+.theme-switch svg {
+  @apply h-4 w-4 fill-none;
   stroke: currentColor;
   stroke-width: 1.7;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-.theme-toggle .moon,
-:root[data-theme="light"] .theme-toggle .sun {
-  display: none;
-}
-
-:root[data-theme="light"] .theme-toggle .moon {
-  display: block;
+/* No data-theme-choice (no JS) highlights "system". */
+:root:not([data-theme-choice]) .theme-switch [data-choice="system"],
+:root[data-theme-choice="system"] .theme-switch [data-choice="system"],
+:root[data-theme-choice="light"] .theme-switch [data-choice="light"],
+:root[data-theme-choice="dark"] .theme-switch [data-choice="dark"] {
+  background: color-mix(in srgb, var(--text) 14%, transparent);
+  color: var(--text);
 }
 
 .content-heading {
