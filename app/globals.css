@@ -111,6 +111,29 @@ html {
     url(/orbits.svg) top right / min(1600px, 180vw) auto no-repeat,
     radial-gradient(circle at 100% 0, #000 15%, transparent 60%);
   mask-composite: intersect;
+  /* Pivot on the orbits' shared centre (1500, -60 in the 1600-wide SVG). */
+  transform-origin: calc(100% - min(100px, 11.25vw)) calc(-1 * min(60px, 6.75vw));
+  transition: transform 1.4s cubic-bezier(0.65, 0, 0.25, 1);
+  will-change: transform;
+}
+/* Nav on orbit: each page swings the system round, tilts it and zooms in.
+   rotateX without perspective is a flat squash, so it reads as an isometric tilt. */
+.body:has(.nav[data-page="about"])::before {
+  transform: rotateX(15deg) rotate(-10deg) scale(1.25);
+}
+.body:has(.nav[data-page="work"])::before {
+  transform: rotateX(30deg) rotate(-16deg) scale(1.35);
+}
+.body:has(.nav[data-page="contact"])::before {
+  transform: rotateX(8deg) rotate(6deg) scale(1.45);
+}
+.body:has(.nav[data-page="legal"])::before {
+  transform: rotateX(35deg) rotate(-4deg) scale(0.95);
+}
+@media (prefers-reduced-motion: reduce) {
+  .body::before {
+    transition: none;
+  }
 }
 
 .shell {
