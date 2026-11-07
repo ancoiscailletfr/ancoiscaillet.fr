@@ -65,6 +65,10 @@
   ],
   "rewrites": [
     {
+      "source": "/",
+      "destination": "/fr"
+    },
+    {
       "source": "/:path*",
       "destination": "/fr/:path*"
     }
