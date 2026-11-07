@@ -26,7 +26,25 @@
   --soft: color-mix(in srgb, var(--accent) 13%, transparent);
   --border: color-mix(in srgb, var(--accent) 70%, var(--bg));
   --stars: url(/stars.svg);
-  --aura: none;
+  /* Shared decor, tinted per theme: a faint nebula and orbits in the top-right corner. */
+  --nebula: 24%;
+  --orbits: 0.4;
+  --aura:
+    radial-gradient(
+      ellipse 60% 50% at 10% 8%,
+      color-mix(in srgb, var(--lavender) var(--nebula), transparent),
+      transparent
+    ),
+    radial-gradient(
+      ellipse 45% 40% at 88% 35%,
+      color-mix(in srgb, var(--orange) calc(var(--nebula) * 0.7), transparent),
+      transparent
+    ),
+    radial-gradient(
+      ellipse 60% 45% at 50% 100%,
+      color-mix(in srgb, var(--accent) calc(var(--nebula) * 0.7), transparent),
+      transparent
+    );
   --lift: 0 0 28px var(--glow);
   --button-lift: 0 0 18px var(--soft);
   --card-lift: none;
@@ -47,17 +65,8 @@
   --soft: color-mix(in srgb, var(--accent) 4%, transparent);
   --border: color-mix(in srgb, var(--accent) 80%, var(--bg));
   --stars: url(/stars-light.svg);
-  --aura:
-    radial-gradient(
-      ellipse at 8% 5%,
-      color-mix(in srgb, var(--orange) 10%, transparent),
-      transparent 65%
-    ),
-    radial-gradient(
-      ellipse at 95% 95%,
-      color-mix(in srgb, var(--lavender) 10%, transparent),
-      transparent 65%
-    );
+  --nebula: 26%;
+  --orbits: 0.5;
   --lift:
     0 1px 2px color-mix(in srgb, var(--text) 8%, transparent),
     0 10px 28px color-mix(in srgb, var(--accent) 18%, transparent);
@@ -86,6 +95,18 @@ html {
     0 0,
     420px 630px;
   background-attachment: fixed;
+}
+
+/* Behind the stars (body background), above the nebula (html background). */
+.body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--orbits);
+  background: linear-gradient(200deg, var(--accent), var(--lavender) 55%, var(--orange));
+  mask: url(/orbits.svg) top right / min(1600px, 180vw) auto no-repeat;
 }
 
 .shell {
@@ -613,17 +634,8 @@ button:focus-visible {
     --soft: color-mix(in srgb, var(--accent) 4%, transparent);
     --border: color-mix(in srgb, var(--accent) 80%, var(--bg));
     --stars: url(/stars-light.svg);
-    --aura:
-      radial-gradient(
-        ellipse at 8% 5%,
-        color-mix(in srgb, var(--orange) 10%, transparent),
-        transparent 65%
-      ),
-      radial-gradient(
-        ellipse at 95% 95%,
-        color-mix(in srgb, var(--lavender) 10%, transparent),
-        transparent 65%
-      );
+    --nebula: 26%;
+    --orbits: 0.5;
     --lift:
       0 1px 2px color-mix(in srgb, var(--text) 8%, transparent),
       0 10px 28px color-mix(in srgb, var(--accent) 18%, transparent);
