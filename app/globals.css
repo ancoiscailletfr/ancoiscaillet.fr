@@ -542,8 +542,10 @@ button:focus-visible {
   height: 26px;
   pointer-events: none;
 }
+/* Mobile: logo and language on the first row, links across the full width below. */
 @media (max-width: 699px) {
   .nav {
+    flex-wrap: wrap;
     gap: 0;
   }
   .logo {
@@ -551,16 +553,25 @@ button:focus-visible {
     height: 38px;
     margin-right: auto;
   }
-  .nav-links a {
-    font-size: 0.68rem;
-    padding: 0.9rem 0.18rem;
+  .nav-links {
+    order: 1;
+    width: 100%;
+    justify-content: space-between;
   }
-  .nav-prefix,
+  .nav-links a {
+    font-size: 0.8rem;
+    padding: 0.9rem 0.1rem;
+  }
   .languages .lang-prefix {
     display: none;
   }
   .settings {
     padding: 0;
+  }
+}
+@media (max-width: 359px) {
+  .nav-prefix {
+    display: none;
   }
 }
 @media (prefers-reduced-motion: reduce) {
