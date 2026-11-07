@@ -615,8 +615,12 @@ button:focus-visible {
   animation: 560ms steps(10, jump-start) both page-in;
 }
 @keyframes page-in {
+  /* Explicit end: inset() to none does not interpolate, it would just flip. */
   from {
     clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0);
   }
 }
 @media (prefers-reduced-motion: reduce) {
