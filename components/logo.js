@@ -1,9 +1,10 @@
 import Link from 'next/link';
+import { publicPath } from '../content/site';
 import { t } from '../lib/i18n';
 
 export function Logo({ lang }) {
   return (
-    <Link className="logo" href={lang === 'fr' ? '/' : '/en'} aria-label={t(lang, 'homeLabel')}>
+    <Link className="logo" href={publicPath(lang)} aria-label={t(lang, 'homeLabel')}>
       <svg width="32" height="32" viewBox="-3 -3 106 106" aria-hidden="true">
         <path
           fill="currentColor"

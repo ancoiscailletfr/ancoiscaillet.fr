@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef } from 'react';
-import { paths } from '../content/site';
+import { paths, publicPath, routes } from '../content/site';
 import { t } from '../lib/i18n';
 import { Logo } from './logo';
 import { ThemeToggle } from './theme-toggle';
@@ -10,6 +10,7 @@ import { ThemeToggle } from './theme-toggle';
 export function SiteNav({ lang }) {
   const pathname = usePathname().replace(/\/$/, '') || '/';
   const canvasRef = useRef(null);
+  const key = Object.keys(routes).find((key) => publicPath(lang, key) === pathname);
   const i = paths[lang].indexOf(pathname),
     other = lang === 'fr' ? 'en' : 'fr';
   useEffect(() => {
@@ -230,7 +231,7 @@ export function SiteNav({ lang }) {
                   <span aria-current="true">{code}</span>
                 ) : (
                   <a
-                    href={paths[other][i] || (other === 'fr' ? '/' : '/en')}
+                    href={publicPath(other, key || 'home')}
                     hrefLang={other}
                     lang={other}
                     aria-label={t(lang, 'languageLabel')}
