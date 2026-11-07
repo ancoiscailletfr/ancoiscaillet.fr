@@ -7,6 +7,7 @@
       "!!**/.next",
       "!!**/node_modules",
       "!!pnpm-lock.yaml",
+      "!!next-env.d.ts",
       "!!public/stars.svg",
       "!!vercel.json"
     ]
@@ -45,11 +46,11 @@
       }
     },
     {
-      "includes": ["app/ui/Nav.js"],
+      "includes": ["**/*.ts", "**/*.tsx"],
       "linter": {
         "rules": {
-          "a11y": {
-            "useAnchorContent": "off"
+          "suspicious": {
+            "noExplicitAny": "error"
           }
         }
       }

@@ -11,7 +11,8 @@ Déployé sur Vercel.
 ## Où modifier quoi
 
 - Textes et contenus : `content/` (MDX par langue et messages JSON).
-- Titres et descriptions SEO : `content/seo.js`.
-- Liens et disponibilité : `content/site.js`.
+- Postes (titres, dates, liens, badges) : `content/jobs.ts`.
+- Titres et descriptions SEO : `content/seo.ts`.
+- Liens et disponibilité : `content/site.ts`.
 - Apparence : `components/` et `app/globals.css`.
-- Vérifier le code et les messages : `pnpm check` et `pnpm check:messages`.
+- Vérifier le code : `pnpm check`.
