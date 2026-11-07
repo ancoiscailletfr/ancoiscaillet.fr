@@ -106,7 +106,11 @@ html {
   pointer-events: none;
   opacity: var(--orbits);
   background: linear-gradient(200deg, var(--accent), var(--lavender) 55%, var(--orange));
-  mask: url(/orbits.svg) top right / min(1600px, 180vw) auto no-repeat;
+  /* Fade out from the top-right corner so the orbits stay clear of the text. */
+  mask:
+    url(/orbits.svg) top right / min(1600px, 180vw) auto no-repeat,
+    radial-gradient(circle at 100% 0, #000 15%, transparent 60%);
+  mask-composite: intersect;
 }
 
 .shell {
