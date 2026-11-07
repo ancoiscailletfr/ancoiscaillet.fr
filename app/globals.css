@@ -607,22 +607,16 @@ button:focus-visible {
 ::view-transition-new(site-header) {
   animation: none;
 }
+/* Terminal-like: the old page clears at once, the new one prints top to bottom. */
 ::view-transition-old(.page) {
-  animation: 200ms ease both page-out;
+  display: none;
 }
 ::view-transition-new(.page) {
-  animation: 200ms ease both page-in;
-}
-@keyframes page-out {
-  to {
-    opacity: 0;
-    transform: translateY(-6px);
-  }
+  animation: 320ms ease-out both page-in;
 }
 @keyframes page-in {
   from {
-    opacity: 0;
-    transform: translateY(6px);
+    clip-path: inset(0 0 100% 0);
   }
 }
 @media (prefers-reduced-motion: reduce) {
