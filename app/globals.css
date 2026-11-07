@@ -417,11 +417,6 @@ button:focus-visible {
   }
 }
 
-@property --spin {
-  syntax: "<angle>";
-  inherits: true;
-  initial-value: 0deg;
-}
 .nav {
   position: relative;
   min-height: 64px;
@@ -445,13 +440,7 @@ button:focus-visible {
   inset: 0;
   border-radius: 50%;
   padding: 1.5px;
-  background: conic-gradient(
-    from var(--spin),
-    var(--accent),
-    var(--orange),
-    var(--lavender),
-    var(--accent)
-  );
+  background: conic-gradient(var(--accent), var(--orange), var(--lavender), var(--accent));
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
@@ -466,7 +455,7 @@ button:focus-visible {
 }
 @keyframes nav-spin {
   to {
-    --spin: 360deg;
+    transform: rotate(360deg);
   }
 }
 .nav-links {
