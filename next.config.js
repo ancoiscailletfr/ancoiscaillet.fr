@@ -1,9 +1,2 @@
-const withPWA = require('next-pwa');
-const runtimeCaching = require('next-pwa/cache');
-
-module.exports = withPWA({
-  pwa: {
-    dest: 'public',
-    runtimeCaching,
-  },
-});
+const withMDX = require('@next/mdx')();
+module.exports = withMDX({ output: 'export', experimental: { globalNotFound: true } });
