@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "pnpm check:messages && next build",
     "format": "biome format --write .",
     "lint": "biome lint .",
     "check": "biome check .",
-    "check:messages": "node scripts/check-messages.mjs"
+    "check:messages": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-messages.mjs"
   },
   "engines": {
     "node": ">=22"
