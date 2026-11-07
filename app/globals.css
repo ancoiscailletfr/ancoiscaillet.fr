@@ -612,7 +612,7 @@ button:focus-visible {
   display: none;
 }
 ::view-transition-new(.page) {
-  animation: 320ms ease-out both page-in;
+  animation: 560ms steps(10, jump-start) both page-in;
 }
 @keyframes page-in {
   from {
