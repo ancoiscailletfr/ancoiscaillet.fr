@@ -1,5 +1,8 @@
 {
-  "nav": ["accueil", "à-propos", "work", "contact"],
+  "navHome": "accueil",
+  "navAbout": "à-propos",
+  "navWork": "work",
+  "navContact": "contact",
   "hello": "Hello! je m'appelle",
   "subtitle": "Développeur Full Stack JavaScript · Lyon",
   "intro": "Je construis des outils web solides et simples. En ce moment, le CMS des rédactions du Monde.",
@@ -11,7 +14,6 @@
   "workTitle": "Parcours",
   "education": "Master informatique, Université Savoie Mont Blanc, 2016",
   "contactTitle": "On en parle ?",
-  "contact": "Un projet, une mission ? Le plus simple, c’est par LinkedIn ou Malt.",
   "themeLight": "Passer en thème clair",
   "themeDark": "Passer en thème sombre",
   "portrait": "Portrait de François Caillet",

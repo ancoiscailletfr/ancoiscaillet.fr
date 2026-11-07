@@ -1,5 +1,8 @@
 {
-  "nav": ["home", "about", "work", "contact"],
+  "navHome": "home",
+  "navAbout": "about",
+  "navWork": "work",
+  "navContact": "contact",
   "hello": "Hello! I'm",
   "subtitle": "Full Stack JavaScript Developer · Lyon",
   "intro": "I build solid, simple web tools. Right now, I'm working on the CMS used by Le Monde's newsrooms.",
@@ -11,7 +14,6 @@
   "workTitle": "Experience",
   "education": "Master's in computer science, Université Savoie Mont Blanc, 2016",
   "contactTitle": "Let's talk",
-  "contact": "A project or an opportunity? The easiest way to reach me is on LinkedIn or Malt.",
   "themeLight": "Switch to light theme",
   "themeDark": "Switch to dark theme",
   "portrait": "Portrait of François Caillet",

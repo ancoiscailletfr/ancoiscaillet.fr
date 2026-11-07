@@ -33,3 +33,6 @@ yarn-error.log*
 .vercel
 
 /.pnpm-store/
+
+next-env.d.ts
+*.tsbuildinfo
