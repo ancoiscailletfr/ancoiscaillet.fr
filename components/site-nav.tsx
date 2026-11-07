@@ -9,17 +9,22 @@ import { ThemeToggle } from './theme-toggle';
 
 export function SiteNav({ lang }: { lang: Lang }) {
   const pathname = usePathname().replace(/\/$/, '') || '/';
+  const barRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animationRef = useRef<{
+    activate(href: string | undefined): void;
+    hover(link: Element | null): void;
+    focus(link: Element | null): void;
+  } | null>(null);
   // Prerendering sees the internal /fr/... path; the browser sees the public one.
   const key = routeKey(lang, pathname.replace(new RegExp(`^/${lang}(?=/|$)`), '').slice(1));
   useEffect(() => {
-    let bar: HTMLElement | null = null;
-    let canvas: HTMLCanvasElement | null = null;
-    let ctx: CanvasRenderingContext2D | null = null;
-    let active: Element | null = null;
-    let resizeObserver: ResizeObserver | undefined;
-    let intersectionObserver: IntersectionObserver | undefined;
-    let listeners = new AbortController();
+    const bar = barRef.current,
+      canvas = canvasRef.current;
+    if (!bar || !canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    let active = bar.querySelector('.nav-links a[aria-current="page"]');
     const motion = matchMedia('(prefers-reduced-motion: reduce)');
     let W = 0,
       H = 0,
@@ -115,79 +120,29 @@ export function SiteNav({ lang }: { lang: Lang }) {
         draw(0);
       }
     }
-    function sync() {
-      const next = canvasRef.current?.parentElement ?? null;
-      const nextActive = next?.querySelector('.nav-links a[aria-current="page"]') ?? null;
-      if (next === bar && nextActive === active) return;
-      cancelAnimationFrame(frame);
-      if (next !== bar) {
-        listeners.abort();
-        listeners = new AbortController();
-        resizeObserver?.disconnect();
-        intersectionObserver?.disconnect();
-        bar = next;
-        canvas = canvasRef.current;
-        ctx = canvas?.getContext('2d') ?? null;
-        hovered = focused = null;
-        if (!bar || !canvas || !ctx) return;
-        bar.querySelectorAll('.nav-links a').forEach((link) => {
-          const options = { signal: listeners.signal };
-          link.addEventListener(
-            'pointerenter',
-            () => {
-              hovered = link;
-              aim(focused || hovered);
-            },
-            options,
-          );
-          link.addEventListener(
-            'pointerleave',
-            () => {
-              hovered = null;
-              aim(focused || active);
-            },
-            options,
-          );
-          link.addEventListener(
-            'focus',
-            () => {
-              focused = link;
-              aim(link);
-            },
-            options,
-          );
-          link.addEventListener(
-            'blur',
-            () => {
-              focused = null;
-              aim(hovered || active);
-            },
-            options,
-          );
-        });
-        resizeObserver = new ResizeObserver(size);
-        resizeObserver.observe(bar);
-        intersectionObserver = new IntersectionObserver((entries) => {
-          const entry = entries[0];
-          if (!entry) return;
-          visible = entry.isIntersecting;
-          restart();
-        });
-        intersectionObserver.observe(bar);
-      }
-      active = nextActive;
-      if (ctx) {
-        size();
-        restart();
-      }
-    }
-    const navObserver = new MutationObserver(sync);
-    navObserver.observe(document.body, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['aria-current'],
+    animationRef.current = {
+      activate(href) {
+        active = href ? bar.querySelector(`.nav-links a[href="${href}"]`) : null;
+        aim(focused || hovered || active);
+      },
+      hover(link) {
+        hovered = link;
+        aim(focused || hovered || active);
+      },
+      focus(link) {
+        focused = link;
+        aim(focused || hovered || active);
+      },
+    };
+    const resizeObserver = new ResizeObserver(size);
+    resizeObserver.observe(bar);
+    const intersectionObserver = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      if (!entry) return;
+      visible = entry.isIntersecting;
+      restart();
     });
+    intersectionObserver.observe(bar);
     const themeObserver = new MutationObserver(() => {
       theme();
       if (motion.matches) restart();
@@ -199,22 +154,25 @@ export function SiteNav({ lang }: { lang: Lang }) {
     motion.addEventListener('change', restart);
     document.addEventListener('visibilitychange', restart);
     theme();
-    sync();
+    size();
+    restart();
 
     return () => {
       cancelAnimationFrame(frame);
-      listeners.abort();
-      resizeObserver?.disconnect();
-      intersectionObserver?.disconnect();
-      navObserver.disconnect();
+      animationRef.current = null;
+      resizeObserver.disconnect();
+      intersectionObserver.disconnect();
       themeObserver.disconnect();
       motion.removeEventListener('change', restart);
       document.removeEventListener('visibilitychange', restart);
     };
   }, []);
+  useEffect(() => {
+    animationRef.current?.activate(key ? publicPath(lang, key) : undefined);
+  }, [key, lang]);
   return (
     <header className="shell pt-4" style={{ viewTransitionName: 'site-header' }}>
-      <nav className="nav" aria-label={t(lang, 'navLabel')}>
+      <nav ref={barRef} className="nav" aria-label={t(lang, 'navLabel')}>
         <Logo lang={lang} />
         <div className="nav-links">
           {(
@@ -229,6 +187,10 @@ export function SiteNav({ lang }: { lang: Lang }) {
               key={page}
               href={publicPath(lang, page)}
               aria-current={key === page ? 'page' : undefined}
+              onPointerEnter={(event) => animationRef.current?.hover(event.currentTarget)}
+              onPointerLeave={() => animationRef.current?.hover(null)}
+              onFocus={(event) => animationRef.current?.focus(event.currentTarget)}
+              onBlur={() => animationRef.current?.focus(null)}
             >
               <span className="nav-prefix" aria-hidden="true">
                 ./
