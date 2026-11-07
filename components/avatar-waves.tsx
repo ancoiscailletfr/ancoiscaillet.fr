@@ -74,7 +74,7 @@ function start(c: HTMLCanvasElement) {
     mouse += Math.atan2(Math.sin(target - mouse), Math.cos(target - mouse)) * 0.05;
     pull += (targetPull - pull) * 0.05;
     ctx.clearRect(0, 0, W, W);
-    ctx.globalCompositeOperation = light ? 'source-over' : 'lighter';
+    ctx.globalCompositeOperation = light ? 'multiply' : 'lighter';
     const cx = W / 2,
       beat = 0.75 + 0.25 * Math.sin(t * 2.1) * Math.sin(t * 0.7);
     for (const w of waves) {
