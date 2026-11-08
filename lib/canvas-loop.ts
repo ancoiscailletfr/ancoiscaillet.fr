@@ -28,6 +28,7 @@ export function startCanvasLoop(
 ): CanvasLoop | undefined {
   const context = canvas.getContext('2d');
   if (!context) return;
+
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   let frame = 0;
   let visible = true;
@@ -64,6 +65,7 @@ export function startCanvasLoop(
   const resize = () => {
     const { width, height } = canvas.getBoundingClientRect();
     const pixelRatio = devicePixelRatio || 1;
+
     canvas.width = width * pixelRatio;
     canvas.height = height * pixelRatio;
     context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
@@ -73,12 +75,15 @@ export function startCanvasLoop(
 
   const resizeObserver = new ResizeObserver(resize);
   resizeObserver.observe(scene.observe);
+
   const intersectionObserver = new IntersectionObserver(([entry]) => {
     if (!entry) return;
+
     visible = entry.isIntersecting;
     restart();
   });
   intersectionObserver.observe(scene.observe);
+
   const themeObserver = new MutationObserver(() => {
     palette = readPalette();
     redraw();
@@ -87,12 +92,15 @@ export function startCanvasLoop(
     attributes: true,
     attributeFilter: ['data-theme'],
   });
+
   const changeMotion = () => {
     restart();
     redraw();
   };
+
   motion.addEventListener('change', changeMotion);
   document.addEventListener('visibilitychange', restart);
+
   resize();
   restart();
 

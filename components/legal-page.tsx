@@ -5,8 +5,10 @@ import { getLegal } from '../lib/content';
 import { t } from '../lib/i18n';
 import { buildMetadata } from '../lib/metadata';
 import { Prompt } from './prompt';
+
 export function LegalPage({ lang }: { lang: Lang }) {
   const Content = getLegal(lang);
+
   return (
     <ViewTransition enter="page" exit="page" default="none">
       <main className="content shell flex-1">
@@ -17,6 +19,7 @@ export function LegalPage({ lang }: { lang: Lang }) {
     </ViewTransition>
   );
 }
+
 export const legalMetadata = (lang: Lang): Metadata => ({
   ...buildMetadata(lang, 'legal'),
   robots: { index: false },

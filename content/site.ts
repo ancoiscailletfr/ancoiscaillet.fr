@@ -1,4 +1,5 @@
 export const languages = ['fr', 'en'] as const;
+
 export type Lang = (typeof languages)[number];
 
 export function isLang(value: string): value is Lang {
@@ -12,10 +13,13 @@ export const routes = {
   contact: { fr: 'contact', en: 'contact' },
   legal: { fr: 'mentions-legales', en: 'legal' },
 } as const satisfies Record<string, Record<Lang, string>>;
+
 export type Page = keyof typeof routes;
+
 export function publicPath(lang: Lang, page: Page = 'home') {
   return `${lang === 'fr' ? '' : `/${lang}`}/${routes[page][lang]}`.replace(/\/$/, '') || '/';
 }
+
 export function routeKey(lang: Lang, slug: string): Page | undefined {
   for (const [key, translations] of Object.entries(routes)) {
     if (translations[lang] === slug && isPage(key)) return key;
@@ -28,6 +32,7 @@ function isPage(value: string): value is Page {
 }
 
 export const paths: Record<Lang, string[]> = { fr: [], en: [] };
+
 for (const lang of languages) {
   for (const key of Object.keys(routes)) {
     if (isPage(key) && key !== 'legal') paths[lang].push(publicPath(lang, key));

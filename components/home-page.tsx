@@ -7,6 +7,7 @@ import { JsonLd } from './json-ld';
 import { Prompt } from './prompt';
 import { Social } from './social';
 import { Status } from './status';
+
 export function HomePage({ lang }: { lang: Lang }) {
   return (
     <>

@@ -4,6 +4,7 @@ import type { Lang } from '../content/site';
 
 export type Messages = typeof fr;
 export type MessageKey = keyof Messages;
+
 const messages: Record<Lang, Messages> = { fr, en };
 
 export function t(lang: Lang, key: MessageKey): string {

@@ -6,6 +6,7 @@ export function buildMetadata(lang: Lang, page: Page): Metadata {
   const { title, description } = seo[lang][page];
   const pagePaths = { fr: publicPath('fr', page), en: publicPath('en', page) };
   const path = pagePaths[lang];
+
   return {
     title,
     description,

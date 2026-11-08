@@ -4,6 +4,7 @@ import { PHASE_DEVELOPMENT_SERVER } from 'next/constants';
 import { redirects } from './vercel.json';
 
 const withMDX = createMDX();
+
 export default (phase: string): NextConfig =>
   withMDX({
     // MDX must enter Next's React Server Component compilation in webpack dev.

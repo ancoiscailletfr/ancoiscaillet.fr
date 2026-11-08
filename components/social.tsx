@@ -1,6 +1,7 @@
 import { type Lang, socialLinks } from '../content/site';
 import { external } from '../lib/external-link';
 import { t } from '../lib/i18n';
+
 export function Social({ lang }: { lang: Lang }) {
   return (
     <div className="social flex flex-wrap justify-center gap-3">

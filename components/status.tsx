@@ -14,6 +14,7 @@ export function Status({ lang }: { lang: Lang }) {
           new Date(status.until),
         )
       : null;
+
   return (
     <span className={`status status-${status.state}`}>
       <span className="status-dot" aria-hidden="true" />
