@@ -3,7 +3,7 @@ import { seo } from '../content/seo';
 import { type Lang, type Page, publicPath } from '../content/site';
 
 export function buildMetadata(lang: Lang, page: Page): Metadata {
-  const [title, description] = seo[lang][page];
+  const { title, description } = seo[lang][page];
   const pagePaths = { fr: publicPath('fr', page), en: publicPath('en', page) };
   const path = pagePaths[lang];
   return {

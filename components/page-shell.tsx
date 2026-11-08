@@ -2,15 +2,14 @@ import { type ReactNode, ViewTransition } from 'react';
 import type { Lang, Page } from '../content/site';
 import { t } from '../lib/i18n';
 import { Prompt } from './prompt';
-export function PageShell({
-  lang,
-  page,
-  children,
-}: {
+
+interface PageShellProps {
   lang: Lang;
   page: Exclude<Page, 'home'>;
   children: ReactNode;
-}) {
+}
+
+export function PageShell({ lang, page, children }: PageShellProps) {
   return (
     <ViewTransition enter="page" exit="page" default="none">
       <main className={`content shell flex-1 ${page === 'contact' ? 'contact' : ''}`}>

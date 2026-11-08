@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react';
 import type { Lang } from '../content/site';
 import { t } from '../lib/i18n';
 
-type Choice = 'system' | 'light' | 'dark';
-
 const CHOICES = [
-  ['system', 'themeSystem'],
-  ['light', 'themeLight'],
-  ['dark', 'themeDark'],
+  { choice: 'system', label: 'themeSystem' },
+  { choice: 'light', label: 'themeLight' },
+  { choice: 'dark', label: 'themeDark' },
 ] as const;
+
+type Choice = (typeof CHOICES)[number]['choice'];
 
 // The active option is highlighted in CSS from <html data-theme-choice> (set by the bootstrap
 // script), so there is no flash; `pref` only drives aria-pressed and the stored choice.
@@ -48,7 +48,7 @@ export function ThemeSwitcher({ lang }: { lang: Lang }) {
   }
   return (
     <fieldset className="theme-switch" aria-label={t(lang, 'themeLabel')}>
-      {CHOICES.map(([choice, label]) => (
+      {CHOICES.map(({ choice, label }) => (
         <button
           key={choice}
           type="button"

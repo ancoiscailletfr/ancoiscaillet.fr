@@ -3,167 +3,144 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import { type Lang, languages, type Page, publicPath, routeKey } from '../content/site';
+import { type CanvasLoop, type PaletteColor, startCanvasLoop } from '../lib/canvas-loop';
 import { type MessageKey, t } from '../lib/i18n';
 import { Logo } from './logo';
+
+interface NavSignal {
+  activate(href: string | undefined): void;
+  hover(link: Element | null): void;
+  focus(link: Element | null): void;
+}
+
+const NAV_LINKS = [
+  { page: 'home', label: 'navHome' },
+  { page: 'about', label: 'navAbout' },
+  { page: 'work', label: 'navWork' },
+  { page: 'contact', label: 'navContact' },
+] satisfies ReadonlyArray<{ page: Page; label: MessageKey }>;
+
+const WAVES = [
+  { color: 'accent', frequency: 0.09, speed: 3, phase: 0 },
+  { color: 'orange', frequency: 0.13, speed: -2.4, phase: 2 },
+  { color: 'lavender', frequency: 0.06, speed: 1.7, phase: 4 },
+] satisfies ReadonlyArray<{
+  color: PaletteColor;
+  frequency: number;
+  speed: number;
+  phase: number;
+}>;
 
 export function SiteNav({ lang }: { lang: Lang }) {
   const pathname = usePathname().replace(/\/$/, '') || '/';
   const barRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<{
-    activate(href: string | undefined): void;
-    hover(link: Element | null): void;
-    focus(link: Element | null): void;
-  } | null>(null);
+  const animationRef = useRef<NavSignal | null>(null);
   // Prerendering sees the internal /fr/... path; the browser sees the public one.
   const key = routeKey(lang, pathname.replace(new RegExp(`^/${lang}(?=/|$)`), '').slice(1));
   useEffect(() => {
-    const bar = barRef.current,
-      canvas = canvasRef.current;
+    const bar = barRef.current;
+    const canvas = canvasRef.current;
     if (!bar || !canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
     let active = bar.querySelector('.nav-links a[aria-current="page"]');
-    const motion = matchMedia('(prefers-reduced-motion: reduce)');
-    let W = 0,
-      H = 0,
-      target = 0,
-      width = 0,
-      frame = 0,
-      light = false,
-      visible = true;
-    let f: number | undefined;
-    let s: number | undefined;
+    let canvasWidth = 0;
+    let canvasHeight = 0;
+    let targetCenter = 0;
+    let targetHalfWidth = 0;
+    let center: number | undefined;
+    let halfWidth: number | undefined;
     let hovered: Element | null = null;
     let focused: Element | null = null;
-    let colors: string[] = [];
-    function aim(el: Element | null) {
-      if (!bar) return;
-      const box = bar.getBoundingClientRect(),
-        r = el?.getBoundingClientRect();
-      target = r ? r.left - box.left + r.width / 2 : W / 2;
-      width = r ? r.width / 2 : 0;
-      if (motion.matches) {
-        f = target;
-        s = width;
-        draw(0);
-      }
-    }
-    function size() {
-      if (!canvas || !ctx) return;
-      const d = devicePixelRatio || 1;
-      W = canvas.clientWidth;
-      H = canvas.clientHeight;
-      canvas.width = W * d;
-      canvas.height = H * d;
-      ctx.setTransform(d, 0, 0, d, 0, 0);
-      aim(focused || hovered || active);
-      f ??= target;
-      s ??= width;
-      if (motion.matches) draw(0);
-    }
-    function theme() {
-      const css = getComputedStyle(document.documentElement);
-      colors = ['--accent', '--orange', '--lavender'].map((v) => css.getPropertyValue(v).trim());
-      light = document.documentElement.dataset.theme === 'light';
-      if (motion.matches && ctx) draw(0);
-    }
-    function draw(ms: number) {
-      if (!W || !ctx || !bar || f === undefined || s === undefined) return;
-      const t = ms / 1000;
-      f += (target - f) * 0.08;
-      s += (width - s) * 0.08;
-      ctx.clearRect(0, 0, W, H);
-      ctx.globalCompositeOperation = light ? 'multiply' : 'lighter';
-      const waves = [
-        [0.09, 3, 0],
-        [0.13, -2.4, 2],
-        [0.06, 1.7, 4],
-      ] as const;
-      waves.forEach(([k, v, ph], i) => {
-        if (!ctx || f === undefined || s === undefined) return;
-        const col = colors[i];
-        if (col === undefined) return;
-        const g = ctx.createLinearGradient(0, 0, W, 0),
-          fw = Math.min(0.97, f / W),
-          sw = (s + 30) / W;
-        g.addColorStop(0, `${col}00`);
-        g.addColorStop(Math.max(0, fw - sw * 2.5), col + (light ? '55' : '1a'));
-        g.addColorStop(fw, col);
-        g.addColorStop(Math.min(1, fw + sw * 2.5), col + (light ? '55' : '1a'));
-        g.addColorStop(1, `${col}00`);
-        ctx.beginPath();
-        for (let x = 0; x <= W; x += 2) {
-          const e = active || focused || hovered ? Math.exp(-(((x - f) / (s + 10)) ** 2)) : 0;
-          const y =
-            H / 2 +
-            (0.4 + 7 * e) * Math.sin(k * x + v * t + ph) * (0.8 + 0.2 * Math.sin(t * 3 + x * 0.02));
-          x ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+    let loop: CanvasLoop | undefined;
+
+    const aim = (link: Element | null) => {
+      const barBounds = bar.getBoundingClientRect();
+      const linkBounds = link?.getBoundingClientRect();
+      targetCenter = linkBounds
+        ? linkBounds.left - barBounds.left + linkBounds.width / 2
+        : canvasWidth / 2;
+      targetHalfWidth = linkBounds ? linkBounds.width / 2 : 0;
+      // Undefined during the first resize inside startCanvasLoop, which redraws on its own.
+      loop?.redraw();
+    };
+    const aimAtCurrentLink = () => aim(focused || hovered || active);
+
+    loop = startCanvasLoop(canvas, {
+      observe: bar,
+      resize(width, height) {
+        canvasWidth = width;
+        canvasHeight = height;
+        aimAtCurrentLink();
+        center ??= targetCenter;
+        halfWidth ??= targetHalfWidth;
+      },
+      draw(context, seconds, palette, still) {
+        if (!canvasWidth || center === undefined || halfWidth === undefined) return;
+        if (still) {
+          center = targetCenter;
+          halfWidth = targetHalfWidth;
+        } else {
+          center += (targetCenter - center) * 0.08;
+          halfWidth += (targetHalfWidth - halfWidth) * 0.08;
         }
-        ctx.strokeStyle = g;
-        ctx.lineWidth = 1.2;
-        ctx.shadowColor = col;
-        ctx.shadowBlur = light ? 2 : 6;
-        ctx.stroke();
-      });
-      bar.classList.add('signal-ready');
-      if (!motion.matches && !document.hidden && visible) frame = requestAnimationFrame(draw);
-    }
-    function restart() {
-      cancelAnimationFrame(frame);
-      if (ctx && !document.hidden && visible) {
-        if (motion.matches) {
-          f = target;
-          s = width;
+        context.clearRect(0, 0, canvasWidth, canvasHeight);
+        context.globalCompositeOperation = palette.light ? 'multiply' : 'lighter';
+        for (const wave of WAVES) {
+          const color = palette[wave.color];
+          const gradient = context.createLinearGradient(0, 0, canvasWidth, 0);
+          const centerFraction = Math.min(0.97, center / canvasWidth);
+          const widthFraction = (halfWidth + 30) / canvasWidth;
+          gradient.addColorStop(0, `${color}00`);
+          gradient.addColorStop(
+            Math.max(0, centerFraction - widthFraction * 2.5),
+            color + (palette.light ? '55' : '1a'),
+          );
+          gradient.addColorStop(centerFraction, color);
+          gradient.addColorStop(
+            Math.min(1, centerFraction + widthFraction * 2.5),
+            color + (palette.light ? '55' : '1a'),
+          );
+          gradient.addColorStop(1, `${color}00`);
+          context.beginPath();
+          for (let x = 0; x <= canvasWidth; x += 2) {
+            const envelope =
+              active || focused || hovered
+                ? Math.exp(-(((x - center) / (halfWidth + 10)) ** 2))
+                : 0;
+            const y =
+              canvasHeight / 2 +
+              (0.4 + 7 * envelope) *
+                Math.sin(wave.frequency * x + wave.speed * seconds + wave.phase) *
+                (0.8 + 0.2 * Math.sin(seconds * 3 + x * 0.02));
+            x ? context.lineTo(x, y) : context.moveTo(x, y);
+          }
+          context.strokeStyle = gradient;
+          context.lineWidth = 1.2;
+          context.shadowColor = color;
+          context.shadowBlur = palette.light ? 2 : 6;
+          context.stroke();
         }
-        draw(0);
-      }
-    }
+        bar.classList.add('signal-ready');
+      },
+    });
+    if (!loop) return;
     animationRef.current = {
       activate(href) {
         active = href ? bar.querySelector(`.nav-links a[href="${href}"]`) : null;
-        aim(focused || hovered || active);
+        aimAtCurrentLink();
       },
       hover(link) {
         hovered = link;
-        aim(focused || hovered || active);
+        aimAtCurrentLink();
       },
       focus(link) {
         focused = link;
-        aim(focused || hovered || active);
+        aimAtCurrentLink();
       },
     };
-    const resizeObserver = new ResizeObserver(size);
-    resizeObserver.observe(bar);
-    const intersectionObserver = new IntersectionObserver((entries) => {
-      const entry = entries[0];
-      if (!entry) return;
-      visible = entry.isIntersecting;
-      restart();
-    });
-    intersectionObserver.observe(bar);
-    const themeObserver = new MutationObserver(() => {
-      theme();
-      if (motion.matches) restart();
-    });
-    themeObserver.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['data-theme'],
-    });
-    motion.addEventListener('change', restart);
-    document.addEventListener('visibilitychange', restart);
-    theme();
-    size();
-    restart();
-
     return () => {
-      cancelAnimationFrame(frame);
+      loop?.stop();
       animationRef.current = null;
-      resizeObserver.disconnect();
-      intersectionObserver.disconnect();
-      themeObserver.disconnect();
-      motion.removeEventListener('change', restart);
-      document.removeEventListener('visibilitychange', restart);
     };
   }, []);
   useEffect(() => {
@@ -174,14 +151,7 @@ export function SiteNav({ lang }: { lang: Lang }) {
       <nav ref={barRef} className="nav" data-page={key} aria-label={t(lang, 'navLabel')}>
         <Logo lang={lang} />
         <div className="nav-links">
-          {(
-            [
-              ['home', 'navHome'],
-              ['about', 'navAbout'],
-              ['work', 'navWork'],
-              ['contact', 'navContact'],
-            ] as const satisfies ReadonlyArray<readonly [Page, MessageKey]>
-          ).map(([page, message]) => (
+          {NAV_LINKS.map(({ page, label }) => (
             <Link
               key={page}
               href={publicPath(lang, page)}
@@ -199,7 +169,7 @@ export function SiteNav({ lang }: { lang: Lang }) {
               <span className="nav-prefix" aria-hidden="true">
                 ./
               </span>
-              {t(lang, message).toLowerCase()}
+              {t(lang, label).toLowerCase()}
             </Link>
           ))}
         </div>
@@ -208,9 +178,9 @@ export function SiteNav({ lang }: { lang: Lang }) {
             <span className="lang-prefix" aria-hidden="true">
               --lang=
             </span>
-            {languages.map((code, n) => (
+            {languages.map((code, index) => (
               <span className="lang-item" key={code}>
-                {n > 0 && (
+                {index > 0 && (
                   <span className="lang-pipe" aria-hidden="true">
                     |
                   </span>

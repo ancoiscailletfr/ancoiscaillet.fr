@@ -9,7 +9,11 @@ import { WorkPage } from '../../../components/work-page';
 import { isLang, type Lang, type Page, routeKey, routes } from '../../../content/site';
 import { buildMetadata } from '../../../lib/metadata';
 export const dynamicParams = false;
-export function generateStaticParams({ params: { lang } }: { params: { lang: string } }) {
+export function generateStaticParams({
+  params: { lang },
+}: {
+  params: Awaited<LayoutProps<'/[lang]'>['params']>;
+}) {
   if (!isLang(lang)) return [];
   return Object.values(routes)
     .filter((route) => route !== routes.home)
