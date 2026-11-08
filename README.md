@@ -1,18 +1,18 @@
 # ancoiscaillet.fr
 
-Site de présentation de François Caillet.
+François Caillet's personal site.
 
-- `pnpm install` : installer les dépendances.
-- `pnpm dev` : lancer le site en local.
-- `pnpm build` : générer le site statique dans `out/`.
+- `pnpm install`: install dependencies.
+- `pnpm dev`: run the site locally.
+- `pnpm build`: generate the static site in `out/`.
 
-Déployé sur Vercel.
+Deployed on Vercel.
 
-## Où modifier quoi
+## Where to edit what
 
-- Textes et contenus : `content/` (MDX par langue et messages JSON).
-- Postes (titres, dates, liens, badges) : `content/jobs.ts`.
-- Titres et descriptions SEO : `content/seo.ts`.
-- Liens et disponibilité : `content/site.ts`.
-- Apparence : `components/` et `app/globals.css`.
-- Vérifier le code : `pnpm check`.
+- Copy and content: `content/` (MDX per locale and JSON messages).
+- Jobs (titles, dates, links, badges): `content/jobs.ts`.
+- SEO titles and descriptions: `content/seo.ts`.
+- Links and availability: `content/site.ts`.
+- Look and feel: `components/` and `app/globals.css`.
+- Check the code: `pnpm check` and `pnpm typecheck`.
