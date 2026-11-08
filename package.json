@@ -7,7 +7,8 @@
     "build": "next build",
     "format": "biome format --write .",
     "lint": "biome lint .",
-    "check": "biome check ."
+    "check": "biome check .",
+    "typecheck": "next typegen && tsc --noEmit"
   },
   "engines": {
     "node": ">=22"
