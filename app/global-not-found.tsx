@@ -4,7 +4,9 @@ import { ViewTransition } from 'react';
 import { Prompt } from '../components/prompt';
 import { RootLayout } from '../components/root-layout';
 import { t } from '../lib/i18n';
+
 export const metadata: Metadata = { title: '404 — François Caillet', robots: { index: false } };
+
 export default function GlobalNotFound() {
   return (
     <RootLayout lang="fr">

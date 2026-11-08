@@ -1,6 +1,7 @@
 import type { Lang } from '../content/site';
 import { t } from '../lib/i18n';
 import { Social } from './social';
+
 export function ContactPage({ lang }: { lang: Lang }) {
   return (
     <div className="term">

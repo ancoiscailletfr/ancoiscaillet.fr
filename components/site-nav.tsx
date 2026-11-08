@@ -1,4 +1,5 @@
 'use client';
+
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef } from 'react';
@@ -36,12 +37,15 @@ export function SiteNav({ lang }: { lang: Lang }) {
   const barRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<NavSignal | null>(null);
+
   // Prerendering sees the internal /fr/... path; the browser sees the public one.
   const key = routeKey(lang, pathname.replace(new RegExp(`^/${lang}(?=/|$)`), '').slice(1));
+
   useEffect(() => {
     const bar = barRef.current;
     const canvas = canvasRef.current;
     if (!bar || !canvas) return;
+
     let active = bar.querySelector('.nav-links a[aria-current="page"]');
     let canvasWidth = 0;
     let canvasHeight = 0;
@@ -56,6 +60,7 @@ export function SiteNav({ lang }: { lang: Lang }) {
     const aim = (link: Element | null) => {
       const barBounds = bar.getBoundingClientRect();
       const linkBounds = link?.getBoundingClientRect();
+
       targetCenter = linkBounds
         ? linkBounds.left - barBounds.left + linkBounds.width / 2
         : canvasWidth / 2;
@@ -76,6 +81,7 @@ export function SiteNav({ lang }: { lang: Lang }) {
       },
       draw(context, seconds, palette, still) {
         if (!canvasWidth || center === undefined || halfWidth === undefined) return;
+
         if (still) {
           center = targetCenter;
           halfWidth = targetHalfWidth;
@@ -83,13 +89,16 @@ export function SiteNav({ lang }: { lang: Lang }) {
           center += (targetCenter - center) * 0.08;
           halfWidth += (targetHalfWidth - halfWidth) * 0.08;
         }
+
         context.clearRect(0, 0, canvasWidth, canvasHeight);
         context.globalCompositeOperation = palette.light ? 'multiply' : 'lighter';
+
         for (const wave of WAVES) {
           const color = palette[wave.color];
           const gradient = context.createLinearGradient(0, 0, canvasWidth, 0);
           const centerFraction = Math.min(0.97, center / canvasWidth);
           const widthFraction = (halfWidth + 30) / canvasWidth;
+
           gradient.addColorStop(0, `${color}00`);
           gradient.addColorStop(
             Math.max(0, centerFraction - widthFraction * 2.5),
@@ -101,29 +110,36 @@ export function SiteNav({ lang }: { lang: Lang }) {
             color + (palette.light ? '55' : '1a'),
           );
           gradient.addColorStop(1, `${color}00`);
+
           context.beginPath();
           for (let x = 0; x <= canvasWidth; x += 2) {
             const envelope =
               active || focused || hovered
                 ? Math.exp(-(((x - center) / (halfWidth + 10)) ** 2))
                 : 0;
+
             const y =
               canvasHeight / 2 +
               (0.4 + 7 * envelope) *
                 Math.sin(wave.frequency * x + wave.speed * seconds + wave.phase) *
                 (0.8 + 0.2 * Math.sin(seconds * 3 + x * 0.02));
+
             x ? context.lineTo(x, y) : context.moveTo(x, y);
           }
+
           context.strokeStyle = gradient;
           context.lineWidth = 1.2;
           context.shadowColor = color;
           context.shadowBlur = palette.light ? 2 : 6;
           context.stroke();
         }
+
         bar.classList.add('signal-ready');
       },
     });
+
     if (!loop) return;
+
     animationRef.current = {
       activate(href) {
         active = href ? bar.querySelector(`.nav-links a[href="${href}"]`) : null;
@@ -138,14 +154,17 @@ export function SiteNav({ lang }: { lang: Lang }) {
         aimAtCurrentLink();
       },
     };
+
     return () => {
       loop?.stop();
       animationRef.current = null;
     };
   }, []);
+
   useEffect(() => {
     animationRef.current?.activate(key ? publicPath(lang, key) : undefined);
   }, [key, lang]);
+
   return (
     <header className="shell pt-4" style={{ viewTransitionName: 'site-header' }}>
       <nav ref={barRef} className="nav" data-page={key} aria-label={t(lang, 'navLabel')}>

@@ -13,6 +13,7 @@ const font = localFont({
   display: 'swap',
   variable: '--font-code-local',
 });
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://ancoiscaillet.fr'),
   icons: {
@@ -23,13 +24,16 @@ export const metadata: Metadata = {
     apple: '/icons/apple-touch-icon.png',
   },
 };
+
 const script = `(function(){var c=null,d=document.documentElement;try{c=localStorage.getItem('theme')}catch(e){}if(c!=='light'&&c!=='dark')c='system';d.dataset.themeChoice=c;d.dataset.theme=c==='system'?(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'):c})();`;
+
 export const viewport: Viewport = {
   themeColor: [
     { media: '(prefers-color-scheme: dark)', color: '#0d0f1f' },
     { media: '(prefers-color-scheme: light)', color: '#fbf8f3' },
   ],
 };
+
 export function RootLayout({ children, lang }: { children: ReactNode; lang: Lang }) {
   return (
     <html lang={lang} className={font.variable} suppressHydrationWarning>

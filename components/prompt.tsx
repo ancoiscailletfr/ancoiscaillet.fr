@@ -1,5 +1,6 @@
 import type { Lang } from '../content/site';
 import { t } from '../lib/i18n';
+
 export function Prompt({ command, lang }: { command: string; lang: Lang }) {
   return (
     <p className="prompt">

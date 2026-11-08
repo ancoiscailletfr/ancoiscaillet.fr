@@ -2,6 +2,7 @@ import type { Lang } from '../content/site';
 import { getJobs } from '../lib/content';
 import { external } from '../lib/external-link';
 import { t } from '../lib/i18n';
+
 export function WorkPage({ lang }: { lang: Lang }) {
   return (
     <>

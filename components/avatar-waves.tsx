@@ -1,4 +1,5 @@
 'use client';
+
 import { useEffect, useRef } from 'react';
 import { type PaletteColor, startCanvasLoop } from '../lib/canvas-loop';
 
@@ -32,6 +33,7 @@ const WAVES = [
 function startAvatarWaves(canvas: HTMLCanvasElement) {
   const box = canvas.parentElement;
   if (!box) return;
+
   let canvasWidth = 0;
   let radius = 0;
   let pointerAngle = 0;
@@ -58,12 +60,16 @@ function startAvatarWaves(canvas: HTMLCanvasElement) {
         Math.atan2(Math.sin(targetAngle - pointerAngle), Math.cos(targetAngle - pointerAngle)) *
         0.05;
       pull += (targetPull - pull) * 0.05;
+
       context.clearRect(0, 0, canvasWidth, canvasWidth);
       context.globalCompositeOperation = palette.light ? 'multiply' : 'lighter';
+
       const center = canvasWidth / 2;
       const beat = 0.75 + 0.25 * Math.sin(seconds * 2.1) * Math.sin(seconds * 0.7);
+
       for (const wave of WAVES) {
         context.beginPath();
+
         for (let index = 0; index <= 120; index++) {
           const angle = (index / 120) * Math.PI * 2;
           const proximity = 1 + pull * 1.6 * Math.max(0, Math.cos(angle - pointerAngle)) ** 3;
@@ -77,10 +83,12 @@ function startAvatarWaves(canvas: HTMLCanvasElement) {
                 Math.sin(wave.secondary.frequency * angle + wave.secondary.speed * seconds + 1) *
                   0.4 +
                 0.6);
+
           const x = center + Math.cos(angle) * waveRadius;
           const y = center + Math.sin(angle) * waveRadius;
           index ? context.lineTo(x, y) : context.moveTo(x, y);
         }
+
         context.strokeStyle = palette[wave.color];
         context.lineWidth = 2;
         context.shadowColor = palette[wave.color];
@@ -90,9 +98,12 @@ function startAvatarWaves(canvas: HTMLCanvasElement) {
       }
     },
   });
+
   if (!loop) return;
+
   addEventListener('pointermove', movePointer);
   box.classList.add('wave-ready');
+
   return () => {
     loop.stop();
     removeEventListener('pointermove', movePointer);
@@ -101,11 +112,14 @@ function startAvatarWaves(canvas: HTMLCanvasElement) {
 
 export function AvatarWaves() {
   const ref = useRef<HTMLCanvasElement>(null);
+
   useEffect(() => {
     const canvas = ref.current;
     if (!canvas) return;
+
     return startAvatarWaves(canvas);
   }, []);
+
   // biome-ignore lint/a11y/noAriaHiddenOnFocusable: Decorative canvas is not focusable.
   return <canvas ref={ref} aria-hidden="true" />;
 }

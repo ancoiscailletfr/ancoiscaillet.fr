@@ -20,6 +20,7 @@ const sirius = {
   url: 'https://www.sirius.press',
   badges: ['Node.js', 'TypeScript', 'React', 'GraphQL', 'PostgreSQL', 'Yjs', 'TipTap'],
 };
+
 const freelance = { title: 'Freelance · EURL Codanko' };
 const sopraSteria = { title: 'Sopra Steria', dates: '2016 – 2020' };
 

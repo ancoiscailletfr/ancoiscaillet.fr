@@ -5,8 +5,10 @@ import type { Lang } from '../content/site';
 import { getAbout } from '../lib/content';
 import { external } from '../lib/external-link';
 import { t } from '../lib/i18n';
+
 export function AboutPage({ lang }: { lang: Lang }) {
   const About = getAbout(lang);
+
   const components: MDXComponents = {
     h2: (props) => (
       <h2 className="my-[.2rem] font-code text-[1.2rem] font-bold leading-[1.2]" {...props} />
@@ -22,6 +24,7 @@ export function AboutPage({ lang }: { lang: Lang }) {
         <Link href={href}>{children}</Link>
       ),
   };
+
   return (
     <div className="grid gap-12 min-[900px]:grid-cols-[1.3fr_1fr] min-[900px]:items-start">
       <div>

@@ -1,4 +1,5 @@
 'use client';
+
 import { useEffect, useState } from 'react';
 import type { Lang } from '../content/site';
 import { t } from '../lib/i18n';
@@ -15,30 +16,39 @@ type Choice = (typeof CHOICES)[number]['choice'];
 // script), so there is no flash; `pref` only drives aria-pressed and the stored choice.
 export function ThemeSwitcher({ lang }: { lang: Lang }) {
   const [pref, setPref] = useState<Choice | null>(null);
+
   useEffect(() => {
     let saved: string | null = null;
     try {
       saved = localStorage.getItem('theme');
     } catch {}
+
     setPref(saved === 'light' || saved === 'dark' ? saved : 'system');
   }, []);
+
   useEffect(() => {
     if (!pref) return;
+
     document.documentElement.dataset.themeChoice = pref;
     const mq = matchMedia('(prefers-color-scheme: light)');
+
     const apply = () => {
       const theme = pref === 'system' ? (mq.matches ? 'light' : 'dark') : pref;
       document.documentElement.dataset.theme = theme;
+
       for (const meta of document.querySelectorAll('meta[name="theme-color"]')) {
         if (meta instanceof HTMLMetaElement)
           meta.content = theme === 'light' ? '#fbf8f3' : '#0d0f1f';
       }
     };
+
     apply();
     if (pref !== 'system') return;
+
     mq.addEventListener('change', apply);
     return () => mq.removeEventListener('change', apply);
   }, [pref]);
+
   function choose(next: Choice) {
     try {
       if (next === 'system') localStorage.removeItem('theme');
@@ -46,6 +56,7 @@ export function ThemeSwitcher({ lang }: { lang: Lang }) {
     } catch {}
     setPref(next);
   }
+
   return (
     <fieldset className="theme-switch" aria-label={t(lang, 'themeLabel')}>
       {CHOICES.map(({ choice, label }) => (
