@@ -4,7 +4,7 @@ import { isLang, languages } from '../../content/site';
 export const metadata = meta;
 export const viewport = view;
 export const dynamicParams = false;
-export function generateStaticParams(): Awaited<LayoutProps<'/[lang]'>['params']>[] {
+export function generateStaticParams() {
   return languages.map((lang) => ({ lang }));
 }
 export default async function Layout({ children, params }: LayoutProps<'/[lang]'>) {
